@@ -33,6 +33,14 @@ O mediador cria as missões, vincula objetivos de aprendizagem da BNCC, acompanh
 - Visualizar indicadores de participação e colaboração
 - Acessar relatórios pedagógicos
 - Moderar comunidades, em breve
+- 
+## Acesso ao protótipo
+
+🔗 **Acessar protótipo navegável: ([https://SEU-USUARIO.github.io/colmeia-hacktudo-2026/](https://helenavalanera.github.io/app-colmeia/)**
+
+O protótipo é publicado com GitHub Pages e pode ser acessado diretamente pelo navegador, sem instalação de dependências.
+
+Para executar localmente, basta abrir o arquivo `index.html` na raiz do repositório.
 
 ## Princípios éticos
 
@@ -140,17 +148,9 @@ Este repositório utiliza a licença MIT, salvo quando indicado de outra forma e
 
 As bibliotecas, ícones, fontes e demais recursos de terceiros permanecem sujeitos às respectivas licenças de seus autores e mantenedores.
 
-## Acesso ao protótipo
-
-🔗 **[Acessar protótipo navegável]([https://SEU-USUARIO.github.io/colmeia-hacktudo-2026/](https://helenavalanera.github.io/app-colmeia/)**
-
-O protótipo é publicado com GitHub Pages e pode ser acessado diretamente pelo navegador, sem instalação de dependências.
-
-Para executar localmente, basta abrir o arquivo `index.html` na raiz do repositório.
-
 ## Equipe
 
-Entre Pretas — Hacktudo 2026
+Entre Pretas - Time 60 — Hacktudo 2026
 - Helena Valanera
 - Maria Eduarda Pacheco
 - Gabriela Mullet

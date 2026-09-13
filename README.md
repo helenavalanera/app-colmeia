@@ -4,6 +4,10 @@
 
 A Colmeia é uma plataforma educacional que transforma o celular pessoal em uma ponte para experiências de aprendizagem presenciais, colaborativas e mediadas por educadores.
 
+## Status do projeto
+
+Este repositório contém, por enquanto, o **protótipo navegável** do Colmeia (export do Claude Design: HTML/CSS/JS estático, sem build). Não é uma aplicação React/TypeScript em produção — a seção de bibliotecas mais abaixo descreve a stack planejada para uma futura versão real do app, ainda não iniciada.
+
 ## Problema
 
 O desafio não é apenas o excesso de telas: estudantes frequentemente usam dispositivos digitais para interagir sempre com os mesmos grupos, o que pode fortalecer bolhas sociais, reduzir encontros presenciais e limitar a prática de colaboração, autonomia e liderança.
@@ -33,14 +37,6 @@ O mediador cria as missões, vincula objetivos de aprendizagem da BNCC, acompanh
 - Visualizar indicadores de participação e colaboração
 - Acessar relatórios pedagógicos
 - Moderar comunidades, em breve
-- 
-## Acesso ao protótipo
-
-🔗 **Acessar protótipo navegável: ([https://SEU-USUARIO.github.io/colmeia-hacktudo-2026/](https://helenavalanera.github.io/app-colmeia/)**
-
-O protótipo é publicado com GitHub Pages e pode ser acessado diretamente pelo navegador, sem instalação de dependências.
-
-Para executar localmente, basta abrir o arquivo `index.html` na raiz do repositório.
 
 ## Princípios éticos
 
@@ -50,7 +46,7 @@ Para executar localmente, basta abrir o arquivo `index.html` na raiz do reposit�
 - Apresenta dados agregados para apoiar a mediação pedagógica.
 - Incentiva interações presenciais e colaboração entre pares.
 
-- ## Fontes, bibliotecas e atribuições
+## Fontes, bibliotecas e atribuições
 
 Este projeto foi desenvolvido no contexto do HACKTUDO 2026. A Colmeia utiliza referências públicas, bibliotecas open source e dados fictícios exclusivamente para demonstração do MVP.
 
@@ -82,9 +78,11 @@ Este projeto foi desenvolvido no contexto do HACKTUDO 2026. A Colmeia utiliza re
 - [Jigsaw Classroom — Elliot Aronson](https://www.jigsaw.org/)  
   Referência para a dinâmica de interdependência entre estudantes: cada participante contribui com uma parte da atividade, representada na Colmeia pelos “favos”.
 
-### Bibliotecas e ferramentas utilizadas
+### Bibliotecas e ferramentas planejadas para a versão em produção
 
-- [React](https://react.dev/) — Biblioteca para construção da interface do protótipo.
+> Ainda não implementadas neste repositório — o protótipo atual (pasta `prototipo/`) é HTML/CSS/JS estático, sem essas dependências.
+
+- [React](https://react.dev/) — Biblioteca para construção da interface do app.
 - [TypeScript](https://www.typescriptlang.org/) — Tipagem estática para maior organização e segurança do código.
 - [Vite](https://vite.dev/) — Ferramenta de build e ambiente de desenvolvimento.
 - [React Router](https://reactrouter.com/) — Navegação entre as telas do aluno e do mediador.
@@ -105,7 +103,7 @@ Caso utilizadas no projeto, as fontes devem ser carregadas de fontes oficiais ou
 Exemplo de importação:
 
 ```css
-@import url('[https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap](https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap)');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap');
 ```
 
 ### Ícones, imagens e ilustrações
@@ -148,9 +146,39 @@ Este repositório utiliza a licença MIT, salvo quando indicado de outra forma e
 
 As bibliotecas, ícones, fontes e demais recursos de terceiros permanecem sujeitos às respectivas licenças de seus autores e mantenedores.
 
+## Estrutura do repositório
+
+```
+app-colmeia/
+├── README.md
+└── prototipo/                 # export do Claude Design — protótipo clicável
+    ├── Colmeia.dc.html        # abrir este arquivo (ou publicar via GitHub Pages)
+    ├── support.js              # runtime do Claude Design — não editar manualmente
+    ├── pasted-....png          # logo Colmeia
+    └── _ds/                    # design system (tokens, estilos, componentes)
+```
+
+Os caminhos dentro de `Colmeia.dc.html` são relativos — `support.js`, a imagem do logo e a pasta `_ds/` precisam ficar exatamente no mesmo nível do HTML, ou o protótipo quebra.
+
+## Como executar
+
+É um protótipo estático — não precisa de `npm install` nem build.
+
+**Localmente:** abra `prototipo/Colmeia.dc.html` diretamente no navegador, ou sirva a pasta com qualquer servidor estático:
+
+```bash
+cd prototipo
+python3 -m http.server 8000
+# depois acesse http://localhost:8000/Colmeia.dc.html
+```
+
+**Publicado:** ative o GitHub Pages em Settings → Pages → branch `main`, e acesse `Colmeia.dc.html` dentro da pasta `prototipo/` pela URL gerada.
+
+> A seção "Bibliotecas e ferramentas planejadas" acima descreve a stack de uma futura versão em produção (React/TypeScript/Vite) — ainda não iniciada neste repositório.
+
 ## Equipe
 
-Entre Pretas - Time 60 — Hacktudo 2026
+Entre Pretas — Hacktudo 2026
 - Helena Valanera
 - Maria Eduarda Pacheco
 - Gabriela Mullet

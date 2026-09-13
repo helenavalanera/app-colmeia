@@ -140,12 +140,13 @@ Este repositório utiliza a licença MIT, salvo quando indicado de outra forma e
 
 As bibliotecas, ícones, fontes e demais recursos de terceiros permanecem sujeitos às respectivas licenças de seus autores e mantenedores.
 
-## Como executar
+## Acesso ao protótipo
 
-```bash
-npm install
-npm run dev
-```
+🔗 **[Acessar protótipo navegável]([https://SEU-USUARIO.github.io/colmeia-hacktudo-2026/](https://helenavalanera.github.io/app-colmeia/)**
+
+O protótipo é publicado com GitHub Pages e pode ser acessado diretamente pelo navegador, sem instalação de dependências.
+
+Para executar localmente, basta abrir o arquivo `index.html` na raiz do repositório.
 
 ## Equipe
 

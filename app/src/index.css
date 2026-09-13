@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Manrope:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Nunito", system-ui, sans-serif;
+  --font-body: "Manrope", system-ui, sans-serif;
+
+  --color-bg: #FCF8F1;
+  --color-ink: #322215;
+
+  --color-honey-100: #FFEDE0;
+  --color-honey-200: #FFD9BD;
+  --color-honey-300: #FFBE8E;
+  --color-honey-400: #FCA35F;
+  --color-honey-500: #F86A10;
+  --color-honey-600: #E85A05;
+  --color-honey-700: #C24A04;
+  --color-honey-800: #8F3703;
+  --color-honey-900: #5C2402;
+
+  --color-leaf-100: #E3F3E1;
+  --color-leaf-200: #C3E7C0;
+  --color-leaf-300: #9DD897;
+  --color-leaf-400: #7AC773;
+  --color-leaf-500: #5FAE5A;
+  --color-leaf-600: #4C9147;
+  --color-leaf-700: #3A7236;
+  --color-leaf-800: #2A5427;
+  --color-leaf-900: #1A3618;
+
+  --color-sand-50: #FCF8F1;
+  --color-sand-100: #F2E9DB;
+  --color-sand-200: #E8DCC8;
+  --color-sand-300: #D9C9AC;
+  --color-sand-400: #C9B896;
+  --color-sand-600: #8C8272;
+  --color-sand-700: #5B4A38;
+  --color-sand-800: #3F3020;
+  --color-sand-900: #322215;
+
+  --color-info: #5BA5E4;
+  --color-pollen: #FBB354;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  -webkit-tap-highlight-color: transparent;
+}
+
+h1, h2, h3, .font-display {
+  font-family: var(--font-display);
+}
+
+* {
+  scrollbar-width: thin;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-honey-600);
+  outline-offset: 2px;
+}

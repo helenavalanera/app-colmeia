@@ -3,8 +3,14 @@ import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
 import { VitePWA } from 'vite-plugin-pwa'
 
+// Publicado como project page em https://<usuario>.github.io/app-colmeia/ —
+// o workflow de deploy (.github/workflows/deploy-pages.yml) passa GITHUB_PAGES=true;
+// localmente e no build do Base44 continua servindo a partir da raiz.
+const base = process.env.GITHUB_PAGES === 'true' ? '/app-colmeia/' : '/';
+
 // https://vite.dev/config/
 export default defineConfig({
+  base,
   plugins: [
     base44({
       // Support for legacy code that imports the base44 SDK with @/integrations, @/entities, etc.
@@ -25,8 +31,8 @@ export default defineConfig({
         short_name: 'Colmeia',
         description: 'Pequenas missões. Grandes conexões.',
         lang: 'pt-BR',
-        start_url: '/',
-        scope: '/',
+        start_url: base,
+        scope: base,
         display: 'standalone',
         theme_color: '#e76b37',
         background_color: '#fff9a6',

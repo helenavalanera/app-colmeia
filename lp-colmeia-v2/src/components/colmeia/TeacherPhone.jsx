@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { useDemoState, BNCC_OPTIONS, bnccToSkills } from "@/state/DemoState";
+import { useDemoState, bnccToSkills } from "@/state/DemoState";
+import BnccPicker from "./BnccPicker";
 
 const MISSIONS = [
-  { id: "water", title: "Por onde a água passa?", scope: "class", context: "7º B", status: "active", groups: 3, members: 9, confirmed: 4, bncc: ["9 · Empatia e cooperação", "10 · Responsabilidade e cidadania"] },
-  { id: "book", title: "Um final, muitas vozes", scope: "community", context: "Plot Twist & Páginas", status: "active", groups: 2, members: 6, confirmed: 2, bncc: ["4 · Comunicação", "7 · Argumentação"] },
-  { id: "fact", title: "Colmeia de Checagem de Fatos", scope: "class", context: "8º B", status: "active", groups: 4, members: 12, confirmed: 7, bncc: ["4 · Comunicação", "7 · Argumentação"] },
-  { id: "patio", title: "Cinco olhares para o pátio", scope: "class", context: "7º A", status: "scheduled", groups: 2, members: 10, confirmed: 0, bncc: ["9 · Empatia e cooperação"] },
+  { id: "water", title: "Por onde a água passa?", scope: "class", context: "7º B", status: "active", groups: 3, members: 9, confirmed: 4, bncc: ["EF06GE04", "EF06GE12"] },
+  { id: "book", title: "Um final, muitas vozes", scope: "community", context: "Plot Twist & Páginas", status: "active", groups: 2, members: 6, confirmed: 2, bncc: ["EF67LP30"] },
+  { id: "fact", title: "Colmeia de Checagem de Fatos", scope: "class", context: "8º B", status: "active", groups: 4, members: 12, confirmed: 7, bncc: ["EF09LP01", "EF67LP05"] },
+  { id: "patio", title: "Cinco olhares para o pátio", scope: "class", context: "7º A", status: "scheduled", groups: 2, members: 10, confirmed: 0, bncc: ["EF06GE01"] },
 ];
 
 
@@ -46,7 +47,7 @@ export default function TeacherPhone() {
         groups: draft.groups,
         members: draft.groups * 3,
         confirmed: 0,
-        bncc: draft.bncc.length ? draft.bncc : ["Sem objetivo BNCC vinculado"],
+        bncc: draft.bncc,
       },
     ]);
     setWizardStep(null);
@@ -303,8 +304,10 @@ function Stat({ value, label }) {
   );
 }
 
-function MissionCard({ mission, onOpenReport }) {
+function MissionCard({ mission, onOpenReport, onEditBncc }) {
   const pct = Math.round((mission.confirmed / mission.members) * 100);
+  const [editingBncc, setEditingBncc] = useState(false);
+
   return (
     <div className="cm-card" style={{ padding: 16 }}>
       <div className="flex justify-between items-start" style={{ marginBottom: 8 }}>
@@ -319,6 +322,29 @@ function MissionCard({ mission, onOpenReport }) {
         <span>{mission.confirmed} de {mission.members} confirmações (agregado)</span>
         <span>{pct}%</span>
       </div>
+
+      {onEditBncc && (
+        <div style={{ marginTop: 10 }}>
+          <div className="flex items-center justify-between">
+            <span style={{ fontSize: 11, fontWeight: 700, color: "var(--cm-muted)" }}>Objetivos BNCC</span>
+            <button onClick={() => setEditingBncc((v) => !v)} style={{ border: 0, background: "transparent", color: "var(--cm-green)", fontSize: 11, fontWeight: 700, cursor: "pointer" }}>
+              {editingBncc ? "Concluir" : "Editar"}
+            </button>
+          </div>
+          {!editingBncc && (
+            <div className="flex flex-wrap gap-2" style={{ marginTop: 6 }}>
+              {mission.bncc.length === 0 && <span style={{ fontSize: 11, color: "var(--cm-muted)" }}>Nenhum objetivo vinculado.</span>}
+              {bnccToSkills(mission.bncc).map((s) => <span key={s.codigo} title={s.texto} className="cm-pill">{s.label}</span>)}
+            </div>
+          )}
+          {editingBncc && (
+            <div style={{ marginTop: 8 }}>
+              <BnccPicker selected={mission.bncc} onChange={onEditBncc} />
+            </div>
+          )}
+        </div>
+      )}
+
       {onOpenReport && (
         <button onClick={onOpenReport} className="cm-btn cm-btn-ghost" style={{ width: "100%", marginTop: 10, fontSize: 12 }}>
           Ver relatório
@@ -356,7 +382,7 @@ function CriarMissaoWizard({ step, setStep, draft, setDraft, onCancel, onPublish
         {draft.mixGroups && <span className="cm-pill" style={{ marginTop: 10 }}>Mistura de grupos ativada</span>}
         <div className="flex flex-wrap gap-2" style={{ marginTop: 12 }}>
           {draft.bncc.length === 0 && <span style={{ fontSize: 12, color: "var(--cm-muted)" }}>Nenhum objetivo BNCC vinculado.</span>}
-          {draft.bncc.map((b) => <span key={b} className="cm-pill cm-pill-lavender">{b}</span>)}
+          {bnccToSkills(draft.bncc).map((s) => <span key={s.codigo} title={s.texto} className="cm-pill cm-pill-lavender">{s.label}</span>)}
         </div>
         <div style={{ display: "grid", gap: 10, marginTop: 22 }}>
           <button onClick={() => onPublish("active")} className="cm-btn cm-btn-primary" style={{ width: "100%" }}>Publicar agora</button>
@@ -438,25 +464,13 @@ function CriarMissaoWizard({ step, setStep, draft, setDraft, onCancel, onPublish
   }
 
   // step 3 — objetivos BNCC
-  const toggleBncc = (b) => {
-    setDraft({ ...draft, bncc: draft.bncc.includes(b) ? draft.bncc.filter((x) => x !== b) : [...draft.bncc, b] });
-  };
   return (
     <div>
       <WizardHeader step={3} onCancel={onCancel} />
       <p style={{ fontSize: 12, color: "var(--cm-muted)", marginBottom: 12 }}>
-        Vincule objetivos da BNCC como referência pedagógica de demonstração.
+        Busque por código, tema ou componente curricular e vincule as habilidades da BNCC que essa missão pratica.
       </p>
-      <div style={{ display: "grid", gap: 8 }}>
-        {BNCC_OPTIONS.map((b) => (
-          <button
-            key={b} onClick={() => toggleBncc(b)}
-            className="cm-card" style={{ textAlign: "left", padding: 12, border: draft.bncc.includes(b) ? "2px solid var(--cm-green)" : "1px solid var(--cm-line)", cursor: "pointer" }}
-          >
-            <span style={{ fontSize: 13 }}>{draft.bncc.includes(b) ? "✓ " : ""}{b}</span>
-          </button>
-        ))}
-      </div>
+      <BnccPicker selected={draft.bncc} onChange={(bncc) => setDraft({ ...draft, bncc })} />
       <button onClick={() => setStep("review")} className="cm-btn cm-btn-primary" style={{ width: "100%", marginTop: 16 }}>
         Revisar missão →
       </button>
@@ -493,10 +507,19 @@ function RelatorioScreen({ mission, onBack }) {
       </div>
 
       <div className="cm-card" style={{ marginTop: 12 }}>
-        <h4 style={{ fontSize: 13, marginBottom: 8 }}>Objetivos e competências praticadas</h4>
-        <div className="flex flex-wrap gap-2">
-          {skills.map((s) => <span key={s} className="cm-pill cm-pill-lavender">{s}</span>)}
-        </div>
+        <h4 style={{ fontSize: 13, marginBottom: 8 }}>Objetivos e habilidades da BNCC praticadas</h4>
+        {skills.length === 0 ? (
+          <p style={{ fontSize: 12, color: "var(--cm-muted)" }}>Nenhum objetivo BNCC vinculado a esta missão.</p>
+        ) : (
+          <div style={{ display: "grid", gap: 8 }}>
+            {skills.map((s) => (
+              <div key={s.codigo} style={{ background: "#f4f0fa", borderRadius: 10, padding: 10 }}>
+                <span className="cm-pill cm-pill-lavender">{s.label}</span>
+                {s.texto && <p style={{ fontSize: 11, color: "var(--cm-muted)", marginTop: 6 }}>{s.texto}</p>}
+              </div>
+            ))}
+          </div>
+        )}
       </div>
 
       <div style={{ background: "var(--cm-orange-light)", borderRadius: 15, padding: 14, marginTop: 14, fontSize: 12, lineHeight: 1.6 }}>

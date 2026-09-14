@@ -1,4 +1,5 @@
 import React, { createContext, useCallback, useContext, useMemo, useState } from "react";
+import bnccHabilidades from "@/data/bncc.json";
 
 /**
  * Estado compartilhado da demo (PDF "Mapa de experiência", pág. 07):
@@ -16,26 +17,27 @@ import React, { createContext, useCallback, useContext, useMemo, useState } from
 
 const DemoContext = createContext(null);
 
-// Fonte única dos objetivos BNCC disponíveis para vincular a uma missão (M04),
-// e do rótulo de competência que aparece no relatório do mediador (M08) e na
-// conclusão do aluno (A08) — as duas telas leem daqui, então nunca divergem.
-export const BNCC_OPTIONS = [
-  "4 · Comunicação",
-  "7 · Argumentação",
-  "9 · Empatia e cooperação",
-  "10 · Responsabilidade e cidadania",
-];
+// Base real de habilidades da BNCC (Ensino Fundamental, 6º ao 9º ano — o público da
+// Colmeia), extraída do dataset aberto bncc.dev (CC BY 4.0, mantido pela Profy:
+// https://github.com/bncc-dev/bncc-dados). 730 habilidades com código, texto e
+// componente curricular, prontas para o mediador buscar e selecionar (M04).
+export const BNCC_HABILIDADES = bnccHabilidades;
 
-export const BNCC_SKILL_MAP = {
-  "4 · Comunicação": "Comunicação",
-  "7 · Argumentação": "Argumentação",
-  "9 · Empatia e cooperação": "Empatia e cooperação",
-  "10 · Responsabilidade e cidadania": "Responsabilidade e cidadania",
-};
+const BNCC_BY_CODIGO = Object.fromEntries(BNCC_HABILIDADES.map((h) => [h.codigo, h]));
 
+export function bnccLookup(codigo) {
+  return BNCC_BY_CODIGO[codigo] || null;
+}
+
+// Rótulos exibidos no relatório do mediador (M08) e na conclusão do aluno (A08) —
+// as duas telas leem a mesma habilidade vinculada pelo mediador na criação da
+// missão (M04), nunca uma lista estática.
 export function bnccToSkills(bncc) {
   if (!bncc || bncc.length === 0) return [];
-  return bncc.map((b) => BNCC_SKILL_MAP[b] || b);
+  return bncc.map((codigo) => {
+    const h = bnccLookup(codigo);
+    return h ? { codigo, label: `${h.componente} · ${h.codigo}`, texto: h.texto } : { codigo, label: codigo, texto: "" };
+  });
 }
 
 const INITIAL_MISSION = {
@@ -45,7 +47,7 @@ const INITIAL_MISSION = {
   timeRemainingSec: 12 * 60,
   // Vinculado pelo mediador na criação da missão (M04) — o aluno lê este
   // mesmo campo na tela de conclusão (A08), nunca uma lista estática.
-  bncc: ["9 · Empatia e cooperação", "10 · Responsabilidade e cidadania"],
+  bncc: ["EF06GE04", "EF06GE12"],
 };
 
 let nextRequestId = 1;

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import BeeMascot from "./BeeMascot";
-import { useDemoState, formatMinutes } from "@/state/DemoState";
+import { useDemoState, formatMinutes, bnccToSkills } from "@/state/DemoState";
 
 const MISSION = {
   id: "water",
@@ -168,7 +168,9 @@ export default function StudentPhone({ onMissionUpdate }) {
             onSubmit={submitCollective} onBack={() => setScreen("favos")}
           />
         )}
-        {tab === "home" && screen === "done" && <DoneScreen mission={mission} onBack={() => setScreen("favos")} />}
+        {tab === "home" && screen === "done" && (
+          <DoneScreen mission={mission} bncc={demo.mission.bncc} onBack={() => setScreen("favos")} />
+        )}
       </div>
       <PhoneNav
         active={tab}
@@ -530,7 +532,8 @@ function SubmitScreen({ text, setText, onSubmit, onBack }) {
   );
 }
 
-function DoneScreen({ mission, onBack }) {
+function DoneScreen({ mission, bncc, onBack }) {
+  const skills = bnccToSkills(bncc);
   return (
     <div>
       <div style={{ background: "var(--cm-green)", color: "#fff", borderRadius: 22, padding: 22, textAlign: "center" }}>
@@ -545,11 +548,26 @@ function DoneScreen({ mission, onBack }) {
         {mission.submission?.text && <p style={{ fontSize: 13, marginTop: 10, lineHeight: 1.6 }}>{mission.submission.text}</p>}
         <div style={{ height: 1, background: "var(--cm-line)", margin: "16px 0" }} />
         <h4 style={{ fontSize: 13, marginBottom: 8 }}>O que vocês praticaram</h4>
-        <div className="flex flex-wrap gap-2">
-          {["Escuta ativa", "Colaboração", "Comunicação"].map((s) => (
-            <span key={s} className="cm-pill cm-pill-lavender">{s}</span>
-          ))}
-        </div>
+        {skills.length === 0 ? (
+          <p style={{ fontSize: 12, color: "var(--cm-muted)" }}>O mediador ainda não vinculou objetivos da BNCC a esta missão.</p>
+        ) : (
+          <div style={{ display: "grid", gap: 6 }}>
+            {skills.map((s) => (
+              <span key={s.codigo} title={s.texto} className="cm-pill cm-pill-lavender" style={{ display: "inline-flex", width: "fit-content" }}>
+                {s.label}
+              </span>
+            ))}
+          </div>
+        )}
+        <p style={{ fontSize: 11, color: "var(--cm-muted)", marginTop: 12 }}>
+          Vinculado pelo mediador na criação da missão — reflete o objetivo pedagógico, não um desempenho individual.
+        </p>
+      </div>
+      <div style={{ background: "var(--cm-orange-light)", borderRadius: 15, padding: 14, marginTop: 12, fontSize: 12, lineHeight: 1.6 }}>
+        <strong>Sem ranking, sem comparação entre colegas.</strong>
+        <p style={{ color: "#984422", marginTop: 4 }}>
+          O crédito de favos e as competências acima são do grupo inteiro — a Colmeia não expõe quem contribuiu mais ou menos, nem cria uma lista de posições entre estudantes.
+        </p>
       </div>
       <button onClick={onBack} className="cm-btn" style={{ width: "100%", marginTop: 12 }}>Voltar ao início</button>
     </div>

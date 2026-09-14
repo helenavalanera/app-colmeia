@@ -60,3 +60,7 @@ GitHub integration: [https://docs.base44.com/developers/app-code/local-developme
 Local development: [https://docs.base44.com/developers/backend/overview/local-dev/local-development-overview](https://docs.base44.com/developers/backend/overview/local-dev/local-development-overview)
 
 Support: [https://app.base44.com/support](https://app.base44.com/support)
+
+## Fontes de dados
+
+- **BNCC (Ensino Fundamental, 6º ao 9º ano)** — `src/data/bncc.json` contém 730 habilidades (código, texto e componente curricular), usadas no seletor de objetivos BNCC do mediador (`BnccPicker`). Extraído do dataset aberto [bncc.dev](https://github.com/bncc-dev/bncc-dados) (mantido pela Profy), licenciado sob [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/deed.pt-br).

@@ -14,7 +14,7 @@ export default function SiteHeader() {
         <img
           src={LOGO_COLMEIA}
           alt="Colmeia · Ecossistema de Comunidades"
-          style={{ height: 42, width: "auto", objectFit: "contain", display: "block" }} className="rounded-md" />
+          style={{ height: 50, width: "auto", objectFit: "contain", display: "block" }} className="rounded-md" />
         
       </Link>
       <div className="flex items-center gap-3">
@@ -28,7 +28,7 @@ export default function SiteHeader() {
           <img
             src={LOGO_ENTRE_PRETAS}
             alt="Entre Pretas"
-            style={{ height: 38, width: "auto", objectFit: "contain", display: "block" }} />
+            style={{ height: 65, width: "auto", objectFit: "contain", display: "block" }} />
           
         </div>
       </div>

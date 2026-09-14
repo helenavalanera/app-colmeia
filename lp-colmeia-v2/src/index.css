@@ -1,6 +1,22 @@
+/* Open Sauce Sans — OFL, hosted for free by Fontshare (https://www.fontshare.com/fonts/open-sauce-one) */
+@import url('https://api.fontshare.com/v2/css?f[]=open-sauce-sans@400,500,600,700,800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Cooper BT is a commercial font (Bitstream/Monotype) — it is NOT bundled here.
+   Drop your own licensed .woff2 files and uncomment this @font-face to activate it;
+   until then, --font-heading falls back to a serif system stack below. */
+/*
+@font-face {
+  font-family: 'Cooper BT';
+  src: url('/fonts/CooperBT-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+*/
 
 @layer base {
   :root {
@@ -29,9 +45,9 @@
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
-    --font-heading: ui-sans-serif, system-ui, sans-serif;
-    --font-body: ui-sans-serif, system-ui, sans-serif;
-    --font-display: ui-sans-serif, system-ui, sans-serif;
+    --font-heading: 'Cooper BT', Georgia, 'Times New Roman', serif;
+    --font-body: 'Open Sauce Sans', ui-rounded, 'Avenir Next', Avenir, system-ui, sans-serif;
+    --font-display: var(--font-heading);
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -98,20 +114,29 @@
   --cm-ink: #263b32;
   --cm-muted: #687469;
   --cm-line: #e5e7db;
-  --cm-orange: #e76b37;
-  --cm-orange-light: #fff0e4;
-  --cm-green: #315b46;
-  --cm-green-soft: #244735;
-  --cm-lime: #e7edbd;
+  --cm-orange: #b77a10;
+  --cm-orange-light: #fff1c7;
+  --cm-green: #f6a833;
+  --cm-green-soft: #d18e2b;
+  /* Darker shade of --cm-green, kept only for text set directly on light
+     backgrounds (e.g. .cm-eyebrow) — #f6a833 itself fails contrast there. */
+  --cm-green-deep: #93641e;
+  --cm-lime: #fbecac;
   --cm-lime-deep: #dce4b1;
-  --cm-purple: #e9e3f5;
-  --cm-yellow: #f8d86c;
+  --cm-purple: #fff3c9;
+  --cm-yellow: #f4cf54;
   --cm-radius: 22px;
   --cm-shadow: 0 12px 45px rgba(38, 59, 50, 0.05);
 }
 
 .cm-font {
-  font-family: ui-rounded, 'Avenir Next', Avenir, system-ui, sans-serif;
+  font-family: var(--font-body);
+}
+
+.cm-font h1,
+.cm-font h2,
+.cm-font h3 {
+  font-family: var(--font-heading);
 }
 
 .cm-surface {
@@ -124,7 +149,7 @@
   font-weight: 800;
   letter-spacing: 1.8px;
   text-transform: uppercase;
-  color: var(--cm-green);
+  color: var(--cm-green-deep);
 }
 
 .cm-btn {
@@ -156,7 +181,7 @@
   border-color: var(--cm-orange);
   color: #fff;
 }
-.cm-btn-orange:hover { background: #c8582a; }
+.cm-btn-orange:hover { background: #96640d; }
 .cm-btn-ghost {
   background: transparent;
   border: 1px solid var(--cm-line);

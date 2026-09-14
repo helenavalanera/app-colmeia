@@ -24,7 +24,7 @@ const COLS = [
 export default function AudienceSection() {
   return (
     <section className="cm-surface cm-font" style={{ maxWidth: 1230, margin: "0 auto", padding: "20px 28px 60px" }}>
-      <h2 style={{ fontSize: 28, textAlign: "center", letterSpacing: "-0.5px", marginBottom: 36, color: "var(--cm-ink)" }}>
+      <h2 style={{ fontSize: 28, textAlign: "center", letterSpacing: "-0.5px", marginBottom: 36, color: "var(--cm-green)" }}>
         O celular abre a missão. A turma constrói a aprendizagem.
       </h2>
       <div className="grid gap-5" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))" }}>

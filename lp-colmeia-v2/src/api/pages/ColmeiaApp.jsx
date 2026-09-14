@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import StudentPhone from "@/components/colmeia/StudentPhone";
 import TeacherPhone from "@/components/colmeia/TeacherPhone";
+import { DemoProvider } from "@/state/DemoState";
 
 export default function ColmeiaApp() {
   const [view, setView] = useState("both");
 
   return (
+    <DemoProvider>
     <div className="cm-surface cm-font min-h-screen">
       <div style={{ maxWidth: 1230, margin: "0 auto", padding: "20px 28px" }}>
         <div className="flex items-center justify-between flex-wrap gap-3" style={{ marginBottom: 24 }}>
@@ -56,5 +58,6 @@ export default function ColmeiaApp() {
         </div>
       </div>
     </div>
+    </DemoProvider>
   );
 }

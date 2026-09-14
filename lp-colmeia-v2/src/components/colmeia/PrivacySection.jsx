@@ -2,7 +2,6 @@ import React from "react";
 
 const ITEMS = [
   { icon: "🚫", text: "Não acessa aplicativos, mensagens ou histórico de navegação." },
-  { icon: "📷", text: "Não usa câmera, microfone ou localização." },
   { icon: "🏆", text: "Não cria ranking público nem expõe quem teve dificuldade." },
   { icon: "👩‍🏫", text: "O professor recebe uma visão coletiva da participação da turma." },
 ];

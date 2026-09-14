@@ -8,7 +8,7 @@ export default function Hero() {
       <div className="grid gap-12 items-end" style={{ gridTemplateColumns: "1.4fr 1fr" }}>
         <div>
           <span className="cm-eyebrow" style={{ background: "var(--cm-yellow)", padding: "6px 12px", borderRadius: 8, color: "var(--cm-ink)" }}>Para turmas do 6º ao 9º ano</span>
-          <h1 style={{ fontSize: "clamp(34px, 4.5vw, 58px)", lineHeight: 1.06, letterSpacing: "-2px", fontWeight: 800, marginTop: 14, color: "var(--cm-ink)" }}>
+          <h1 style={{ fontSize: "clamp(34px, 4.5vw, 58px)", lineHeight: 1.06, letterSpacing: "-2px", fontWeight: 800, marginTop: 14, color: "var(--cm-green)" }}>
             O celular não precisa <em style={{ fontStyle: "normal", color: "var(--cm-orange)" }} className="text-[hsl(var(--chart-5))]">afastar</em> a turma.
           </h1>
           <p style={{ maxWidth: 400, color: "var(--cm-muted)", fontSize: 14, lineHeight: 1.6, marginTop: 18 }}>

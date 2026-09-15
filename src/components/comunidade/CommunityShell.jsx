@@ -6,6 +6,7 @@ import { useSearchParams } from "react-router-dom";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import Bee3D from "@/components/colmeia/Bee3D";
 import { LOGO_COLMEIA } from "@/components/colmeia/SiteHeader";
+import IPhoneMockup from "@/components/colmeia/IPhoneMockup";
 import "./community.css";
 
 const NAV = [{ id: "inicio", label: "Início", Icon: Home }, { id: "missoes", label: "Missões", Icon: Hexagon }, { id: "clubes", label: "Clubes", Icon: Users }, { id: "perfil", label: "Perfil", Icon: UserRound }];
@@ -37,7 +38,8 @@ export default function CommunityShell() {
   return <div className="co-stage cm-font">
     <div className="co-demo-heading"><span className="co-eyebrow">Uma escola. Diferentes perspectivas.</span><h1>Entre na Colmeia.</h1><p>Explore a jornada de quem participa e de quem apoia.</p></div>
     <div className="co-view-switch" role="group" aria-label="Escolher visão da demonstração"><span className={`co-view-indicator ${role === "mediador" ? "is-mediator" : ""}`} />{["aluno", "mediador"].map((r) => <button key={r} aria-pressed={role === r} onClick={() => { setRole(r); setTab("inicio"); setDetail(null); setNotifications(false); }}>{r === "aluno" ? <UserRound size={17} /> : <Users size={17} />}Visão do {r}</button>)}</div>
-    <div className={`cm-device co-phone${dark ? " cm-dark" : ""}`} onPointerMove={movePointer} onPointerLeave={() => { if (pointer.current) pointer.current.style.opacity = "0"; }} onPointerDown={() => pointer.current?.classList.add("is-pressed")} onPointerUp={() => pointer.current?.classList.remove("is-pressed")}>
+    <IPhoneMockup className={dark ? "cm-dark" : ""}>
+    <div className={`co-phone${dark ? " cm-dark" : ""}`} onPointerMove={movePointer} onPointerLeave={() => { if (pointer.current) pointer.current.style.opacity = "0"; }} onPointerDown={() => pointer.current?.classList.add("is-pressed")} onPointerUp={() => pointer.current?.classList.remove("is-pressed")}>
       <span ref={pointer} className="co-touch-pointer" aria-hidden="true"><span /></span>
       <header className="co-header">
         <div className="co-row"><img className="co-app-logo" src={LOGO_COLMEIA} alt="Colmeia" /><span className="co-battery co-muted co-small" title="Indicador ilustrativo da demonstração"><BatteryMedium size={16} /> 85%</span><button className="co-reset-button" aria-label="Reiniciar demonstração e apagar alterações locais" onClick={() => { resetDemo(); setTab("inicio"); setDetail(null); setNotifications(false); setDismissed(null); }}><RotateCcw size={14} /> Reiniciar</button><button className="co-icon" aria-label="Alternar modo claro e noturno" onClick={toggleDark}>{dark ? <Sun size={18} /> : <Moon size={18} />}</button><button className="co-icon" aria-label="Notificações" onClick={() => setNotifications(!notifications)}><Bell size={18} />{(role === "aluno" ? avisos.length : pedidos.filter((p) => !p.atendido).length) > 0 && <span className="co-dot" />}</button></div>
@@ -55,6 +57,7 @@ export default function CommunityShell() {
       {role === "aluno" && notice && dismissed !== notice.id && <div role="status" className="co-toast"><span>{notice.texto}</span><button className="co-icon" aria-label="Fechar aviso" onClick={() => setDismissed(notice.id)}>×</button></div>}
       <nav className="co-nav" aria-label="Navegação principal">{NAV.map(({ id, label, Icon }) => <button key={id} aria-current={tab === id ? "page" : undefined} onClick={() => navigate(id)}><Icon size={21} /><span>{label}</span></button>)}</nav>
     </div>
+    </IPhoneMockup>
   </div>;
 }
 function Title({ eyebrow, title, children }) { return <div className="co-title"><p className="co-eyebrow">{eyebrow}</p><h2>{title}</h2>{children && <p className="co-muted">{children}</p>}</div>; }

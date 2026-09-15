@@ -228,7 +228,6 @@ export default function NetworkStory() {
 
           ctx.font = "12px Inter, sans-serif";
           ctx.fillStyle = COLORS.muted;
-          ctx.fillText("20 estudantes · missão da turma", rx + 16, ry + 44);
           ctx.restore();
         });
       }

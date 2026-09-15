@@ -197,6 +197,20 @@
   box-shadow: 0 3px 15px rgba(38, 59, 50, 0.03);
 }
 
+.cm-hierarchy { max-width:1230px; margin:0 auto; padding:56px 28px 64px; }
+.cm-hierarchy h2 { max-width:720px; font-size:clamp(28px,4vw,42px); line-height:1.12; letter-spacing:-1px; margin:10px 0 14px; }
+.cm-hierarchy-intro { max-width:800px; color:var(--cm-muted); font-size:15px; line-height:1.65; margin-bottom:30px; }
+.cm-hierarchy-flow { display:flex; align-items:stretch; gap:8px; }
+.cm-hierarchy-card { flex:1; min-width:0; padding:18px 15px; border:1px solid var(--cm-line); border-radius:18px; background:var(--cm-white); box-shadow:0 5px 0 color-mix(in srgb,var(--cm-line) 75%,transparent); }
+.cm-hierarchy-icon { width:46px; height:46px; display:grid; place-items:center; border-radius:14px; background:var(--cm-yellow); margin-bottom:14px; }
+.cm-hierarchy-card>span { color:var(--cm-green-deep); font-size:9px; font-weight:800; letter-spacing:1.2px; text-transform:uppercase; }
+.cm-hierarchy-card h3 { font-size:17px; margin:5px 0 9px; }
+.cm-hierarchy-card p { color:var(--cm-muted); font-size:12px; line-height:1.5; margin:0; }
+.cm-hierarchy-arrow { flex:0 0 auto; align-self:center; color:var(--cm-orange); }
+@media(max-width:860px) { .cm-hierarchy-flow { display:grid; grid-template-columns:1fr 1fr; gap:12px; } .cm-hierarchy-arrow { display:none; } }
+@media(max-width:540px) { .cm-hierarchy-flow { grid-template-columns:1fr; } }
+@media(max-width:700px) { .cm-example-card { grid-template-columns:1fr !important; } }
+
 .cm-pill {
   display: inline-flex;
   align-items: center;

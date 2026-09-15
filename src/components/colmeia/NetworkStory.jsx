@@ -181,9 +181,8 @@ export default function NetworkStory() {
     target: scrollRef,
     offset: ["start start", "end end"],
   });
-
-  const firstOpacity = useTransform(scrollYProgress, [0.42, 0.52], [1, 0]);
-  const secondOpacity = useTransform(scrollYProgress, [0.48, 0.58], [0, 1]);
+  const firstOpacity = useTransform(scrollYProgress, [0.34, 0.45], [1, 0]);
+  const secondOpacity = useTransform(scrollYProgress, [0.4, 0.51], [0, 1]);
 
   const drawScene = useCallback(
     (progress) => {
@@ -194,10 +193,10 @@ export default function NetworkStory() {
       ctx.clearRect(0, 0, W, H);
       ctx.save();
 
-      const pRooms = clamp01(progress / 0.2); // Fase 1: salas + carteiras
-      const pIcons = clamp01((progress - 0.2) / 0.2); // Fase 2: bolinhas de interesse
-      const pLines = clamp01((progress - 0.4) / 0.2); // Fase 3: linhas cruzadas
-      const pFavo = clamp01((progress - 0.6) / 0.4); // Fase 4 & 5: reagrupamento em favo
+      const pRooms = clamp01(progress / 0.14); // Fase 1: salas + carteiras
+      const pIcons = clamp01((progress - 0.14) / 0.16); // Fase 2: interesses
+      const pLines = clamp01((progress - 0.28) / 0.17); // Fase 3: linhas cruzadas
+      const pFavo = clamp01((progress - 0.44) / 0.26); // A rede fica pronta nos 30% finais
       const tFavo = smooth(pFavo);
       const minDim = Math.min(W, H);
 
@@ -205,13 +204,13 @@ export default function NetworkStory() {
       const boxHeight = Math.min(H * 0.3, 205);
 
       // 1) Caixas das salas (desaparecem conforme o favo se forma)
-      if (pRooms > 0 && pFavo < 0.85) {
+      if (pRooms > 0 && pFavo < 0.72) {
         ROOMS.forEach((room) => {
           const rx = room.x * W - boxWidth / 2;
           const ry = room.y * H - boxHeight / 2;
 
           ctx.save();
-          ctx.globalAlpha = (1 - pFavo * 1.15) * pRooms;
+          ctx.globalAlpha = Math.max(0, 1 - pFavo * 1.4) * pRooms;
           ctx.fillStyle = COLORS.cardBg;
           ctx.strokeStyle = COLORS.cardBorder;
           ctx.lineWidth = 2;
@@ -274,7 +273,7 @@ export default function NetworkStory() {
       };
 
       // 3) Linhas de conexão entre alunos de mesmo interesse, turmas diferentes
-      if (pLines > 0 && pFavo < 0.9) {
+      if (pLines > 0 && pFavo < 0.75) {
         ctx.save();
         ctx.lineWidth = 1;
         ctx.setLineDash([3, 3]);
@@ -372,7 +371,7 @@ export default function NetworkStory() {
     >
       <div
         ref={scrollRef}
-        style={{ position: "relative", height: prefersReduced ? "auto" : "300vh" }}
+        style={{ position: "relative", height: prefersReduced ? "auto" : "320vh" }}
       >
         <div
           style={{

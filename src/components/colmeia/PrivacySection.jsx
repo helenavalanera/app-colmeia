@@ -1,10 +1,11 @@
 import React from "react";
-import { EyeOff, Trophy, HandHeart } from "lucide-react";
+import { EyeOff, Trophy, CameraOff, School } from "lucide-react";
 
 const ITEMS = [
   { Icon: EyeOff, text: "Não acessa aplicativos, mensagens ou histórico de navegação." },
+  { Icon: CameraOff, text: "Não usa câmera, microfone ou localização para vigiar estudantes." },
   { Icon: Trophy, text: "Não cria ranking público nem expõe quem teve dificuldade." },
-  { Icon: HandHeart, text: "O mediador acolhe pedidos e acompanha as experiências compartilhadas pelos clubes." },
+  { Icon: School, text: "O mediador recebe uma visão coletiva da participação da turma e dos clubes." },
 ];
 
 export default function PrivacySection() {

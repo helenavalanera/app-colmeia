@@ -9,6 +9,7 @@ import AudienceSection from "@/components/colmeia/AudienceSection";
 import PrivacySection from "@/components/colmeia/PrivacySection";
 import ExampleSection from "@/components/colmeia/ExampleSection";
 import NetworkStory from "@/components/colmeia/NetworkStory";
+import ProductHierarchy from "@/components/colmeia/ProductHierarchy";
 import FinalCTA from "@/components/colmeia/FinalCTA";
 
 export default function Landing() {
@@ -18,11 +19,12 @@ export default function Landing() {
       <Hero />
       <TrustStrip />
       <ProblemSection />
+      <NetworkStory />
+      <ProductHierarchy />
       <HowItWorks />
       <AudienceSection />
       <PrivacySection />
       <ExampleSection />
-      <NetworkStory />
       <FinalCTA />
       <SiteFooter />
     </div>

@@ -4,7 +4,18 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 const CommunityContext = createContext(null);
 const STORAGE_KEY = "colmeia.communities.student-led.v4";
 export const TURMAS = ["6º A", "6º B", "7º A", "7º B", "8º A", "8º B", "9º A"];
-export const CRITERIOS = ["Escuta e empatia · CG9", "Cooperação · CG9", "Autoconhecimento e cuidado · CG8", "Responsabilidade e autonomia · CG10"];
+export const CRITERIOS = [
+  "Conhecimento · CG1",
+  "Pensamento científico, crítico e criativo · CG2",
+  "Repertório cultural · CG3",
+  "Comunicação · CG4",
+  "Cultura digital · CG5",
+  "Trabalho e projeto de vida · CG6",
+  "Argumentação · CG7",
+  "Autoconhecimento e autocuidado · CG8",
+  "Empatia e cooperação · CG9",
+  "Responsabilidade e cidadania · CG10",
+];
 const uid = () => globalThis.crypto?.randomUUID?.() || `${Date.now()}-${Math.random()}`;
 function initialState() {
   return {
@@ -17,13 +28,13 @@ function initialState() {
       { id: "cuidado", nome: "Cuidar do que é nosso", descricao: "Cooperação e responsabilidade pelo ecossistema da escola." },
     ],
     clubes: [
-      { id: "chega", comunidadeId: "convivencia", nome: "Chega junto", descricao: "Criamos jeitos de acolher quem chega e de participar do recreio.", embaixador: "me", membros: ["me", "s2", "s3"], turmas: ["6º A", "7º B", "9º A"], encontro: "Quarta, no intervalo · pátio", convites: [] },
-      { id: "plot", comunidadeId: "leitura", nome: "Plot Twist & Páginas", descricao: "Trocamos histórias e escutamos o que elas despertam em cada pessoa.", embaixador: "s4", membros: ["s4", "s5"], turmas: ["8º A", "9º A"], encontro: "Sexta, no intervalo · biblioteca", convites: [] },
-      { id: "patio", comunidadeId: "cuidado", nome: "Pátio vivo", descricao: "Pensamos juntos em como cuidar dos lugares e de quem os frequenta.", embaixador: "s6", membros: ["s6", "s7"], turmas: ["6º B", "8º B"], encontro: "Terça, no intervalo · jardim", convites: [] },
+      { id: "chega", comunidadeId: "convivencia", nome: "Chega junto", descricao: "Criamos jeitos de acolher quem chega e de participar do recreio.", embaixador: "me", membros: ["me", "s2", "s3"], turmas: ["6º A", "7º B", "9º A"], encontro: "Quarta, no intervalo", convites: [] },
+      { id: "plot", comunidadeId: "leitura", nome: "Plot Twist & Páginas", descricao: "Trocamos histórias e escutamos o que elas despertam em cada pessoa.", embaixador: "s4", membros: ["s4", "s5"], turmas: ["8º A", "9º A"], encontro: "Sexta, no intervalo", convites: [] },
+      { id: "patio", comunidadeId: "cuidado", nome: "Pátio vivo", descricao: "Pensamos juntos em como cuidar dos lugares e de quem os frequenta.", embaixador: "s6", membros: ["s6", "s7"], turmas: ["6º B", "8º B"], encontro: "Terça, no intervalo", convites: [] },
     ],
     missoes: [
-      { id: "acolher", escopo: "turma", turma: "7º B", clubeId: "chega", titulo: "Como acolher quem acabou de chegar?", descricao: "Conversem presencialmente, interpretem as pistas e construam uma proposta de acolhimento a partir das diferentes experiências do grupo.", favo: "Pense em uma situação em que você quis participar de algo, mas não sabia como chegar. Que convite teria ajudado? Leve essa perspectiva para a conversa.", criterios: CRITERIOS.slice(0, 2), total: 3, confirmados: 2, meuConfirmado: false, status: "ativa", prazo: Date.now() + 30 * 60000 },
-      { id: "historias", escopo: "clube", clubeId: "plot", titulo: "Uma história, outros olhares", descricao: "Compartilhem o que faz cada pessoa se sentir ouvida e componham um acordo de escuta para o clube.", favo: "Recorde uma história em que alguém foi ouvido de verdade. O que tornou essa escuta especial?", criterios: [CRITERIOS[0]], total: 3, confirmados: 2, meuConfirmado: false, status: "ativa", prazo: Date.now() + 60 * 60000 },
+      { id: "acolher", escopo: "turma", turma: "7º B", clubeId: "chega", titulo: "Como acolher quem acabou de chegar?", descricao: "Conversem presencialmente, interpretem as pistas e construam uma proposta de acolhimento a partir das diferentes experiências do grupo.", favo: "Pense em uma situação em que você quis participar de algo, mas não sabia como chegar. Que convite teria ajudado?", pistaLocal: "Procure um espaço de passagem onde encontros inesperados costumam acontecer.", criterios: [CRITERIOS[7], CRITERIOS[8], CRITERIOS[9]], total: 3, confirmados: 2, meuConfirmado: false, status: "ativa", prazo: Date.now() + 30 * 60000 },
+      { id: "historias", escopo: "clube", clubeId: "plot", titulo: "Uma história, outros olhares", descricao: "Compartilhem o que faz cada pessoa se sentir ouvida e componham um acordo de escuta para o clube.", favo: "Recorde uma história em que alguém foi ouvido de verdade. O que tornou essa escuta especial?", pistaLocal: "Siga até o lugar onde muitas histórias esperam para ser abertas.", criterios: [CRITERIOS[3], CRITERIOS[8]], total: 3, confirmados: 2, meuConfirmado: false, status: "ativa", prazo: Date.now() + 60 * 60000 },
     ],
     posts: [
       { id: "p1", clubeId: "chega", autor: "Lia · 6º A", texto: "Nosso clube quer criar um convite para quem passa o recreio sozinho. Que jeito de convidar faz você se sentir à vontade?", criadoEm: Date.now() - 3600000, comentarios: [{ autor: "Ravi · 9º A", texto: "Perguntar o que a pessoa gosta de fazer, sem pressionar." }] },
@@ -34,12 +45,11 @@ function initialState() {
 }
 // Enriquecimento aditivo: preserva perfis, respostas e clubes já salvos na demo.
 function withClubContext(state) {
-  const places = { chega: ["Pátio", "Biblioteca"], plot: ["Biblioteca"], patio: ["Jardim", "Pátio"] };
-  return { ...state, clubes: state.clubes.map((club) => ({
-    espacos: places[club.id] || [],
-    combinados: "Ouvir até o fim, respeitar o tempo de cada pessoa e decidir juntos.",
-    ...club,
-  })), missoes: state.missoes.map((mission) => ({ escopo: mission.id === "acolher" ? "turma" : "clube", turma: mission.id === "acolher" ? "7º B" : undefined, ...mission })) };
+  return { ...state, clubes: state.clubes.map((club) => {
+    const cleanClub = { ...club };
+    delete cleanClub.espacos;
+    return { combinados: "Ouvir até o fim, respeitar o tempo de cada pessoa e decidir juntos.", ...cleanClub, encontro: cleanClub.encontro?.split(" · ")[0] || "Encontro a combinar" };
+  }), missoes: state.missoes.map((mission) => ({ escopo: mission.id === "acolher" ? "turma" : "clube", turma: mission.id === "acolher" ? "7º B" : undefined, pistaLocal: mission.id === "acolher" ? "Procure um espaço de passagem onde encontros inesperados costumam acontecer." : mission.id === "historias" ? "Siga até o lugar onde muitas histórias esperam para ser abertas." : "Interprete com o grupo a pista do lugar presente neste favo.", ...mission })) };
 }
 function readState() {
   try {
@@ -119,9 +129,13 @@ export function CommunityProvider({ children }) {
   }
   function createClub(comunidadeId, nome, descricao) {
     if (!nome.trim()) return;
-    setState((s) => ({ ...s, clubes: [...s.clubes, { id: uid(), comunidadeId, nome: nome.trim(), descricao, embaixador: "me", membros: ["me"], turmas: [s.profile.turma], encontro: "Encontro a combinar", espacos: [], combinados: "Vamos construir nossos combinados juntos.", convites: [] }] }));
+    setState((s) => ({ ...s, clubes: [...s.clubes, { id: uid(), comunidadeId, nome: nome.trim(), descricao, embaixador: "me", membros: ["me"], turmas: [s.profile.turma], encontro: "Encontro a combinar", combinados: "Vamos construir nossos combinados juntos.", convites: [] }] }));
   }
-  return <CommunityContext.Provider value={{ ...state, storageError, updateClub, joinClub, createPost, comment, toggleLike, requestSupport, resolveSupport, confirmFavo, completeMission, shareMission, createMission, createCommunity, createClub,
+  function resetDemo() {
+    try { localStorage.removeItem(STORAGE_KEY); } catch { /* O estado em memória ainda pode ser reiniciado. */ }
+    setState(withClubContext(initialState()));
+  }
+  return <CommunityContext.Provider value={{ ...state, storageError, updateClub, joinClub, createPost, comment, toggleLike, requestSupport, resolveSupport, confirmFavo, completeMission, shareMission, createMission, createCommunity, createClub, resetDemo,
     saveMediatorProfile: (mediatorProfile) => setState((s) => ({ ...s, mediatorProfile })),
     saveProfile: (profile) => setState((s) => ({ ...s, profile })),
     toggleDark: () => setState((s) => ({ ...s, dark: !s.dark })),

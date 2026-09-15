@@ -40,21 +40,22 @@ const ROOMS = [
 ];
 
 const INTERESTS = ["leitura", "tecnologia", "musica", "cuidado"];
+const INTEREST_LABELS = ["Leitura", "Tecnologia", "Música", "Cuidado"];
 
-// 4 focos de comunidade final (favo), espalhados para deixar o reagrupamento visível
+// Quatro clubes finais em uma grade equilibrada, sem sobreposição entre favos.
 const COMMUNITIES = [
-  { cx: 0.18, cy: 0.48 },
-  { cx: 0.40, cy: 0.36 },
-  { cx: 0.62, cy: 0.64 },
-  { cx: 0.84, cy: 0.42 },
+  { cx: 0.28, cy: 0.34 },
+  { cx: 0.72, cy: 0.34 },
+  { cx: 0.28, cy: 0.7 },
+  { cx: 0.72, cy: 0.7 },
 ];
 
 const STEPS = [
-  "1. Uma missão começa em cada turma do 6º ao 9º ano.",
-  "2. Interesses em comum aparecem entre os estudantes.",
-  "3. As linhas de afinidade cruzam as fronteiras das turmas.",
-  "4. Os estudantes se recombinam em clubes com turmas diferentes.",
-  "5. Os clubes mantêm viva uma única comunidade: a escola.",
+  "1. O ecossistema escolar: turmas de 6º ao 9º ano reunidas.",
+  "2. Identificação de interesses e afinidades em comum.",
+  "3. Conexões cruzando as fronteiras das salas de aula.",
+  "4. Formação dos clubes e divisão dos favos temáticos.",
+  "5. A resposta coletiva: a escola inteira em rede.",
 ];
 
 // Layout simétrico de carteiras dentro da sala (fração da caixa da sala)
@@ -113,14 +114,14 @@ function buildSimulationData() {
 
   // Agrupa por interesse (comunidade final); tamanhos naturalmente diferentes
   const byInterest = INTERESTS.map(() => []);
-  raw.forEach((s) => byInterest[s.interest].push(s));
+  raw.filter((s) => !s.isTeacher).forEach((s) => byInterest[s.interest].push(s));
   const communitySizes = byInterest.map((members) => members.length);
 
   byInterest.forEach((members, communityIdx) => {
     members.forEach((s, idx) => {
       s.communityIdx = communityIdx;
       s.commAngle = idx * GOLDEN_ANGLE;
-      s.commRadiusFactor = Math.sqrt((idx + 0.5) / members.length);
+      s.commRadiusFactor = 0.34 + 0.66 * Math.sqrt((idx + 0.5) / members.length);
     });
   });
 
@@ -232,10 +233,10 @@ export default function NetworkStory() {
         });
       }
 
-      // 2) Hexágonos das comunidades finais — um por interesse, raio ~ nº de membros
+      // 2) Favos dos clubes finais: o centro fica livre para o tema do clube.
       if (pFavo > 0.05) {
         COMMUNITIES.forEach((c, i) => {
-          const r = minDim * (0.09 + 0.03 * Math.sqrt(communitySizes[i] / 21)) * tFavo;
+          const r = minDim * (0.105 + 0.025 * Math.sqrt(communitySizes[i] / 20)) * tFavo;
           hexPath(ctx, c.cx * W, c.cy * H, r);
           ctx.globalAlpha = 0.12 * tFavo;
           ctx.fillStyle = COLORS.limeDeep;
@@ -244,8 +245,17 @@ export default function NetworkStory() {
           ctx.lineWidth = 2;
           ctx.strokeStyle = COLORS.orange;
           ctx.stroke();
-          ctx.globalAlpha = 0.32 * tFavo;
-          drawInterestIcon(ctx, i, c.cx * W, c.cy * H, Math.min(26, r * .34), COLORS.orange);
+          ctx.globalAlpha = 0.92 * tFavo;
+          ctx.beginPath();
+          ctx.arc(c.cx * W, c.cy * H, Math.min(25, r * .27), 0, Math.PI * 2);
+          ctx.fillStyle = COLORS.cardBg;
+          ctx.fill();
+          drawInterestIcon(ctx, i, c.cx * W, c.cy * H, Math.min(18, r * .2), COLORS.orange);
+          ctx.globalAlpha = 0.88 * tFavo;
+          ctx.font = "700 11px Inter, sans-serif";
+          ctx.fillStyle = COLORS.ink;
+          ctx.textAlign = "center";
+          ctx.fillText(INTEREST_LABELS[i], c.cx * W, c.cy * H + r + 14);
         });
         ctx.globalAlpha = 1;
       }
@@ -261,8 +271,9 @@ export default function NetworkStory() {
         const seatFracX = boxOriginXFrac + (s.seatFracX * boxWidth) / W;
         const seatFracY = boxOriginYFrac + (s.seatFracY * boxHeight) / H;
 
+        if (s.isTeacher) return { fx: seatFracX, fy: seatFracY };
         const community = COMMUNITIES[s.communityIdx];
-        const rPx = minDim * 0.11 * s.commRadiusFactor;
+        const rPx = minDim * 0.105 * s.commRadiusFactor;
         const targetFracX = community.cx + (Math.cos(s.commAngle) * rPx) / W;
         const targetFracY = community.cy + (Math.sin(s.commAngle) * rPx) / H;
 
@@ -304,6 +315,7 @@ export default function NetworkStory() {
         const radius = s.isTeacher ? 7 : 4.5;
 
         ctx.save();
+        ctx.globalAlpha = s.isTeacher ? 1 - tFavo : 1 - 0.42 * tFavo;
         ctx.beginPath();
         ctx.arc(x, y, radius, 0, Math.PI * 2);
         ctx.fillStyle = ROOMS[s.roomIdx].color;
@@ -316,7 +328,7 @@ export default function NetworkStory() {
         ctx.restore();
 
         // Ícone de interesse — só num subconjunto para não poluir o desenho
-        if (pIcons > 0 && idx % 3 === 0) {
+        if (!s.isTeacher && pIcons > 0 && idx % 3 === 0) {
           ctx.save();
           ctx.globalAlpha = smooth(pIcons) * (1 - 0.8 * pFavo);
           drawInterestIcon(ctx, s.interest, x, y - radius - 9, 9, COLORS.ink);

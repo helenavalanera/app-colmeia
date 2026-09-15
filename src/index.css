@@ -207,9 +207,11 @@
 .cm-hierarchy-card h3 { font-size:17px; margin:5px 0 9px; }
 .cm-hierarchy-card p { color:var(--cm-muted); font-size:12px; line-height:1.5; margin:0; }
 .cm-hierarchy-arrow { flex:0 0 auto; align-self:center; color:var(--cm-orange); }
+.cm-role-card { position:relative; }
+.cm-role-estudante { transform:translateY(-14px); border-color:var(--cm-orange); box-shadow:0 8px 0 var(--cm-yellow),0 18px 34px rgba(24,24,27,.1); }
 @media(max-width:860px) { .cm-hierarchy-flow { display:grid; grid-template-columns:1fr 1fr; gap:12px; } .cm-hierarchy-arrow { display:none; } }
 @media(max-width:540px) { .cm-hierarchy-flow { grid-template-columns:1fr; } }
-@media(max-width:700px) { .cm-example-card { grid-template-columns:1fr !important; } }
+@media(max-width:700px) { .cm-example-card { grid-template-columns:1fr !important; } .cm-role-estudante { transform:none; } }
 
 .cm-pill {
   display: inline-flex;

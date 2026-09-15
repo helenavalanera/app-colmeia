@@ -3,6 +3,19 @@ import { Check, UserRound, Star, HandHeart } from "lucide-react";
 
 const COLS = [
   {
+    role: "mediador",
+    eyebrow: "Cria as missões",
+    title: "Mediador de apoio",
+    Icon: HandHeart,
+    items: [
+      "Lança missões para turmas ou clubes",
+      "Orienta dificuldades, inclusão e conflitos",
+      "Ajuda a organizar recursos da escola",
+      "Prioriza pedidos de apoio e contexto coletivo",
+    ],
+  },
+  {
+    role: "estudante",
     eyebrow: "O protagonista",
     title: "Estudante participante",
     Icon: UserRound,
@@ -14,25 +27,15 @@ const COLS = [
     ],
   },
   {
+    role: "embaixador",
     eyebrow: "Organiza o clube",
     title: "Embaixador estudantil",
     Icon: Star,
     items: [
       "Convida colegas de outras turmas e apresenta o clube",
+      "Divulga atividades e mobiliza participantes",
       "Combina encontros e cuida dos acordos do grupo",
-      "Coordena a preparação das missões",
-      "Acessa ferramentas na própria visão do aluno",
-    ],
-  },
-  {
-    eyebrow: "Disponível quando chamado",
-    title: "Mediador de apoio",
-    Icon: HandHeart,
-    items: [
-      "Orienta dificuldades, inclusão e conflitos",
-      "Ajuda a organizar recursos da escola",
-      "Prioriza pedidos de apoio e contexto coletivo",
-      "Não dirige cada encontro nem autoriza publicações",
+      "Organiza a participação; as missões são criadas pelo mediador",
     ],
   },
 ];
@@ -46,7 +49,7 @@ export default function AudienceSection() {
       <p style={{ maxWidth: 720, textAlign: "center", margin: "-24px auto 32px", color: "var(--cm-muted)", lineHeight: 1.6 }}>Três papéis, um mesmo favo. O aluno protagoniza, o embaixador organiza e o mediador permanece disponível como apoio.</p>
       <div className="grid gap-5" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))" }}>
         {COLS.map((col) => (
-          <div key={col.title} className="cm-card" style={{ padding: 24 }}>
+          <div key={col.title} className={`cm-card cm-role-card cm-role-${col.role}`} style={{ padding: 24 }}>
             <div style={{ width: 46, height: 46, borderRadius: 14, display: "grid", placeItems: "center", background: "var(--cm-yellow)", marginBottom: 14 }}><col.Icon size={24} aria-hidden="true" /></div>
             <span className="cm-eyebrow">{col.eyebrow}</span>
             <h3 style={{ fontSize: 17, marginBottom: 16, color: "var(--cm-ink)" }}>{col.title}</h3>

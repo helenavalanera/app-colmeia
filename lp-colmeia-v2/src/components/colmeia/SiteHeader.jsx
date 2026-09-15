@@ -19,7 +19,7 @@ export default function SiteHeader() {
       </Link>
       <div className="flex items-center gap-3">
         <span style={{ fontSize: 11, color: "var(--cm-muted)", textAlign: "right", lineHeight: 1.4 }}>
-          <strong style={{ color: "var(--cm-green)", display: "block", letterSpacing: 1, marginBottom: 4 }}>
+          <strong style={{ color: "var(--cm-ink)", display: "block", letterSpacing: 1, marginBottom: 4 }}>
             HACKTUDO 2026
           </strong>
           Time Entre Pretas

@@ -109,24 +109,26 @@
 
 /* ===== Colmeia — identidade visual ===== */
 :root {
-  --cm-paper: #f9f7ef;
-  --cm-white: #fffefa;
-  --cm-ink: #263b32;
-  --cm-muted: #687469;
-  --cm-line: #e5e7db;
-  --cm-orange: #b77a10;
-  --cm-orange-light: #fff1c7;
-  --cm-green: #f6a833;
-  --cm-green-soft: #d18e2b;
-  /* Darker shade of --cm-green, kept only for text set directly on light
-     backgrounds (e.g. .cm-eyebrow) — #f6a833 itself fails contrast there. */
-  --cm-green-deep: #93641e;
-  --cm-lime: #fbecac;
-  --cm-lime-deep: #dce4b1;
-  --cm-purple: #fff3c9;
-  --cm-yellow: #f4cf54;
+  --cm-brand-orange: #F86700;
+  --cm-brand-yellow: #FFAC00;
+  --cm-brand-black: #18181B;
+  --cm-paper: #fff8ef;
+  --cm-white: #ffffff;
+  --cm-ink: var(--cm-brand-black);
+  --cm-muted: #62626b;
+  --cm-line: #e7ded5;
+  --cm-orange: var(--cm-brand-orange);
+  --cm-orange-light: #fff0e5;
+  --cm-green: var(--cm-brand-yellow);
+  --cm-green-soft: #f59e00;
+  /* Text on pale surfaces uses a darker orange for readability. */
+  --cm-green-deep: #994000;
+  --cm-lime: #fff0cc;
+  --cm-lime-deep: #f4d28d;
+  --cm-purple: #fff0e5;
+  --cm-yellow: var(--cm-brand-yellow);
   --cm-radius: 22px;
-  --cm-shadow: 0 12px 45px rgba(38, 59, 50, 0.05);
+  --cm-shadow: 0 12px 45px rgba(24, 24, 27, 0.07);
 }
 
 .cm-font {
@@ -168,20 +170,20 @@
   transition: background .18s ease, transform .18s ease, box-shadow .18s ease;
   cursor: pointer;
 }
-.cm-btn:hover { background: #f1f1e7; }
+.cm-btn:hover { background: var(--cm-orange-light); }
 .cm-btn:active { transform: translateY(1px); }
 .cm-btn-primary {
   background: var(--cm-green);
   border-color: var(--cm-green);
-  color: #fff;
+  color: var(--cm-brand-black);
 }
 .cm-btn-primary:hover { background: var(--cm-green-soft); }
 .cm-btn-orange {
   background: var(--cm-orange);
   border-color: var(--cm-orange);
-  color: #fff;
+  color: var(--cm-brand-black);
 }
-.cm-btn-orange:hover { background: #96640d; }
+.cm-btn-orange:hover { background: #ff8126; }
 .cm-btn-ghost {
   background: transparent;
   border: 1px solid var(--cm-line);
@@ -215,9 +217,9 @@
 }
 
 .cm-device {
-  border: 6px solid #403a2b;
+  border: 6px solid var(--cm-brand-black);
   border-radius: 40px;
-  box-shadow: 0 20px 50px rgba(93, 74, 24, 0.18);
+  box-shadow: 0 20px 50px rgba(24, 24, 27, 0.18);
   overflow: hidden;
   background: var(--cm-paper);
 }
@@ -225,26 +227,23 @@
 /* ===== Modo noturno (escopo: componentes .cm-*, não o site inteiro) =====
    Ativado com a classe .cm-dark num ancestral (o próprio .cm-device da demo). */
 .cm-dark {
-  --cm-paper: #1c1a16;
-  --cm-white: #26241d;
-  --cm-ink: #f2efe6;
-  --cm-muted: #a39c8c;
-  --cm-line: #3a362c;
-  --cm-orange: #e08a3f;
-  --cm-orange-light: #3a2a17;
-  --cm-green: #f6a833;
-  --cm-green-soft: #d18e2b;
-  --cm-green-deep: #f0c274;
-  --cm-lime: #33351f;
-  --cm-lime-deep: #474b2c;
-  --cm-purple: #332c47;
-  --cm-yellow: #4a3f1c;
+  --cm-paper: #18181B;
+  --cm-white: #242427;
+  --cm-ink: #fafafa;
+  --cm-muted: #b7b7bf;
+  --cm-line: #414146;
+  --cm-orange-light: #3d291c;
+  --cm-green-deep: #FFAC00;
+  --cm-lime: #352d1b;
+  --cm-lime-deep: #65512e;
+  --cm-purple: #3d291c;
   --cm-shadow: 0 12px 45px rgba(0, 0, 0, 0.25);
 }
 .cm-dark .cm-btn { background: var(--cm-white); color: var(--cm-ink); border-color: var(--cm-line); }
-.cm-dark .cm-btn:hover { background: #302c23; }
-.cm-dark .cm-pill { background: #33301f; color: var(--cm-ink); }
+.cm-dark .cm-btn:hover { background: #343438; }
+.cm-dark .cm-btn-primary { background: var(--cm-brand-yellow); color: var(--cm-brand-black); }
+.cm-dark .cm-btn-orange { background: var(--cm-brand-orange); color: var(--cm-brand-black); }
+.cm-dark .cm-pill { background: #352d1b; color: var(--cm-ink); }
 .cm-dark .cm-pill-green { background: #23331f; color: #9fdb8f; }
-.cm-dark .cm-pill-warm { background: var(--cm-orange-light); color: #f0b27a; }
-.cm-dark .cm-pill-lavender { background: var(--cm-purple); color: #c9b8ec; }
-.cm-dark .cm-device { border-color: #17150f; }
+.cm-dark .cm-pill-warm, .cm-dark .cm-pill-lavender { background: var(--cm-orange-light); color: #ffb67e; }
+.cm-dark.cm-device { border-color: var(--cm-brand-black); }

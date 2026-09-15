@@ -30,7 +30,7 @@ export default function ExampleSection() {
               padding: "6px 12px",
               fontSize: 12,
               fontWeight: 700,
-              color: "var(--cm-green)",
+              color: "var(--cm-ink)",
             }}
           >
             Escuta · Empatia · Cooperação

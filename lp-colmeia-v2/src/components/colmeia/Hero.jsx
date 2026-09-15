@@ -8,7 +8,7 @@ export default function Hero() {
       <div className="grid gap-12 items-end" style={{ gridTemplateColumns: "1.4fr 1fr" }}>
         <div>
           <span className="cm-eyebrow" style={{ background: "var(--cm-yellow)", padding: "6px 12px", borderRadius: 8, color: "var(--cm-ink)" }}>Para turmas do 6º ao 9º ano</span>
-          <h1 style={{ fontSize: "clamp(34px, 4.5vw, 58px)", lineHeight: 1.06, letterSpacing: "-2px", fontWeight: 800, marginTop: 14, color: "var(--cm-green)" }}>
+          <h1 style={{ fontSize: "clamp(34px, 4.5vw, 58px)", lineHeight: 1.06, letterSpacing: "-2px", fontWeight: 800, marginTop: 14, color: "var(--cm-ink)" }}>
             Uma escola de <em style={{ fontStyle: "normal", color: "var(--cm-orange)" }}>conexões</em>, construída pelos alunos.
           </h1>
           <p style={{ maxWidth: 400, color: "var(--cm-muted)", fontSize: 14, lineHeight: 1.6, marginTop: 18 }}>
@@ -24,7 +24,7 @@ export default function Hero() {
         </div>
         <div className="flex justify-center">
           <div style={{ position: "relative" }}>
-            <div style={{ position: "absolute", inset: "-20px -10px", background: "radial-gradient(ellipse at center, #faf1bc 0%, #f0edcf 50%, transparent 72%)", borderRadius: 30 }} />
+            <div style={{ position: "absolute", inset: "-20px -10px", background: "radial-gradient(ellipse at center, #FFAC00 0%, #ffe4bc 50%, transparent 72%)", borderRadius: 30 }} />
             <BeeMascot size={170} style={{ position: "relative", filter: "drop-shadow(0 9px 6px rgba(92,88,59,0.12))" }} />
           </div>
         </div>

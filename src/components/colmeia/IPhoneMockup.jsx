@@ -1,4 +1,5 @@
 import React from "react";
+import IPhoneStatusBar from "./IPhoneStatusBar";
 
 export default function IPhoneMockup({ children, className = "" }) {
   return (
@@ -10,6 +11,7 @@ export default function IPhoneMockup({ children, className = "" }) {
 
       <div className="co-iphone-frame">
         <div className="co-iphone-screen">
+          <IPhoneStatusBar />
           <div className="co-dynamic-island" aria-hidden="true">
             <span className="co-dynamic-camera" />
             <span className="co-dynamic-sensor" />

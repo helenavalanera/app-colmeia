@@ -1,10 +1,9 @@
 import React from "react";
-import { ShieldCheck, UsersRound, Smartphone } from "lucide-react";
+import { ShieldCheck, UsersRound } from "lucide-react";
 
 const SEALS = [
 { Icon: ShieldCheck, text: "Sem rastrear navegação, câmera ou localização" },
-{ Icon: UsersRound, text: "Turmas diferentes compartilhando saberes" },
-{ Icon: Smartphone, text: "Sem instalar aplicativo" }];
+{ Icon: UsersRound, text: "Turmas diferentes compartilhando saberes" }];
 
 
 export default function TrustStrip() {

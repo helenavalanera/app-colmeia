@@ -1,9 +1,11 @@
 import React from "react";
 
+const ASSET_BASE = import.meta.env.BASE_URL;
+
 const CARDS = [
-  { icon: "/illustrations/bolhas-sociais.png", title: "Bolhas sociais", text: "Os mesmos grupos se repetem sempre, e alguns estudantes ficam à margem da turma." },
-  { icon: "/illustrations/distracao.png", title: "Distração sem propósito", text: "O celular entra na aula, mas sem uma dinâmica pedagógica clara por trás dele." },
-  { icon: "/illustrations/sobrecarga.png", title: "Saberes desconectados", text: "Turmas e anos convivem no mesmo prédio, mas têm poucas oportunidades de trocar experiências e construir algo juntos." },
+  { icon: `${ASSET_BASE}illustrations/bolhas-sociais.png`, title: "Bolhas sociais", text: "Os mesmos grupos se repetem sempre, e alguns estudantes ficam à margem da turma." },
+  { icon: `${ASSET_BASE}illustrations/distracao.png`, title: "Distração sem propósito", text: "O celular entra na aula, mas sem uma dinâmica pedagógica clara por trás dele." },
+  { icon: `${ASSET_BASE}illustrations/sobrecarga.png`, title: "Saberes desconectados", text: "Turmas e anos convivem no mesmo prédio, mas têm poucas oportunidades de trocar experiências e construir algo juntos." },
 ];
 
 export default function ProblemSection() {

@@ -1,0 +1,265 @@
+/* Open Sauce Sans — OFL, hosted for free by Fontshare (https://www.fontshare.com/fonts/open-sauce-one) */
+@import url('https://api.fontshare.com/v2/css?f[]=open-sauce-sans@400,500,600,700,800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Cooper BT is a commercial font (Bitstream/Monotype) — it is NOT bundled here.
+   Drop your own licensed .woff2 files and uncomment this @font-face to activate it;
+   until then, --font-heading falls back to a serif system stack below. */
+/*
+@font-face {
+  font-family: 'Cooper BT';
+  src: url('/fonts/CooperBT-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+*/
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+    --primary: 0 0% 9%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 0 0% 3.9%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
+    --font-heading: 'Cooper BT', Georgia, 'Times New Roman', serif;
+    --font-body: 'Open Sauce Sans', ui-rounded, 'Avenir Next', Avenir, system-ui, sans-serif;
+    --font-display: var(--font-heading);
+    --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 0 0% 83.1%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body;
+  }
+}
+
+/* ===== Colmeia — identidade visual ===== */
+:root {
+  --cm-brand-orange: #F86700;
+  --cm-brand-yellow: #FFAC00;
+  --cm-brand-black: #18181B;
+  --cm-paper: #fff8ef;
+  --cm-white: #ffffff;
+  --cm-ink: var(--cm-brand-black);
+  --cm-muted: #62626b;
+  --cm-line: #e7ded5;
+  --cm-orange: var(--cm-brand-orange);
+  --cm-orange-light: #fff0e5;
+  --cm-green: var(--cm-brand-yellow);
+  --cm-green-soft: #f59e00;
+  /* Text on pale surfaces uses a darker orange for readability. */
+  --cm-green-deep: #994000;
+  --cm-lime: #fff0cc;
+  --cm-lime-deep: #f4d28d;
+  --cm-purple: #fff0e5;
+  --cm-yellow: var(--cm-brand-yellow);
+  --cm-radius: 22px;
+  --cm-shadow: 0 12px 45px rgba(24, 24, 27, 0.07);
+}
+
+.cm-font {
+  font-family: var(--font-body);
+}
+
+.cm-font h1,
+.cm-font h2,
+.cm-font h3 {
+  font-family: var(--font-heading);
+}
+
+.cm-surface {
+  background: var(--cm-paper);
+  color: var(--cm-ink);
+}
+
+.cm-eyebrow {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: var(--cm-green-deep);
+}
+
+.cm-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 13px;
+  padding: 12px 18px;
+  min-height: 44px;
+  font-size: 13px;
+  font-weight: 700;
+  border: 1px solid var(--cm-line);
+  background: var(--cm-white);
+  color: var(--cm-ink);
+  transition: background .18s ease, transform .18s ease, box-shadow .18s ease;
+  cursor: pointer;
+}
+.cm-btn:hover { background: var(--cm-orange-light); }
+.cm-btn:active { transform: translateY(1px); }
+.cm-btn-primary {
+  background: var(--cm-green);
+  border-color: var(--cm-green);
+  color: var(--cm-brand-black);
+}
+.cm-btn-primary:hover { background: var(--cm-green-soft); }
+.cm-btn-orange {
+  background: var(--cm-orange);
+  border-color: var(--cm-orange);
+  color: var(--cm-brand-black);
+}
+.cm-btn-orange:hover { background: #ff8126; }
+.cm-btn-ghost {
+  background: transparent;
+  border: 1px solid var(--cm-line);
+}
+
+.cm-card {
+  background: var(--cm-white);
+  border: 1px solid var(--cm-line);
+  border-radius: var(--cm-radius);
+  padding: 20px;
+  box-shadow: 0 3px 15px rgba(38, 59, 50, 0.03);
+}
+
+.cm-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 5px 10px;
+  border-radius: 8px;
+  background: #edf0e3;
+  color: var(--cm-ink);
+}
+.cm-pill-green { background: #e0eedf; color: var(--cm-green); }
+.cm-pill-warm { background: var(--cm-orange-light); color: #984422; }
+.cm-pill-lavender { background: var(--cm-purple); color: #665783; }
+
+.cm-hex {
+  clip-path: polygon(25% 4%, 75% 4%, 100% 50%, 75% 96%, 25% 96%, 0 50%);
+}
+
+.cm-device {
+  border: 6px solid var(--cm-brand-black);
+  border-radius: 40px;
+  box-shadow: 0 20px 50px rgba(24, 24, 27, 0.18);
+  overflow: hidden;
+  background: var(--cm-paper);
+}
+
+/* ===== Modo noturno (escopo: componentes .cm-*, não o site inteiro) =====
+   Ativado com a classe .cm-dark num ancestral (o próprio .cm-device da demo). */
+.cm-dark {
+  --cm-paper: #18181B;
+  --cm-white: #242427;
+  --cm-ink: #fafafa;
+  --cm-muted: #b7b7bf;
+  --cm-line: #414146;
+  --cm-orange-light: #3d291c;
+  --cm-green-deep: #FFAC00;
+  --cm-lime: #352d1b;
+  --cm-lime-deep: #65512e;
+  --cm-purple: #3d291c;
+  --cm-shadow: 0 12px 45px rgba(0, 0, 0, 0.25);
+}
+.cm-dark .cm-btn { background: var(--cm-white); color: var(--cm-ink); border-color: var(--cm-line); }
+.cm-dark .cm-btn:hover { background: #343438; }
+.cm-dark .cm-btn-primary { background: var(--cm-brand-yellow); color: var(--cm-brand-black); }
+.cm-dark .cm-btn-orange { background: var(--cm-brand-orange); color: var(--cm-brand-black); }
+.cm-dark .cm-pill { background: #352d1b; color: var(--cm-ink); }
+.cm-dark .cm-pill-green { background: #23331f; color: #9fdb8f; }
+.cm-dark .cm-pill-warm, .cm-dark .cm-pill-lavender { background: var(--cm-orange-light); color: #ffb67e; }
+.cm-dark.cm-device { border-color: var(--cm-brand-black); }
+
+/* Marca e personagem compartilhados pela landing e pelo simulador. */
+.co-brand-pair { display:flex; align-items:center; gap:15px; }
+.co-entre-pretas { width:115px; max-height:58px; object-fit:contain; }
+.co-colmeia-logo { width:110px; max-height:52px; object-fit:contain; }
+.co-brand-divider { width:1px; height:34px; background:var(--cm-line); }
+.co-event-label { font-size:11px; font-weight:800; text-align:right; color:var(--cm-ink); }
+.co-event-label span { color:var(--cm-muted); font-size:10px; font-weight:400; }
+.co-hero-grid { display:grid; grid-template-columns:1.4fr 1fr; align-items:center; gap:40px; }
+.co-bee3d { position:relative; width:100%; margin:0 auto; text-align:center; }
+.co-bee3d-touch { display:block; width:100%; border:0; padding:0; background:none; cursor:pointer; border-radius:24px; }
+.co-bee3d-touch:focus-visible { outline:3px solid #f86700; }
+.co-bee3d-canvas { display:block; width:100%; }
+.co-bee3d-canvas canvas { display:block; max-width:100%; height:auto!important; }
+.co-bee-greeting { display:block; min-height:34px; font-size:11px; color:var(--cm-muted); padding:8px 0; }
+@media(max-width:640px) { .co-hero-grid { grid-template-columns:1fr; gap:20px; } .co-brand-pair { gap:8px; } .co-entre-pretas { width:85px; } .co-colmeia-logo { width:85px; } .co-event-label { display:none; } }

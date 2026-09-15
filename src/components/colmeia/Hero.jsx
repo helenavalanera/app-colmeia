@@ -12,7 +12,7 @@ export default function Hero() {
             Uma escola de <em style={{ fontStyle: "normal", color: "var(--cm-orange)" }}>conexões</em>, construída pelos alunos.
           </h1>
           <p style={{ maxWidth: 400, color: "var(--cm-muted)", fontSize: 14, lineHeight: 1.6, marginTop: 18 }}>
-            Comunidades e clubes conectam estudantes do 6º ao 9º ano. Embaixadores mobilizam os grupos, favos compõem respostas coletivas e o mediador apoia quando necessário.
+            A primeira missão nasce na turma. Depois, clubes conectam estudantes do 6º ao 9º ano, embaixadores mobilizam os grupos e cada favo completa uma resposta coletiva.
           </p>
           <div className="flex flex-wrap gap-3" style={{ marginTop: 22 }}>
             <Link to="/app?visao=aluno" className="cm-btn cm-btn-primary">Explorar como aluno</Link>

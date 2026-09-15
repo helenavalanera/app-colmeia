@@ -1,10 +1,10 @@
 import React from "react";
 
 const STEPS = [
-  { n: 1, title: "Alunos se encontram em comunidades e clubes", text: "Interesses e propósitos conectam estudantes de diferentes turmas. Embaixadores convidam e organizam o grupo." },
-  { n: 2, title: "Uma missão, diferentes favos", text: "Cada estudante acessa seu próprio fragmento. A resposta coletiva depende das contribuições de todos." },
-  { n: 3, title: "A conversa acontece na escola", text: "O clube troca experiências presencialmente, exercitando escuta, empatia e cooperação. O mediador oferece apoio." },
-  { n: 4, title: "A descoberta volta para a comunidade", text: "O grupo registra sua resposta e compartilha saberes que outros clubes podem conhecer e continuar." },
+  { n: 1, title: "A missão começa na turma", text: "O mediador lança uma pergunta para uma turma. O celular apresenta o ponto de partida e devolve os estudantes para a escola." },
+  { n: 2, title: "Uma missão, diferentes favos", text: "Cada estudante acessa apenas seu fragmento. O caminho e a resposta surgem quando as partes se encontram presencialmente." },
+  { n: 3, title: "As turmas conectam saberes", text: "Estudantes do 6º ao 9º ano exercitam escuta, empatia, cooperação e liderança em uma resposta coletiva." },
+  { n: 4, title: "Os clubes mantêm a rede viva", text: "Interesses levam a clubes conduzidos por embaixadores. As descobertas retornam ao feed da escola e inspiram novos encontros." },
 ];
 
 export default function HowItWorks() {
@@ -22,8 +22,8 @@ export default function HowItWorks() {
               border: "1px solid var(--cm-lime-deep)",
               borderRadius: "var(--cm-radius)",
               padding: 20,
-              display: "flex",          // <-- 1. Transforma o card em flexbox
-              flexDirection: "column",   // <-- 2. Empilha os elementos em coluna
+              display: "flex",
+              flexDirection: "column",
             }}
           >
             <div
@@ -37,7 +37,6 @@ export default function HowItWorks() {
               {s.n}
             </div>
             <h3 style={{ fontSize: 15, marginBottom: 6, color: "var(--cm-ink)" }}>{s.title}</h3>
-            {/* <-- 3. margin-top: auto empurra o parágrafo para a base alinhada */}
             <p style={{ fontSize: 13, color: "var(--cm-muted)", lineHeight: 1.5, margin: 0, marginTop: "auto" }}>
               {s.text}
             </p>

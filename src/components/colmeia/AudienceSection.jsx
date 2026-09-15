@@ -1,4 +1,5 @@
 import React from "react";
+import { Check } from "lucide-react";
 
 const COLS = [
   {
@@ -34,7 +35,7 @@ export default function AudienceSection() {
             <ul style={{ margin: 0, padding: 0, listStyle: "none", display: "grid", gap: 11 }}>
               {col.items.map((it) => (
                 <li key={it} style={{ fontSize: 14, lineHeight: 1.5, display: "flex", gap: 8, color: "var(--cm-ink)" }}>
-                  <span style={{ color: "var(--cm-orange)", fontWeight: 800, flexShrink: 0 }}>✓</span>
+                  <Check size={16} aria-hidden="true" style={{ color: "var(--cm-orange)", flexShrink: 0, marginTop: 2 }} />
                   {it}
                 </li>
               ))}

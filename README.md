@@ -1,15 +1,15 @@
 # Colmeia — Ecossistema de Comunidades Escolares
 
-Protótipo do **HACKTUDO 2026** (equipe Entre Pretas), construído como app Base44 (React + Vite). A Colmeia propõe outro jeito de usar o celular na escola: em vez de mais uma tela sozinha, **comunidades e clubes conduzidos pelos próprios alunos**, cruzando turmas do 6º ao 9º ano em torno de missões colaborativas — com o mediador (professor, orientador, bibliotecário...) em papel de apoio, nunca de vigilância.
+Protótipo do **HACKTUDO 2026** (equipe Entre Pretas), construído como app Base44 (React + Vite). A Colmeia propõe outro jeito de usar o celular na escola: a escola é uma comunidade, e **clubes conduzidos pelos próprios alunos** cruzam turmas do 6º ao 9º ano em torno de missões colaborativas — com o mediador (professor, orientador, bibliotecário...) em papel de apoio, nunca de vigilância.
 
 ## O que a Colmeia faz hoje
 
-- **Comunidades e clubes liderados por alunos** — um clube reúne estudantes de turmas diferentes em torno de um interesse comum. Um aluno atua como **embaixador**, organiza encontros e convida colegas; qualquer aluno pode propor um novo clube ou uma nova comunidade.
-- **Missões com "favo"** — cada missão se divide em fragmentos (favos). Cada membro do clube só acessa o próprio fragmento; a resposta coletiva só existe quando o grupo se encontra presencialmente e reúne as partes.
-- **Feed de saberes** — clubes compartilham descobertas (texto e foto) no feed da própria comunidade e no feed geral da escola; outros clubes comentam e dão continuidade à conversa.
-- **Apoio do mediador, não vigilância** — o mediador acolhe pedidos do clube (pólen/orientação, mais tempo, favo coringa para quem está sem celular) e acompanha um panorama agregado das comunidades — nunca conduz nem avalia aluno por aluno.
+- **Uma escola, muitos clubes** — um clube reúne estudantes de turmas diferentes em torno de um interesse comum. Um aluno atua como **embaixador**, organiza encontros e convida colegas; qualquer aluno pode propor um novo clube.
+- **Missões com "favo"** — a primeira missão pode ser lançada para uma turma e abrir o caminho para a descoberta dos clubes. Cada participante só acessa o próprio fragmento; o percurso e a resposta coletiva surgem quando o grupo reúne as partes presencialmente.
+- **Feed de saberes** — clubes compartilham descobertas em texto e foto no feed da escola. O aluno alterna entre conteúdo priorizado por seus interesses e tudo o que circula na escola, com curtidas e comentários, sem chat.
+- **Apoio do mediador, não vigilância** — o mediador lança missões para turmas ou clubes, acolhe pedidos de apoio (pólen/orientação, mais tempo, favo coringa para quem está sem celular) e acompanha um panorama agregado — sem conduzir os clubes nem avaliar aluno por aluno.
 - **Critério psicossocial da BNCC** — cada missão é vinculada a uma Competência Geral da BNCC com foco psicossocial (escuta e empatia, cooperação, autoconhecimento e cuidado, responsabilidade e autonomia), e não ao conteúdo de uma disciplina específica.
-- **Visão do aluno / visão do mediador no mesmo aparelho** — um só celular, com as duas visões trocando por toque ou arrastando a tela (swipe), no layout inspirado no Circle.
+- **Visão do aluno / visão do mediador no mesmo aparelho** — um só celular na demonstração, com um seletor externo e troca por gesto lateral, no layout mobile inspirado no Circle.
 - **Modo claro e modo escuro.**
 - **Minha Abelha** — personalização leve do avatar do aluno (roupa, chapéu).
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Home, Users, Hexagon, UserRound, ArrowLeft, Sun, Moon, Bell, Pencil, Plus, MessageCircle, Heart, Camera } from "lucide-react";
+import { Home, Users, Hexagon, UserRound, ArrowLeft, Sun, Moon, Bell, Pencil, Plus, MessageCircle, Heart, Camera, Sparkles, BadgeCheck, School, MapPin, BatteryMedium } from "lucide-react";
 import { CRITERIOS, TURMAS, useCommunity, timeAgo } from "@/state/CommunityState";
 import BeeMascot from "@/components/colmeia/BeeMascot";
 import { useSearchParams } from "react-router-dom";
@@ -8,7 +8,7 @@ import Bee3D from "@/components/colmeia/Bee3D";
 import { LOGO_COLMEIA } from "@/components/colmeia/SiteHeader";
 import "./community.css";
 
-const NAV = [{ id: "inicio", label: "Início", Icon: Home }, { id: "comunidades", label: "Comunidades", Icon: Users }, { id: "missoes", label: "Missões", Icon: Hexagon }, { id: "perfil", label: "Perfil", Icon: UserRound }];
+const NAV = [{ id: "inicio", label: "Início", Icon: Home }, { id: "missoes", label: "Missões", Icon: Hexagon }, { id: "clubes", label: "Clubes", Icon: Users }, { id: "perfil", label: "Perfil", Icon: UserRound }];
 
 export default function CommunityShell() {
   const { dark, toggleDark, storageError, avisos, pedidos } = useCommunity();
@@ -32,8 +32,7 @@ export default function CommunityShell() {
   const notice = avisos[0];
   useEffect(() => { scroll.current?.scrollTo(0, 0); }, [tab, detail, role]);
   function navigate(next) { setTab(next); setDetail(null); setNotifications(false); }
-  function openCommunity(id) { setTab("comunidades"); setDetail(id ? { type: "community", id } : null); }
-  function openClub(id, communityId = null) { setTab("comunidades"); setDetail({ type: "club", id, communityId }); }
+  function openClub(id, communityId = null) { setTab("clubes"); setDetail({ type: "club", id, communityId }); }
   function openMission(id, clubId = null, communityId = null) { setTab("missoes"); setDetail({ type: "mission", id, clubId, communityId }); }
   return <div className="co-stage cm-font">
     <div className="co-demo-heading"><span className="co-eyebrow">Uma escola. Diferentes perspectivas.</span><h1>Entre na Colmeia.</h1><p>Explore a jornada de quem participa e de quem apoia.</p></div>
@@ -41,14 +40,14 @@ export default function CommunityShell() {
     <div className={`cm-device co-phone${dark ? " cm-dark" : ""}`} onPointerMove={movePointer} onPointerLeave={() => { if (pointer.current) pointer.current.style.opacity = "0"; }} onPointerDown={() => pointer.current?.classList.add("is-pressed")} onPointerUp={() => pointer.current?.classList.remove("is-pressed")}>
       <span ref={pointer} className="co-touch-pointer" aria-hidden="true"><span /></span>
       <header className="co-header">
-        <div className="co-row"><img className="co-app-logo" src={LOGO_COLMEIA} alt="Colmeia" /><span className="co-muted co-small" title="Indicador ilustrativo da demonstração">Demo · 85% ▰</span><button className="co-icon" aria-label="Alternar modo claro e noturno" onClick={toggleDark}>{dark ? <Sun size={18} /> : <Moon size={18} />}</button><button className="co-icon" aria-label="Notificações" onClick={() => setNotifications(!notifications)}><Bell size={18} />{(role === "aluno" ? avisos.length : pedidos.filter((p) => !p.atendido).length) > 0 && <span className="co-dot" />}</button></div>
+        <div className="co-row"><img className="co-app-logo" src={LOGO_COLMEIA} alt="Colmeia" /><span className="co-battery co-muted co-small" title="Indicador ilustrativo da demonstração"><BatteryMedium size={16} /> 85%</span><button className="co-icon" aria-label="Alternar modo claro e noturno" onClick={toggleDark}>{dark ? <Sun size={18} /> : <Moon size={18} />}</button><button className="co-icon" aria-label="Notificações" onClick={() => setNotifications(!notifications)}><Bell size={18} />{(role === "aluno" ? avisos.length : pedidos.filter((p) => !p.atendido).length) > 0 && <span className="co-dot" />}</button></div>
         <p className="co-role-label">{role === "aluno" ? "Sua comunidade, seu jeito" : "Apoio à comunidade escolar"}</p>
       </header>
       <AnimatePresence mode="wait" initial={false}><motion.main key={role} initial={{ x: reducedMotion ? 0 : role === "mediador" ? 70 : -70, opacity: 0 }} animate={{ x: 0, opacity: 1 }} exit={{ x: reducedMotion ? 0 : role === "mediador" ? 70 : -70, opacity: 0 }} transition={{ duration: reducedMotion ? 0 : .22 }} ref={scroll} className="co-scroll" onTouchStart={(e) => { start.current = e.target.closest("button,input,textarea,select,a") ? null : { x: e.touches[0].clientX, y: e.touches[0].clientY }; }} onTouchEnd={(e) => { if (!start.current) return; const dx = e.changedTouches[0].clientX - start.current.x; const dy = e.changedTouches[0].clientY - start.current.y; if (Math.abs(dx) > 90 && Math.abs(dx) > Math.abs(dy) * 2) { setRole(dx < 0 ? "mediador" : "aluno"); setTab("inicio"); setDetail(null); } start.current = null; }}>
         {storageError && <p role="alert" className="co-note">Não foi possível salvar no navegador. As mudanças ficam disponíveis enquanto esta página estiver aberta.</p>}
-        {notifications ? <><Title eyebrow="Sua Colmeia" title="Notificações" />{role === "mediador" ? <Support /> : avisos.length ? avisos.map((a) => <Card key={a.id}>{a.texto}</Card>) : <Card>As respostas do mediador e as conclusões de missões aparecem aqui.</Card>}</> : role === "mediador" ? <Mediator tab={tab} /> : detail?.type === "club" ? <Club key={detail.id} id={detail.id} back={() => openCommunity(detail.communityId)} openMission={(id) => openMission(id, detail.id, detail.communityId)} /> : detail?.type === "mission" ? <Mission key={detail.id} id={detail.id} back={() => detail.clubId ? openClub(detail.clubId, detail.communityId) : setDetail(null)} /> : <>
+        {notifications ? <><Title eyebrow="Sua Colmeia" title="Notificações" />{role === "mediador" ? <Support /> : avisos.length ? avisos.map((a) => <Card key={a.id}>{a.texto}</Card>) : <Card>As respostas do mediador e as conclusões de missões aparecem aqui.</Card>}</> : role === "mediador" ? <Mediator tab={tab} /> : detail?.type === "club" ? <Club key={detail.id} id={detail.id} back={() => { setTab("clubes"); setDetail(null); }} openMission={(id) => openMission(id, detail.id, detail.communityId)} /> : detail?.type === "mission" ? <Mission key={detail.id} id={detail.id} back={() => detail.clubId && detail.fromClub ? openClub(detail.clubId, detail.communityId) : setDetail(null)} /> : <>
           {tab === "inicio" && <Feed openClub={openClub} />}
-          {tab === "comunidades" && <Communities openClub={openClub} selected={detail?.type === "community" ? detail.id : null} setSelected={openCommunity} />}
+          {tab === "clubes" && <Clubs openClub={openClub} />}
           {tab === "missoes" && <Missions openMission={openMission} />}
           {tab === "perfil" && <Profile />}
         </>}
@@ -63,17 +62,16 @@ function Card({ children, className = "" }) { return <section className={`co-car
 function Button({ children, onClick, disabled, secondary = false, type = "button" }) { return <button type={type} disabled={disabled} onClick={onClick} className={`co-button${secondary ? " co-secondary" : ""}`}>{children}</button>; }
 function Back({ onClick }) { return <button className="co-back" onClick={onClick}><ArrowLeft size={16} /> Voltar</button>; }
 function Field({ label, value, onChange, multiline = false, required = false }) { const Tag = multiline ? "textarea" : "input"; return <label className="co-field">{label}<Tag value={value} onChange={(e) => onChange(e.target.value)} required={required} maxLength={multiline ? 1500 : 100} rows={multiline ? 3 : undefined} /></label>; }
-function ClubLabel({ clubeId }) { const { clubes, comunidades } = useCommunity(); const c = clubes.find((item) => item.id === clubeId); const space = comunidades.find((item) => item.id === c?.comunidadeId); return <span className="co-muted co-small">{space?.nome} · {c?.nome}</span>; }
+function ClubLabel({ clubeId }) { const { clubes } = useCommunity(); const c = clubes.find((item) => item.id === clubeId); return <span className="co-muted co-small">Clube · {c?.nome}</span>; }
 
 function Feed({ openClub }) {
-  const { profile, posts, clubes, comunidades } = useCommunity();
+  const { profile, posts, clubes } = useCommunity();
   const [filter, setFilter] = useState("interesses");
   const normalize = (value) => value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
   const interests = normalize(profile.interesses || "").split(/[^a-z0-9]+/).filter((word) => word.length > 3);
   const score = (post) => {
     const club = clubes.find((c) => c.id === post.clubeId);
-    const community = comunidades.find((c) => c.id === club?.comunidadeId);
-    const content = normalize(`${club?.nome || ""} ${club?.descricao || ""} ${community?.nome || ""} ${post.texto}`);
+    const content = normalize(`${club?.nome || ""} ${club?.descricao || ""} ${post.texto}`);
     return interests.filter((word) => content.includes(word)).length;
   };
   const visible = [...posts].sort((a, b) => (filter === "interesses" ? score(b) - score(a) : 0) || b.criadoEm - a.criadoEm);
@@ -96,7 +94,7 @@ function Composer({ clubeId }) {
   const [photoError, setPhotoError] = useState("");
   const [expanded, setExpanded] = useState(false);
   if (!mine.length) return null;
-  return <Card><button className="co-compose-toggle" aria-expanded={expanded} onClick={() => setExpanded(!expanded)}><span className="co-avatar">✦</span><span>Compartilhe uma descoberta…</span><Plus size={16} /></button>{sent && !expanded && <p role="status">Descoberta compartilhada!</p>}{expanded && <form onSubmit={(e) => { e.preventDefault(); createPost(clubeId || selected, text, photo); setPhoto(null); setText(""); setSent(true); setExpanded(false); }}>
+  return <Card><button className="co-compose-toggle" aria-expanded={expanded} onClick={() => setExpanded(!expanded)}><span className="co-avatar"><Sparkles size={19} /></span><span>Compartilhe uma descoberta…</span><Plus size={16} /></button>{sent && !expanded && <p role="status">Descoberta compartilhada!</p>}{expanded && <form onSubmit={(e) => { e.preventDefault(); createPost(clubeId || selected, text, photo); setPhoto(null); setText(""); setSent(true); setExpanded(false); }}>
     <strong>{profile.nome} · {profile.turma}</strong>
     {!clubeId && <label className="co-field">Compartilhar no clube<select value={selected} onChange={(e) => setSelected(e.target.value)}>{mine.map((c) => <option key={c.id} value={c.id}>{c.nome}</option>)}</select></label>}
     <Field label="Sua descoberta" value={text} onChange={(t) => { setText(t); setSent(false); }} multiline />
@@ -114,40 +112,25 @@ function Post({ post, openClub, interestMatch = false }) {
   const [expanded, setExpanded] = useState(false);
   return <Card className="co-social-post"><div className="co-row"><span className="co-avatar">{post.autor.slice(0, 1)}</span><div><strong>{post.autor}</strong><div className="co-small co-muted">{timeAgo(post.criadoEm)}</div></div></div>
     <button className="co-link" onClick={() => openClub?.(post.clubeId)} disabled={!openClub}><ClubLabel clubeId={post.clubeId} /></button>
-    {interestMatch && <span className="co-interest-label">✦ Pelos seus interesses</span>}
-    {post.foto ? <img className="co-post-photo" src={post.foto} alt="Registro compartilhado pelo clube" /> : <div className="co-post-note"><span className="co-note-sticker">ideias que viram encontros ✦</span><p>{post.texto}</p><span className="co-note-corner" aria-hidden="true">✳</span></div>}
+    {interestMatch && <span className="co-interest-label"><Sparkles size={11} /> Pelos seus interesses</span>}
+    {post.foto ? <div className="co-post-media" onDoubleClick={() => toggleLike(post.id)}><img className="co-post-photo" src={post.foto} alt="Registro compartilhado pelo clube" /><span className="co-double-tap">Clique duas vezes para curtir</span></div> : <div className="co-post-note" onDoubleClick={() => toggleLike(post.id)}><span className="co-note-sticker">ideias que viram encontros</span><p>{post.texto}</p><Sparkles className="co-note-corner" size={92} aria-hidden="true" /></div>}
     <div className="co-social-actions"><button aria-pressed={(post.curtidas || []).includes("me")} aria-label={(post.curtidas || []).includes("me") ? "Descurtir publicação" : "Curtir publicação"} onClick={() => toggleLike(post.id)}><Heart size={23} fill={(post.curtidas || []).includes("me") ? "currentColor" : "none"} /><span>{(post.curtidas || []).length}</span></button><button aria-label="Abrir comentários" aria-expanded={expanded} onClick={() => setExpanded(!expanded)}><MessageCircle size={23} /><span>{post.comentarios.length}</span></button></div>
     {post.foto && post.texto && <p className="co-body"><strong>{post.autor}</strong> {post.texto}</p>}
     <button className="co-back" onClick={() => setExpanded(!expanded)}><MessageCircle size={16} /> {post.comentarios.length} comentários · Abrir conversa</button>
     {expanded && <><div className="co-replies">{post.comentarios.map((c, i) => <p key={i}><strong>{c.autor}</strong><br />{c.texto}</p>)}</div><form onSubmit={(e) => { e.preventDefault(); comment(post.id, reply); setReply(""); }}><Field label="Seu comentário" value={reply} onChange={setReply} required /><Button type="submit" disabled={!reply.trim()}>Responder</Button></form></>}
   </Card>;
 }
-function Communities({ openClub, selected, setSelected }) {
-  const { comunidades, clubes, missoes, posts, createClub } = useCommunity();
+function Clubs({ openClub }) {
+  const { clubes, createClub } = useCommunity();
   const [filter, setFilter] = useState("minhas");
-  const [layer, setLayer] = useState("clubes");
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [creating, setCreating] = useState(false);
-  const shown = comunidades.filter((c) => filter === "descobrir" || clubes.some((club) => club.comunidadeId === c.id && club.membros.includes("me")));
-  if (selected) {
-    const community = comunidades.find((c) => c.id === selected);
-    const communityClubs = clubes.filter((c) => c.comunidadeId === selected);
-    const clubIds = new Set(communityClubs.map((c) => c.id));
-    const discoveries = posts.filter((post) => clubIds.has(post.clubeId));
-    const spaces = [...new Set(communityClubs.flatMap((c) => c.espacos || []))];
-    return <><Back onClick={() => { setSelected(null); setCreating(false); }} /><Title eyebrow="Escola / Comunidades" title={community.nome}>{community.descricao}</Title>
-      <div className="co-ecosystem"><span className="co-sticker">a escola acontece aqui</span><div className="co-metrics"><span><strong>{communityClubs.length}</strong> clubes</span><span><strong>{spaces.length}</strong> espaços</span><span><strong>{missoes.filter((m) => clubIds.has(m.clubeId) && m.status === "ativa").length}</strong> missões ativas</span></div></div>
-      <LayerTabs label="Camadas da comunidade" value={layer} onChange={setLayer} items={[["clubes", "Clubes"], ["saberes", "Saberes"], ["agenda", "Agenda"]]} />
-      {layer === "saberes" && <><p className="co-muted">Descobertas dos clubes que alimentam esta comunidade.</p>{discoveries.length ? discoveries.map((post) => <Post key={post.id} post={post} openClub={(id) => openClub(id, selected)} />) : <Card>A primeira descoberta ainda está por vir. As respostas compartilhadas pelos clubes aparecem aqui.</Card>}</>}
-      {layer === "agenda" && <><h3>Encontros e espaços da escola</h3><p className="co-small co-muted">Rituais combinados pelos clubes. O embaixador atualiza o encontro em Organizar clube.</p>{communityClubs.map((c) => <Card key={c.id}><span className="co-tag">Encontro do clube</span><h3>{c.nome}</h3><p>{c.encontro}</p><SpaceTags spaces={c.espacos} /><Button secondary onClick={() => openClub(c.id, selected)}>Ver clube e encontro</Button></Card>)}{!communityClubs.length && <Card>Os encontros aparecerão quando a comunidade tiver clubes.</Card>}</>}
-      {layer === "clubes" && <><p className="co-note">Alunos de diferentes turmas conduzem os clubes. Embaixadores organizam; o mediador apoia quando chamado.</p>
-      {communityClubs.map((c) => <ClubCard key={c.id} club={c} openClub={(id) => openClub(id, selected)} />)}
-      <Button secondary onClick={() => setCreating(!creating)}><Plus size={16} /> Propor um clube</Button>{creating && <Card><form onSubmit={(e) => { e.preventDefault(); createClub(selected, name, description); setName(""); setDescription(""); setCreating(false); }}><Field label="Nome do clube" value={name} onChange={setName} required /><Field label="O que vocês querem construir juntos?" value={description} onChange={setDescription} multiline required /><p className="co-small">Você começa como embaixador e pode convidar colegas para construir o clube.</p><Button type="submit" disabled={!name.trim() || !description.trim()}>Criar clube</Button></form></Card>}</>}
-    </>;
-  }
-  return <><Title eyebrow="Encontre sua turma de ideias" title="Comunidades">Clubes de alunos, conexões entre turmas.</Title><div className="co-tabs">{[["minhas", "Minhas comunidades"], ["descobrir", "Descobrir"]].map(([id, label]) => <button key={id} aria-pressed={filter === id} onClick={() => setFilter(id)}>{label}</button>)}</div>
-    {shown.map((c) => <button className="co-card co-community" key={c.id} onClick={() => { setLayer("clubes"); setSelected(c.id); }}><span className="co-community-art">{c.emoji}</span><strong>{c.nome}</strong><p>{c.descricao}</p><span className="co-small">{clubes.filter((club) => club.comunidadeId === c.id).length} clubes · Explorar →</span></button>)}
+  const shown = clubes.filter((club) => filter === "descobrir" || club.membros.includes("me"));
+  return <><Title eyebrow="A escola é a comunidade" title="Clubes">Encontre interesses em comum e construa com estudantes de outras turmas.</Title><div className="co-tabs">{[["minhas", "Meus clubes"], ["descobrir", "Descobrir"]].map(([id, label]) => <button key={id} aria-pressed={filter === id} onClick={() => setFilter(id)}>{label}</button>)}</div>
+    <div className="co-ecosystem"><span className="co-sticker">uma escola, muitos clubes</span><p>Os clubes são conduzidos por estudantes. Embaixadores acolhem, convidam e organizam; o mediador entra quando o grupo pede apoio.</p></div>
+    {shown.map((c) => <ClubCard key={c.id} club={c} openClub={openClub} />)}
+    <Button secondary onClick={() => setCreating(!creating)}><Plus size={16} /> Propor um clube</Button>{creating && <Card><form onSubmit={(e) => { e.preventDefault(); createClub("convivencia", name, description); setName(""); setDescription(""); setCreating(false); }}><Field label="Nome do clube" value={name} onChange={setName} required /><Field label="O que vocês querem construir juntos?" value={description} onChange={setDescription} multiline required /><p className="co-small">Você começa como embaixador e pode convidar colegas de outras turmas.</p><Button type="submit" disabled={!name.trim() || !description.trim()}>Criar clube</Button></form></Card>}
   </>;
 }
 function ClubCard({ club, openClub }) { return <Card><h3>{club.nome}</h3><p className="co-muted">{club.descricao}</p><p className="co-small">{club.membros.length} participantes · {club.turmas.join(" · ")}</p><SpaceTags spaces={club.espacos} /><span className="co-tag">{club.embaixador === "me" ? "Você é embaixador" : club.membros.includes("me") ? "Você participa" : "Inscrições abertas"}</span><Button secondary onClick={() => openClub(club.id)}>Abrir clube</Button></Card>; }
@@ -187,9 +170,9 @@ function ManageClub({ club }) {
   </Card>;
 }
 function Missions({ openMission }) {
-  const { missoes, clubes } = useCommunity();
-  const mine = missoes.filter((m) => clubes.some((c) => c.id === m.clubeId && c.membros.includes("me"))).sort((a, b) => Number(a.status === "concluida") - Number(b.status === "concluida") || a.prazo - b.prazo);
-  return <><Title eyebrow="Cada parte importa" title="Missões">Seu favo contribui para uma resposta que só existe em conjunto.</Title>{mine.length ? mine.map((m) => <MissionCard key={m.id} mission={m} openMission={openMission} />) : <Card>Entre em um clube para participar das missões.</Card>}</>;
+  const { missoes, clubes, profile } = useCommunity();
+  const mine = missoes.filter((m) => m.escopo === "turma" ? m.turma === profile.turma : clubes.some((c) => c.id === m.clubeId && c.membros.includes("me"))).sort((a, b) => Number(a.status === "concluida") - Number(b.status === "concluida") || a.prazo - b.prazo);
+  return <><Title eyebrow="Cada parte importa" title="Missões">A missão da sua turma abre o caminho. Nos clubes, novos favos mantêm a rede viva.</Title>{mine.length ? mine.map((m) => <MissionCard key={m.id} mission={m} openMission={openMission} />) : <Card>Quando uma missão for lançada para sua turma ou para um de seus clubes, ela aparecerá aqui.</Card>}</>;
 }
 function Timer({ deadline }) {
   const [now, setNow] = useState(Date.now());
@@ -197,7 +180,7 @@ function Timer({ deadline }) {
   const seconds = Math.max(0, Math.ceil((deadline - now) / 1000));
   return <span className="co-small">{seconds ? `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, "0")} restantes` : "Prazo encerrado · peça mais tempo se precisar"}</span>;
 }
-function MissionCard({ mission, openMission }) { return <Card className={mission.status === "concluida" ? "co-completed" : ""}><ClubLabel clubeId={mission.clubeId} /><h3>{mission.titulo}</h3><p className="co-muted">{mission.descricao}</p>{mission.status === "concluida" ? <span className="co-tag co-success">✓ Concluída</span> : <Timer deadline={mission.prazo} />}<Button secondary onClick={() => openMission(mission.id)}>{mission.status === "concluida" ? "Ver relatório final" : "Ver missão"}</Button></Card>; }
+function MissionCard({ mission, openMission }) { return <Card className={mission.status === "concluida" ? "co-completed" : ""}>{mission.escopo === "turma" ? <span className="co-muted co-small"><School size={13} /> Missão da turma · {mission.turma}</span> : <ClubLabel clubeId={mission.clubeId} />}<h3>{mission.titulo}</h3><p className="co-muted">{mission.descricao}</p>{mission.status === "concluida" ? <span className="co-tag co-success"><BadgeCheck size={13} /> Concluída</span> : <Timer deadline={mission.prazo} />}<Button secondary onClick={() => openMission(mission.id)}>{mission.status === "concluida" ? "Ver relatório final" : "Ver missão"}</Button></Card>; }
 function Mission({ id, back }) {
   const { missoes, confirmFavo, completeMission, shareMission, requestSupport, pedidos } = useCommunity();
   const [text, setText] = useState("");
@@ -212,10 +195,10 @@ function Mission({ id, back }) {
     if (!/^image\/(jpeg|png|webp)$/.test(file.type) || file.size > 1000000) { setError("Escolha uma foto JPG, PNG ou WebP de até 1 MB."); e.target.value = ""; return; }
     const reader = new FileReader(); reader.onload = () => setPhoto(reader.result); reader.onerror = () => setError("Não foi possível ler a foto. Tente novamente."); reader.readAsDataURL(file);
   }
-  return <><Back onClick={back} /><ClubLabel clubeId={m.clubeId} /><Title eyebrow={m.status === "concluida" ? "Relatório final" : "Missão do clube"} title={m.titulo}>{m.descricao}</Title><MissionSteps mission={m} favoOpen={favoOpen} />
-    {m.status === "concluida" ? <><Card><span className="co-tag co-success">✓ Resposta coletiva concluída</span><p>{m.resposta}</p>{m.foto && <img src={m.foto} alt="Evidência da resposta coletiva" className="co-evidence" />}<h3>O que exercitamos</h3>{m.criterios.map((c) => <p key={c}>✦ {c}</p>)}<p className="co-muted co-small">Reconhecimento da experiência do grupo, sem nota individual.</p><Button disabled={m.compartilhada} onClick={() => shareMission(id)}>{m.compartilhada ? "Compartilhada no feed" : "Compartilhar resposta no feed"}</Button><p className="co-small co-muted">O registro aparecerá no clube e na comunidade escolar.</p></Card></> : <>
+  return <><Back onClick={back} />{m.escopo === "turma" ? <span className="co-muted co-small"><School size={13} /> Missão da turma · {m.turma}</span> : <ClubLabel clubeId={m.clubeId} />}<Title eyebrow={m.status === "concluida" ? "Relatório final" : m.escopo === "turma" ? "Missão da turma" : "Missão do clube"} title={m.titulo}>{m.descricao}</Title><MissionSteps mission={m} favoOpen={favoOpen} />
+    {m.status === "concluida" ? <><Card><span className="co-tag co-success"><BadgeCheck size={13} /> Resposta coletiva concluída</span><p>{m.resposta}</p>{m.foto && <img src={m.foto} alt="Evidência da resposta coletiva" className="co-evidence" />}<h3>O que exercitamos</h3>{m.criterios.map((c) => <p key={c} className="co-criterion"><BadgeCheck size={15} /> {c}</p>)}<p className="co-muted co-small">Reconhecimento da experiência do grupo, sem nota individual.</p><Button disabled={m.compartilhada} onClick={() => shareMission(id)}>{m.compartilhada ? "Compartilhada no feed" : "Compartilhar resposta no feed"}</Button><p className="co-small co-muted">O registro aparecerá no clube e no feed da escola.</p></Card></> : <>
       <Card><Timer deadline={m.prazo} /><h3>O que vamos exercitar</h3><div className="co-space-tags">{m.criterios.map((c) => <span className="co-tag" key={c}>{c}</span>)}</div><p className="co-small co-muted">Uma pergunta coletiva, contribuições diferentes. O encontro presencial conecta as partes.</p></Card>
-      <Card><div className="co-favo">⬡</div><h3>Meu favo · um fragmento da resposta</h3>{!favoOpen ? <><p>Seu fragmento abre uma perspectiva para a conversa. Os favos dos colegas continuam com eles.</p><Button onClick={() => setFavoOpen(true)}>Abrir meu favo</Button></> : <><p className="co-eyebrow">Só você vê este fragmento</p><p>{m.favo}</p><p className="co-note">Converse com diferentes colegas do clube. Descubram presencialmente como as partes se conectam.</p></>}</Card>
+      <Card><div className="co-favo"><Hexagon size={70} strokeWidth={1.7} /></div><h3>Meu favo · um fragmento da resposta</h3>{!favoOpen ? <><p>Seu fragmento abre uma perspectiva para a conversa. Os favos dos colegas continuam com eles.</p><Button onClick={() => setFavoOpen(true)}>Abrir meu favo</Button></> : <><p className="co-eyebrow">Só você vê este fragmento</p><p>{m.favo}</p><p className="co-note">Converse com colegas e interpretem juntos o caminho. Os locais da missão fazem parte da descoberta.</p></>}</Card>
       <Card><strong>{m.confirmados} de {m.total} favos reunidos</strong><progress value={m.confirmados} max={m.total} /><p className="co-small co-muted">Cenário de demonstração: as outras duas contribuições já foram confirmadas. Seu check-in fecha este encontro.</p><Button disabled={m.meuConfirmado || !favoOpen} onClick={() => confirmFavo(id)}>{m.meuConfirmado ? "Minha conversa está confirmada" : "Conversei e contribuí com meu favo"}</Button></Card>
       {m.registrador === "me" && <Card><h3>Registre a resposta de vocês</h3><p>Você confirmou o último favo e registra o que o grupo decidiu. Combinem a resposta antes de enviar.</p><Field label="Resposta coletiva" value={text} onChange={setText} multiline /><label className="co-field">Foto da descoberta · opcional<input type="file" accept="image/jpeg,image/png,image/webp" onChange={loadPhoto} /></label>{photo && <><img className="co-evidence" src={photo} alt="Prévia da foto selecionada" /><Button secondary onClick={() => setPhoto(null)}>Remover foto</Button></>}{error && <p role="alert">{error}</p>}<Button disabled={!text.trim() && !photo} onClick={() => completeMission(id, text, photo)}>Concluir resposta coletiva</Button></Card>}
       <SupportRequest clubeId={m.clubeId} missaoId={id} /><Card><h3>Tempo e inclusão</h3>{["Mais 5 minutos", "Favo coringa"].map((tipo) => <Button secondary key={tipo} disabled={pedidos.some((p) => p.missaoId === id && p.tipo === tipo && !p.atendido)} onClick={() => requestSupport(m.clubeId, tipo, id)}>{pedidos.some((p) => p.missaoId === id && p.tipo === tipo && !p.atendido) ? `${tipo} · solicitado` : tipo}</Button>)}<p className="co-small co-muted">O favo coringa é um pedido ao mediador para incluir alguém sem celular. Combine quem registrará sua contribuição.</p></Card>
@@ -231,8 +214,8 @@ function Profile() {
   const completed = missoes.filter((m) => m.status === "concluida");
   return <><Title eyebrow="Seu lugar na Colmeia" title="Perfil" /><Card><button className="co-profile-bee" aria-label="Abrir Minha Abelha" onClick={() => setAvatar(!avatar)}><BeeMascot size={80} equipped={profile.equipped} /></button><h3>{profile.nome}</h3><p>{profile.turma} · {profile.interesses}</p><Button secondary onClick={() => { setDraft(profile); setEdit(!edit); setSaved(false); }}><Pencil size={15} /> Editar perfil</Button>{saved && <p role="status">Perfil salvo neste navegador.</p>}</Card>
     {edit && <Card><form onSubmit={(e) => { e.preventDefault(); saveProfile({ ...draft, nome: draft.nome.trim() }); setEdit(false); setSaved(true); }}><Field label="Nome" value={draft.nome} onChange={(nome) => setDraft({ ...draft, nome })} required /><label className="co-field">Minha turma<select value={draft.turma} onChange={(e) => setDraft({ ...draft, turma: e.target.value })}>{TURMAS.map((t) => <option key={t}>{t}</option>)}</select></label><Field label="Interesses" value={draft.interesses} onChange={(interesses) => setDraft({ ...draft, interesses })} /><Button type="submit" disabled={!draft.nome.trim()}>Salvar perfil</Button></form></Card>}
-    {avatar && <Card><h3>Minha Abelha · {profile.nome}</h3><div className="co-bee co-bee-room"><span className="co-room-sticker">meu jeito de ser ✦</span><Bee3D size={255} equipped={profile.equipped} /></div><p>Sua abelha, seu jeito de participar.</p><label className="co-field">Personalizar roupa<select value={profile.equipped.roupa || ""} onChange={(e) => saveProfile({ ...profile, equipped: { ...profile.equipped, roupa: e.target.value } })}><option value="">Clássica</option><option value="camisa_lima">Camiseta lima</option><option value="camisa_roxa">Camiseta lilás</option></select></label><label className="co-field">Personalizar chapéu<select value={profile.equipped.chapeu || ""} onChange={(e) => saveProfile({ ...profile, equipped: { ...profile.equipped, chapeu: e.target.value } })}><option value="">Sem chapéu</option><option value="chapeu_flor">Flor</option><option value="chapeu_grao">Formatura</option></select></label><label className="co-field">Personalizar saia<select value={profile.equipped.saia || ""} onChange={(e) => saveProfile({ ...profile, equipped: { ...profile.equipped, saia: e.target.value } })}><option value="">Sem saia</option><option value="saia_laranja">Saia laranja</option><option value="saia_lima">Saia lima</option></select></label></Card>}
-    <Card><h3>Minha participação</h3><p>{clubes.filter((c) => c.membros.includes("me")).length} clubes · {completed.length} respostas coletivas</p>{clubes.filter((c) => c.embaixador === "me").map((c) => <p key={c.id} className="co-tag">Embaixador · {c.nome}</p>)}{completed.length > 0 && <><h3>Competências exercitadas</h3>{[...new Set(completed.flatMap((m) => m.criterios))].map((c) => <p key={c}>✦ {c}</p>)}</>}</Card>
+    {avatar && <Card><h3>Minha Abelha · {profile.nome}</h3><div className="co-bee co-bee-room"><span className="co-room-sticker">meu jeito de ser</span><Bee3D size={255} equipped={profile.equipped} /></div><p>Sua abelha, seu jeito de participar.</p><label className="co-field">Personalizar roupa<select value={profile.equipped.roupa || ""} onChange={(e) => saveProfile({ ...profile, equipped: { ...profile.equipped, roupa: e.target.value } })}><option value="">Clássica</option><option value="camisa_lima">Camiseta lima</option><option value="camisa_roxa">Camiseta lilás</option></select></label><label className="co-field">Personalizar chapéu<select value={profile.equipped.chapeu || ""} onChange={(e) => saveProfile({ ...profile, equipped: { ...profile.equipped, chapeu: e.target.value } })}><option value="">Sem chapéu</option><option value="chapeu_flor">Flor</option><option value="chapeu_grao">Formatura</option></select></label><label className="co-field">Personalizar saia<select value={profile.equipped.saia || ""} onChange={(e) => saveProfile({ ...profile, equipped: { ...profile.equipped, saia: e.target.value } })}><option value="">Sem saia</option><option value="saia_laranja">Saia laranja</option><option value="saia_lima">Saia lima</option></select></label></Card>}
+    <Card><h3>Minha participação</h3><p>{clubes.filter((c) => c.membros.includes("me")).length} clubes · {completed.length} respostas coletivas</p>{clubes.filter((c) => c.embaixador === "me").map((c) => <p key={c.id} className="co-tag">Embaixador · {c.nome}</p>)}{completed.length > 0 && <><h3>Competências exercitadas</h3>{[...new Set(completed.flatMap((m) => m.criterios))].map((c) => <p key={c} className="co-criterion"><BadgeCheck size={15} /> {c}</p>)}</>}</Card>
   </>;
 }
 function Support() {
@@ -263,24 +246,34 @@ function LayerTabs({ label, items, value, onChange }) {
   return <div className="co-tabs" role="group" aria-label={label}>{items.map(([id, title]) => <button key={id} aria-pressed={value === id} onClick={() => onChange(id)}>{title}</button>)}</div>;
 }
 function SpaceTags({ spaces = [] }) {
-  return <div className="co-space-tags">{spaces.length ? spaces.map((space) => <span key={space} className="co-space-tag">⌂ {space}</span>) : <span className="co-small co-muted">Espaço a combinar com o clube</span>}</div>;
+  return <div className="co-space-tags">{spaces.length ? spaces.map((space) => <span key={space} className="co-space-tag"><MapPin size={12} /> {space}</span>) : <span className="co-small co-muted">Espaço a combinar com o clube</span>}</div>;
 }
 function MissionSteps({ mission, favoOpen }) {
   const step = mission.status === "concluida" ? 3 : mission.meuConfirmado ? 2 : favoOpen ? 1 : 0;
-  return <ol className="co-steps" aria-label="Etapas da missão">{["Meu favo", "Encontro", "Resposta", "Saberes"].map((label, i) => <li key={label} aria-current={i === step ? "step" : undefined} className={i < step ? "is-done" : ""}><span>{i < step ? "✓" : i + 1}</span>{label}</li>)}</ol>;
+  return <ol className="co-steps" aria-label="Etapas da missão">{["Meu favo", "Encontro", "Resposta", "Saberes"].map((label, i) => <li key={label} aria-current={i === step ? "step" : undefined} className={i < step ? "is-done" : ""}><span>{i < step ? <BadgeCheck size={14} /> : i + 1}</span>{label}</li>)}</ol>;
 }
 
 function Mediator({ tab }) {
-  const { clubes, comunidades, missoes, posts, createCommunity } = useCommunity();
-  const section = { inicio: "apoio", missoes: "panorama", comunidades: "comunidades", perfil: "perfil" }[tab];
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
+  const { clubes, missoes, posts } = useCommunity();
+  const section = { inicio: "apoio", missoes: "panorama", clubes: "clubes", perfil: "perfil" }[tab];
+  const [creating, setCreating] = useState(false);
   return <><Title eyebrow="Presença que apoia" title="Apoiar a Colmeia">Os alunos conduzem os clubes. Você ajuda com escuta, inclusão e os recursos da escola.</Title><div className="co-stats"><Card><strong>{clubes.length}</strong><br />clubes</Card><Card><strong>{missoes.filter((m) => m.status === "ativa").length}</strong><br />missões ativas</Card></div>
     {section === "perfil" && <MediatorProfile />}
     {section === "apoio" && <><h3>Pedidos de apoio</h3><Support /><h3 className="co-section-title">Feed da comunidade escolar</h3>{posts.slice(0, 3).map((p) => <Card key={p.id}><ClubLabel clubeId={p.clubeId} /><p><strong>{p.autor}</strong></p><p>{p.texto}</p></Card>)}</>}
-    {section === "panorama" && <><Card><h3>Experiências compartilhadas</h3><p>{posts.length} postagens · {missoes.filter((m) => m.status === "concluida").length} respostas concluídas</p><p className="co-small co-muted">Registros de participação, sem classificação de alunos.</p></Card>{missoes.map((m) => <Card key={m.id}><ClubLabel clubeId={m.clubeId} /><h3>{m.titulo}</h3><p>{m.status === "ativa" ? "Em andamento" : "Resposta coletiva concluída"}</p>{m.criterios.map((c) => <p key={c} className="co-small">{c}</p>)}{m.resposta && <p>{m.resposta}</p>}{m.foto && <img src={m.foto} alt="Evidência enviada pelo grupo" className="co-evidence" />}</Card>)}</>}
-    {section === "comunidades" && <>{comunidades.map((c) => <Card key={c.id}><h3>{c.nome}</h3><p>{c.descricao}</p><p className="co-small">{clubes.filter((club) => club.comunidadeId === c.id).length} clubes conduzidos por alunos</p></Card>)}<Card><h3>Abrir uma comunidade</h3><form onSubmit={(e) => { e.preventDefault(); createCommunity(name, description); setName(""); setDescription(""); }}><Field label="Nome da comunidade" value={name} onChange={setName} required /><Field label="Propósito compartilhado" value={description} onChange={setDescription} multiline required /><Button type="submit" disabled={!name.trim() || !description.trim()}>Criar comunidade</Button></form></Card></>}
+    {section === "panorama" && <><Button secondary onClick={() => setCreating(!creating)}><Plus size={16} /> Criar missão</Button>{creating && <MediatorMissionComposer done={() => setCreating(false)} />}<Card><h3>Experiências compartilhadas</h3><p>{posts.length} postagens · {missoes.filter((m) => m.status === "concluida").length} respostas concluídas</p><p className="co-small co-muted">Registros de participação, sem classificação de alunos.</p></Card>{missoes.map((m) => <Card key={m.id}>{m.escopo === "turma" ? <span className="co-small co-muted"><School size={13} /> Turma · {m.turma}</span> : <ClubLabel clubeId={m.clubeId} />}<h3>{m.titulo}</h3><p>{m.status === "ativa" ? "Em andamento" : "Resposta coletiva concluída"}</p>{m.criterios.map((c) => <p key={c} className="co-small">{c}</p>)}{m.resposta && <p>{m.resposta}</p>}{m.foto && <img src={m.foto} alt="Evidência enviada pelo grupo" className="co-evidence" />}</Card>)}</>}
+    {section === "clubes" && <><Card><h3>A escola é a comunidade</h3><p>Os clubes são a forma de organizar interesses, encontros e missões entre turmas.</p><p className="co-small co-muted">O mediador acompanha sem assumir a liderança dos grupos.</p></Card>{clubes.map((c) => <Card key={c.id}><span className="co-tag">{c.embaixador === "me" ? "Embaixadora: Bia" : "Embaixador estudantil"}</span><h3>{c.nome}</h3><p>{c.descricao}</p><p className="co-small">{c.membros.length} participantes · {c.turmas.join(" · ")}</p></Card>)}</>}
   </>;
+}
+function MediatorMissionComposer({ done }) {
+  const { clubes, createMission } = useCommunity();
+  const [scope, setScope] = useState("turma");
+  const [target, setTarget] = useState("7º B");
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [favo, setFavo] = useState("");
+  const [criteria, setCriteria] = useState(CRITERIOS[0]);
+  const fallbackClub = clubes.find((c) => c.membros.includes("me")) || clubes[0];
+  return <Card><h3>Lançar uma missão</h3><p className="co-small co-muted">A turma pode ser a porta de entrada. Clubes recebem missões contínuas depois que os estudantes encontram seus interesses.</p><form onSubmit={(e) => { e.preventDefault(); const clubeId = scope === "clube" ? target : fallbackClub?.id; createMission({ escopo: scope, turma: scope === "turma" ? target : undefined, clubeId, titulo: title.trim(), descricao: description.trim(), favo: favo.trim(), criterios: [criteria] }); done(); }}><label className="co-field">Enviar para<select value={scope} onChange={(e) => { const next = e.target.value; setScope(next); setTarget(next === "turma" ? "7º B" : clubes[0]?.id || ""); }}><option value="turma">Uma turma</option><option value="clube">Um clube</option></select></label><label className="co-field">{scope === "turma" ? "Turma" : "Clube"}<select value={target} onChange={(e) => setTarget(e.target.value)}>{scope === "turma" ? TURMAS.map((t) => <option key={t}>{t}</option>) : clubes.map((c) => <option key={c.id} value={c.id}>{c.nome}</option>)}</select></label><Field label="Pergunta coletiva" value={title} onChange={setTitle} required /><Field label="Convite para explorar a escola" value={description} onChange={setDescription} multiline required /><Field label="Fragmento visível neste aparelho" value={favo} onChange={setFavo} multiline required /><label className="co-field">Critério psicossocial<select value={criteria} onChange={(e) => setCriteria(e.target.value)}>{CRITERIOS.map((c) => <option key={c}>{c}</option>)}</select></label><p className="co-note">Os locais não aparecem antes: interpretar o caminho faz parte da missão.</p><Button type="submit" disabled={!target || !title.trim() || !description.trim() || !favo.trim()}>Publicar missão</Button></form></Card>;
 }
 function NewMission({ clubeId, done }) {
   const { createMission } = useCommunity();

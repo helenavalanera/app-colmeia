@@ -1,9 +1,10 @@
 import React from "react";
+import { ShieldCheck, UsersRound, Smartphone } from "lucide-react";
 
 const SEALS = [
-{ emoji: "🛡️", text: "Sem rastrear navegação, câmera ou localização" },
-{ emoji: "🤝", text: "Grupos que aproximam colegas diferentes" },
-{ emoji: "🌐", text: "Sem instalar aplicativo" }];
+{ Icon: ShieldCheck, text: "Sem rastrear navegação, câmera ou localização" },
+{ Icon: UsersRound, text: "Turmas diferentes compartilhando saberes" },
+{ Icon: Smartphone, text: "Sem instalar aplicativo" }];
 
 
 export default function TrustStrip() {
@@ -25,7 +26,7 @@ export default function TrustStrip() {
         }}>
         
           
-          {s.text}
+          <s.Icon size={17} aria-hidden="true" />{s.text}
         </div>
       )}
     </div>);

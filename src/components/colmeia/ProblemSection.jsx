@@ -3,7 +3,7 @@ import React from "react";
 const CARDS = [
   { icon: "/illustrations/bolhas-sociais.png", title: "Bolhas sociais", text: "Os mesmos grupos se repetem sempre, e alguns estudantes ficam à margem da turma." },
   { icon: "/illustrations/distracao.png", title: "Distração sem propósito", text: "O celular entra na aula, mas sem uma dinâmica pedagógica clara por trás dele." },
-  { icon: "/illustrations/sobrecarga.png", title: "Sobrecarga docente", text: "Organizar grupos e acompanhar a colaboração da turma exige um tempo que a escola não tem." },
+  { icon: "/illustrations/sobrecarga.png", title: "Saberes desconectados", text: "Turmas e anos convivem no mesmo prédio, mas têm poucas oportunidades de trocar experiências e construir algo juntos." },
 ];
 
 export default function ProblemSection() {
@@ -14,7 +14,7 @@ export default function ProblemSection() {
         Estão na mesma sala, mas nem sempre estão juntos.
       </h2>
       <p style={{ maxWidth: 640, color: "var(--cm-muted)", fontSize: 14, lineHeight: 1.6, marginTop: 14, marginBottom: 28 }}>
-        O celular pode intensificar distrações e manter estudantes sempre nos mesmos grupos. Professores precisam promover participação, colaboração e pertencimento — sem virar fiscais da vida digital de cada aluno.
+        O celular pode intensificar distrações e manter estudantes sempre nos mesmos grupos. A escola precisa criar encontros com propósito, protagonismo e pertencimento, sem transformar a tecnologia no centro da experiência.
       </p>
       <div className="grid gap-4" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))" }}>
         {CARDS.map((c) => (

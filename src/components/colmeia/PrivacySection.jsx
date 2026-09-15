@@ -1,9 +1,10 @@
 import React from "react";
+import { EyeOff, Trophy, HandHeart } from "lucide-react";
 
 const ITEMS = [
-  { icon: "🚫", text: "Não acessa aplicativos, mensagens ou histórico de navegação." },
-  { icon: "🏆", text: "Não cria ranking público nem expõe quem teve dificuldade." },
-  { icon: "👩‍🏫", text: "O mediador acolhe pedidos e acompanha as experiências compartilhadas pelos clubes." },
+  { Icon: EyeOff, text: "Não acessa aplicativos, mensagens ou histórico de navegação." },
+  { Icon: Trophy, text: "Não cria ranking público nem expõe quem teve dificuldade." },
+  { Icon: HandHeart, text: "O mediador acolhe pedidos e acompanha as experiências compartilhadas pelos clubes." },
 ];
 
 export default function PrivacySection() {
@@ -25,7 +26,7 @@ export default function PrivacySection() {
         <div className="grid gap-4" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))" }}>
           {ITEMS.map((it) => (
             <div key={it.text} style={{ fontSize: 14, lineHeight: 1.6, display: "flex", gap: 10, alignItems: "flex-start" }}>
-              <span style={{ fontSize: 20, flexShrink: 0 }}>{it.icon}</span>
+              <it.Icon size={21} aria-hidden="true" style={{ flexShrink: 0 }} />
               <span>{it.text}</span>
             </div>
           ))}

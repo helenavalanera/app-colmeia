@@ -12,9 +12,9 @@ function initialState() {
     dark: false,
     mediatorProfile: { nome: "Alex", cargo: "Orientação escolar" },
     comunidades: [
-      { id: "convivencia", nome: "Nossa escola acolhe", descricao: "Escuta, pertencimento e cuidado nos espaços que compartilhamos.", emoji: "☀️" },
-      { id: "leitura", nome: "Histórias que conectam", descricao: "Histórias como ponto de partida para conhecer outras perspectivas.", emoji: "📚" },
-      { id: "cuidado", nome: "Cuidar do que é nosso", descricao: "Cooperação e responsabilidade pelo ecossistema da escola.", emoji: "🌱" },
+      { id: "convivencia", nome: "Nossa escola acolhe", descricao: "Escuta, pertencimento e cuidado nos espaços que compartilhamos." },
+      { id: "leitura", nome: "Histórias que conectam", descricao: "Histórias como ponto de partida para conhecer outras perspectivas." },
+      { id: "cuidado", nome: "Cuidar do que é nosso", descricao: "Cooperação e responsabilidade pelo ecossistema da escola." },
     ],
     clubes: [
       { id: "chega", comunidadeId: "convivencia", nome: "Chega junto", descricao: "Criamos jeitos de acolher quem chega e de participar do recreio.", embaixador: "me", membros: ["me", "s2", "s3"], turmas: ["6º A", "7º B", "9º A"], encontro: "Quarta, no intervalo · pátio", convites: [] },
@@ -22,8 +22,8 @@ function initialState() {
       { id: "patio", comunidadeId: "cuidado", nome: "Pátio vivo", descricao: "Pensamos juntos em como cuidar dos lugares e de quem os frequenta.", embaixador: "s6", membros: ["s6", "s7"], turmas: ["6º B", "8º B"], encontro: "Terça, no intervalo · jardim", convites: [] },
     ],
     missoes: [
-      { id: "acolher", clubeId: "chega", titulo: "Como acolher quem acabou de chegar?", descricao: "Conversem presencialmente e construam uma proposta de acolhimento a partir das diferentes experiências do grupo.", favo: "Pense em uma situação em que você quis participar de algo, mas não sabia como chegar. Que convite teria ajudado? Leve essa perspectiva para a conversa.", criterios: CRITERIOS.slice(0, 2), total: 3, confirmados: 2, meuConfirmado: false, status: "ativa", prazo: Date.now() + 30 * 60000 },
-      { id: "historias", clubeId: "plot", titulo: "Uma história, outros olhares", descricao: "Compartilhem o que faz cada pessoa se sentir ouvida e componham um acordo de escuta para o clube.", favo: "Recorde uma história em que alguém foi ouvido de verdade. O que tornou essa escuta especial?", criterios: [CRITERIOS[0]], total: 3, confirmados: 2, meuConfirmado: false, status: "ativa", prazo: Date.now() + 60 * 60000 },
+      { id: "acolher", escopo: "turma", turma: "7º B", clubeId: "chega", titulo: "Como acolher quem acabou de chegar?", descricao: "Conversem presencialmente, interpretem as pistas e construam uma proposta de acolhimento a partir das diferentes experiências do grupo.", favo: "Pense em uma situação em que você quis participar de algo, mas não sabia como chegar. Que convite teria ajudado? Leve essa perspectiva para a conversa.", criterios: CRITERIOS.slice(0, 2), total: 3, confirmados: 2, meuConfirmado: false, status: "ativa", prazo: Date.now() + 30 * 60000 },
+      { id: "historias", escopo: "clube", clubeId: "plot", titulo: "Uma história, outros olhares", descricao: "Compartilhem o que faz cada pessoa se sentir ouvida e componham um acordo de escuta para o clube.", favo: "Recorde uma história em que alguém foi ouvido de verdade. O que tornou essa escuta especial?", criterios: [CRITERIOS[0]], total: 3, confirmados: 2, meuConfirmado: false, status: "ativa", prazo: Date.now() + 60 * 60000 },
     ],
     posts: [
       { id: "p1", clubeId: "chega", autor: "Lia · 6º A", texto: "Nosso clube quer criar um convite para quem passa o recreio sozinho. Que jeito de convidar faz você se sentir à vontade?", criadoEm: Date.now() - 3600000, comentarios: [{ autor: "Ravi · 9º A", texto: "Perguntar o que a pessoa gosta de fazer, sem pressionar." }] },
@@ -39,7 +39,7 @@ function withClubContext(state) {
     espacos: places[club.id] || [],
     combinados: "Ouvir até o fim, respeitar o tempo de cada pessoa e decidir juntos.",
     ...club,
-  })) };
+  })), missoes: state.missoes.map((mission) => ({ escopo: mission.id === "acolher" ? "turma" : "clube", turma: mission.id === "acolher" ? "7º B" : undefined, ...mission })) };
 }
 function readState() {
   try {
@@ -111,11 +111,11 @@ export function CommunityProvider({ children }) {
     });
   }
   function createMission(data) {
-    setState((s) => ({ ...s, missoes: [...s.missoes, { ...data, id: uid(), status: "ativa", total: 3, confirmados: 2, meuConfirmado: false, prazo: Date.now() + 30 * 60000 }] }));
+    setState((s) => ({ ...s, missoes: [...s.missoes, { escopo: "clube", ...data, id: uid(), status: "ativa", total: 3, confirmados: 2, meuConfirmado: false, prazo: Date.now() + 30 * 60000 }] }));
   }
   function createCommunity(nome, descricao) {
     if (!nome.trim()) return;
-    setState((s) => ({ ...s, comunidades: [...s.comunidades, { id: uid(), nome: nome.trim(), descricao, emoji: "✦" }] }));
+    setState((s) => ({ ...s, comunidades: [...s.comunidades, { id: uid(), nome: nome.trim(), descricao }] }));
   }
   function createClub(comunidadeId, nome, descricao) {
     if (!nome.trim()) return;

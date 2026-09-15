@@ -1,4 +1,5 @@
 import React from "react";
+import { Hexagon } from "lucide-react";
 
 export default function ExampleSection() {
   return (
@@ -20,7 +21,7 @@ export default function ExampleSection() {
         <div>
           <h3 style={{ fontSize: 19, marginBottom: 10, color: "var(--cm-ink)" }}>Clube Chega junto: como acolher quem chega?</h3>
           <p style={{ fontSize: 14, color: "var(--cm-muted)", maxWidth: 520, lineHeight: 1.6, marginBottom: 12 }}>
-            Na comunidade Nossa escola acolhe, alunos de diferentes turmas compartilham experiências de chegada, convites e pertencimento. Cada favo traz uma perspectiva. A conversa reúne as partes em uma proposta coletiva de acolhimento.
+            A missão começa no 7º B e leva a turma a investigar como alguém se sente incluído. Cada favo traz uma perspectiva; depois, a resposta alimenta o clube Chega junto e o feed de toda a escola.
           </p>
           <span
             style={{
@@ -36,7 +37,7 @@ export default function ExampleSection() {
             Escuta · Empatia · Cooperação
           </span>
         </div>
-        <div style={{ fontSize: 56, lineHeight: 1 }}>🐝</div>
+        <div aria-hidden="true" style={{ width: 76, height: 76, borderRadius: 24, background: "var(--cm-yellow)", display: "grid", placeItems: "center", boxShadow: "0 6px 0 var(--cm-ink)" }}><Hexagon size={42} strokeWidth={2.4} /></div>
       </div>
     </section>
   );

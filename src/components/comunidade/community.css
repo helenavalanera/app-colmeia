@@ -51,30 +51,31 @@
 .co-view-switch button { position:relative; z-index:1; display:flex; align-items:center; justify-content:center; gap:7px; flex:1; border:0; background:none; color:#18181b; font-size:12px; font-weight:750; min-height:44px; cursor:pointer; }
 .co-view-indicator { position:absolute; width:calc(50% - 5px); top:5px; bottom:5px; left:5px; background:#ffac00; border-radius:12px; transition:transform .35s cubic-bezier(.2,.8,.2,1); box-shadow:inset 0 2px 1px #ffffff80,0 2px 4px #18181b20; }
 .co-view-indicator.is-mediator { transform:translateX(100%); background:#f86700; }
-.co-iphone-mockup { position:relative; width:min(100%,390px); height:790px; max-height:calc(100dvh - 260px); min-height:540px; margin:0 auto; isolation:isolate; filter:drop-shadow(0 24px 34px #18181b30) drop-shadow(0 8px 10px #f867001d); }
-.co-iphone-frame { position:absolute; inset:0; padding:7px; border:1px solid #747477; border-radius:58px; background:linear-gradient(118deg,#171719 0%,#55555a 18%,#18181b 42%,#6f6f73 66%,#111113 100%); box-shadow:inset 0 0 0 1px #ffffff26,inset 0 0 0 3px #09090b,0 6px 0 #0a0a0c; }
-.co-iphone-screen { position:relative; width:100%; height:100%; overflow:hidden; border:2px solid #050506; border-radius:50px; background:var(--cm-paper); box-shadow:inset 0 0 0 1px #ffffff12; }
-.co-iphone-content { position:relative; display:flex; width:100%; height:100%; box-sizing:border-box; padding:46px 0 14px; }
-.co-iphone-status { position:absolute; z-index:125; top:0; right:0; left:0; display:grid; grid-template-columns:1fr 112px 1fr; align-items:center; height:44px; padding:0 20px; color:var(--cm-ink); font-size:12px; font-weight:700; line-height:1; user-select:none; pointer-events:none; }
+/* iPhone 17 Pro Max — 440×956pt (6.9", mesma classe de tela do 16 Pro Max). */
+.co-iphone-mockup { position:relative; width:min(100%,440px); aspect-ratio:440/956; height:auto; max-height:calc(100dvh - 220px); min-height:600px; margin:0 auto; isolation:isolate; filter:drop-shadow(0 24px 34px #18181b30) drop-shadow(0 8px 10px #f867001d); }
+.co-iphone-frame { position:absolute; inset:0; padding:7px; border:1px solid #747477; border-radius:65px; background:linear-gradient(118deg,#171719 0%,#55555a 18%,#18181b 42%,#6f6f73 66%,#111113 100%); box-shadow:inset 0 0 0 1px #ffffff26,inset 0 0 0 3px #09090b,0 6px 0 #0a0a0c; }
+.co-iphone-screen { position:relative; width:100%; height:100%; overflow:hidden; border:2px solid #050506; border-radius:56px; background:var(--cm-paper); box-shadow:inset 0 0 0 1px #ffffff12; }
+.co-iphone-content { position:relative; display:flex; width:100%; height:100%; box-sizing:border-box; padding:56px 0 17px; }
+.co-iphone-status { position:absolute; z-index:125; top:0; right:0; left:0; display:grid; grid-template-columns:1fr 126px 1fr; align-items:center; height:53px; padding:0 23px; color:var(--cm-ink); font-size:12px; font-weight:700; line-height:1; user-select:none; pointer-events:none; }
 .co-iphone-status time { justify-self:start; letter-spacing:-.2px; }
-.co-status-island-space { width:112px; }
+.co-status-island-space { width:126px; }
 .co-status-icons { display:flex; align-items:center; justify-self:end; gap:5px; }
-.co-status-signal { width:14px; height:14px; }
-.co-status-wifi { width:16px; height:16px; }
-.co-status-battery { position:relative; display:grid; place-items:center; width:25px; height:12px; margin-left:1px; border:1.2px solid currentColor; border-radius:3px; }
-.co-status-battery::after { position:absolute; top:3px; right:-3px; width:2px; height:5px; border-radius:0 2px 2px 0; background:currentColor; content:""; opacity:.75; }
+.co-status-signal { width:16px; height:16px; }
+.co-status-wifi { width:18px; height:18px; }
+.co-status-battery { position:relative; display:grid; place-items:center; width:28px; height:14px; margin-left:1px; border:1.2px solid currentColor; border-radius:3px; }
+.co-status-battery::after { position:absolute; top:3px; right:-3px; width:2px; height:6px; border-radius:0 2px 2px 0; background:currentColor; content:""; opacity:.75; }
 .co-status-battery-fill { position:absolute; top:1px; bottom:1px; left:1px; width:85%; border-radius:1.5px; background:currentColor; }
-.co-status-battery-level { position:relative; z-index:1; color:var(--cm-white); font-size:7px; font-weight:850; letter-spacing:-.2px; }
-.co-dynamic-island { position:absolute; z-index:120; top:11px; left:50%; display:flex; align-items:center; justify-content:flex-end; gap:7px; width:112px; height:29px; padding:0 11px; transform:translateX(-50%); border:1px solid #232326; border-radius:999px; background:#030304; box-shadow:inset 0 1px 2px #ffffff0d,0 2px 7px #0006; }
-.co-dynamic-camera { width:10px; height:10px; border-radius:50%; background:radial-gradient(circle at 38% 35%,#263b55 0 16%,#101722 28%,#050507 65%); box-shadow:0 0 0 1px #19191c; }
-.co-dynamic-sensor { width:5px; height:5px; border-radius:50%; background:#151518; box-shadow:inset 0 0 2px #3f3f45; }
-.co-home-indicator { position:absolute; z-index:120; bottom:7px; left:50%; width:118px; height:4px; transform:translateX(-50%); border-radius:999px; background:#18181b; opacity:.82; pointer-events:none; }
+.co-status-battery-level { position:relative; z-index:1; color:var(--cm-white); font-size:8px; font-weight:850; letter-spacing:-.2px; }
+.co-dynamic-island { position:absolute; z-index:120; top:13px; left:50%; display:flex; align-items:center; justify-content:flex-end; gap:8px; width:126px; height:35px; padding:0 12px; transform:translateX(-50%); border:1px solid #232326; border-radius:999px; background:#030304; box-shadow:inset 0 1px 2px #ffffff0d,0 2px 7px #0006; }
+.co-dynamic-camera { width:11px; height:11px; border-radius:50%; background:radial-gradient(circle at 38% 35%,#263b55 0 16%,#101722 28%,#050507 65%); box-shadow:0 0 0 1px #19191c; }
+.co-dynamic-sensor { width:6px; height:6px; border-radius:50%; background:#151518; box-shadow:inset 0 0 2px #3f3f45; }
+.co-home-indicator { position:absolute; z-index:120; bottom:8px; left:50%; width:133px; height:4px; transform:translateX(-50%); border-radius:999px; background:#18181b; opacity:.82; pointer-events:none; }
 .cm-dark .co-home-indicator { background:#f5f5f5; }
-.co-iphone-button { position:absolute; z-index:-1; display:block; width:5px; border:1px solid #77777c; background:linear-gradient(90deg,#171719,#66666b); box-shadow:inset 1px 0 #ffffff24; }
-.co-iphone-action { top:122px; left:-4px; height:30px; border-radius:4px 0 0 4px; }
-.co-iphone-volume-up { top:171px; left:-4px; height:52px; border-radius:4px 0 0 4px; }
-.co-iphone-volume-down { top:233px; left:-4px; height:52px; border-radius:4px 0 0 4px; }
-.co-iphone-power { top:177px; right:-4px; height:78px; border-radius:0 4px 4px 0; }
+.co-iphone-button { position:absolute; z-index:-1; display:block; width:6px; border:1px solid #77777c; background:linear-gradient(90deg,#171719,#66666b); box-shadow:inset 1px 0 #ffffff24; }
+.co-iphone-action { top:148px; left:-5px; height:36px; border-radius:4px 0 0 4px; }
+.co-iphone-volume-up { top:207px; left:-5px; height:63px; border-radius:4px 0 0 4px; }
+.co-iphone-volume-down { top:282px; left:-5px; height:63px; border-radius:4px 0 0 4px; }
+.co-iphone-power { top:214px; right:-5px; height:94px; border-radius:0 4px 4px 0; }
 .co-app-logo { width:95px; height:36px; object-fit:contain; margin-right:auto; background:white; border-radius:8px; padding:3px 7px; }
 .co-role-label { color:var(--cm-muted); font-size:10px; padding:0 0 10px; }
 .co-reset-button { display:inline-flex; align-items:center; gap:4px; min-height:34px; padding:5px 7px; border:1px solid var(--cm-line); border-radius:9px; background:var(--cm-paper); color:var(--cm-ink); font-size:9px; font-weight:750; cursor:pointer; }
@@ -146,5 +147,5 @@
 .co-avatar-options>div { display:flex; gap:7px; overflow-x:auto; padding:1px 1px 6px; scrollbar-width:thin; }
 .co-avatar-options button { flex:0 0 auto; min-height:37px; padding:7px 11px; border:1px solid var(--cm-line); border-radius:10px; background:var(--cm-paper); color:var(--cm-muted); font-size:10px; font-weight:700; cursor:pointer; }
 .co-avatar-options button[aria-pressed="true"] { border-color:var(--cm-brand-orange); background:var(--cm-brand-orange); color:var(--cm-brand-black); box-shadow:0 2px 0 #18181b; }
-@media(max-width:460px) { .co-iphone-mockup { width:calc(100% - 16px); height:700px; max-height:none; min-height:500px; } .co-phone { border-radius:38px; } .co-iphone-frame { border-radius:51px; } .co-iphone-screen { border-radius:44px; } .co-demo-heading h1 { font-size:24px; } }
+@media(max-width:460px) { .co-iphone-mockup { width:calc(100% - 16px); max-height:none; min-height:560px; } .co-phone { border-radius:40px; } .co-iphone-frame { border-radius:56px; } .co-iphone-screen { border-radius:48px; } .co-demo-heading h1 { font-size:24px; } }
 @media(prefers-reduced-motion:reduce) { .co-view-indicator,.co-button,.co-touch-pointer>span { transition:none; } }

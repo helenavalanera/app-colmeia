@@ -46,6 +46,10 @@ export default defineConfig({
         globPatterns: ['**/*.{js,css,html,svg,png,ico}'],
         // Never cache API calls to the Base44 backend — login, entities, etc. must stay live.
         navigateFallbackDenylist: [/^\/api\//],
+        // Sem isso, um Service Worker antigo só é substituído quando todas as abas
+        // fecham — o site parece "não atualizar" mesmo após um deploy correto.
+        skipWaiting: true,
+        clientsClaim: true,
       },
     }),
   ]

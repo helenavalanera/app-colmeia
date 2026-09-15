@@ -4,18 +4,18 @@ const COLS = [
   {
     title: "Para estudantes",
     items: [
-      "Participam de missões curtas e concretas",
+      "Conduzem clubes e participam de missões presenciais",
       "Exercitam autonomia, diálogo e protagonismo",
-      "Assumem papéis rotativos: Investigador e Polinizador",
+      "Podem ser embaixadores e organizar seus clubes",
       "Fazem novas conexões, sem ranking público",
     ],
   },
   {
-    title: "Para educadores",
+    title: "Para mediadores",
     items: [
-      "Criam ou adaptam atividades em poucos passos",
-      "Formam grupos sem organizar tudo manualmente",
-      "Acompanham a turma de forma agregada",
+      "Apoiam os clubes quando os alunos precisam",
+      "Ajudam com inclusão, escuta e recursos da escola",
+      "Acompanham as respostas coletivas dos clubes",
       "Identificam oportunidades de mediação sem vigilância",
     ],
   },
@@ -25,7 +25,7 @@ export default function AudienceSection() {
   return (
     <section className="cm-surface cm-font" style={{ maxWidth: 1230, margin: "0 auto", padding: "20px 28px 60px" }}>
       <h2 style={{ fontSize: 28, textAlign: "center", letterSpacing: "-0.5px", marginBottom: 36, color: "var(--cm-green)" }}>
-        O celular abre a missão. A turma constrói a aprendizagem.
+        Os alunos conduzem. A escola cresce junto.
       </h2>
       <div className="grid gap-5" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))" }}>
         {COLS.map((col) => (

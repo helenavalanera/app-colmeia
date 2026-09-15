@@ -18,9 +18,9 @@ export default function ExampleSection() {
         }}
       >
         <div>
-          <h3 style={{ fontSize: 19, marginBottom: 10, color: "var(--cm-ink)" }}>Colmeia de Checagem de Fatos</h3>
+          <h3 style={{ fontSize: 19, marginBottom: 10, color: "var(--cm-ink)" }}>Clube Chega junto: como acolher quem chega?</h3>
           <p style={{ fontSize: 14, color: "var(--cm-muted)", maxWidth: 520, lineHeight: 1.6, marginBottom: 12 }}>
-            Em Língua Portuguesa, cada estudante recebe um fragmento de uma notícia: fonte, data, imagem ou contra-argumento. O grupo só decide se a informação é confiável quando reúne as partes presencialmente.
+            Na comunidade Nossa escola acolhe, alunos de diferentes turmas compartilham experiências de chegada, convites e pertencimento. Cada favo traz uma perspectiva. A conversa reúne as partes em uma proposta coletiva de acolhimento.
           </p>
           <span
             style={{
@@ -33,7 +33,7 @@ export default function ExampleSection() {
               color: "var(--cm-green)",
             }}
           >
-            Leitura crítica · Argumentação · Cooperação
+            Escuta · Empatia · Cooperação
           </span>
         </div>
         <div style={{ fontSize: 56, lineHeight: 1 }}>🐝</div>

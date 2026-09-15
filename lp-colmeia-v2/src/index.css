@@ -221,3 +221,30 @@
   overflow: hidden;
   background: var(--cm-paper);
 }
+
+/* ===== Modo noturno (escopo: componentes .cm-*, não o site inteiro) =====
+   Ativado com a classe .cm-dark num ancestral (o próprio .cm-device da demo). */
+.cm-dark {
+  --cm-paper: #1c1a16;
+  --cm-white: #26241d;
+  --cm-ink: #f2efe6;
+  --cm-muted: #a39c8c;
+  --cm-line: #3a362c;
+  --cm-orange: #e08a3f;
+  --cm-orange-light: #3a2a17;
+  --cm-green: #f6a833;
+  --cm-green-soft: #d18e2b;
+  --cm-green-deep: #f0c274;
+  --cm-lime: #33351f;
+  --cm-lime-deep: #474b2c;
+  --cm-purple: #332c47;
+  --cm-yellow: #4a3f1c;
+  --cm-shadow: 0 12px 45px rgba(0, 0, 0, 0.25);
+}
+.cm-dark .cm-btn { background: var(--cm-white); color: var(--cm-ink); border-color: var(--cm-line); }
+.cm-dark .cm-btn:hover { background: #302c23; }
+.cm-dark .cm-pill { background: #33301f; color: var(--cm-ink); }
+.cm-dark .cm-pill-green { background: #23331f; color: #9fdb8f; }
+.cm-dark .cm-pill-warm { background: var(--cm-orange-light); color: #f0b27a; }
+.cm-dark .cm-pill-lavender { background: var(--cm-purple); color: #c9b8ec; }
+.cm-dark .cm-device { border-color: #17150f; }

@@ -3,7 +3,7 @@ import React from "react";
 const ITEMS = [
   { icon: "🚫", text: "Não acessa aplicativos, mensagens ou histórico de navegação." },
   { icon: "🏆", text: "Não cria ranking público nem expõe quem teve dificuldade." },
-  { icon: "👩‍🏫", text: "O professor recebe uma visão coletiva da participação da turma." },
+  { icon: "👩‍🏫", text: "O mediador acolhe pedidos e acompanha as experiências compartilhadas pelos clubes." },
 ];
 
 export default function PrivacySection() {
@@ -12,7 +12,7 @@ export default function PrivacySection() {
       <div
         style={{
           background: "var(--cm-green)",
-          color: "#fff",
+          color: "var(--cm-ink)",
           borderRadius: "var(--cm-radius)",
           padding: "36px 32px",
           display: "grid",

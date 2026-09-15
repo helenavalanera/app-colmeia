@@ -9,14 +9,14 @@ export default function Hero() {
         <div>
           <span className="cm-eyebrow" style={{ background: "var(--cm-yellow)", padding: "6px 12px", borderRadius: 8, color: "var(--cm-ink)" }}>Para turmas do 6º ao 9º ano</span>
           <h1 style={{ fontSize: "clamp(34px, 4.5vw, 58px)", lineHeight: 1.06, letterSpacing: "-2px", fontWeight: 800, marginTop: 14, color: "var(--cm-green)" }}>
-            O celular não precisa <em style={{ fontStyle: "normal", color: "var(--cm-orange)" }} className="text-[hsl(var(--chart-5))]">afastar</em> a turma.
+            Uma escola de <em style={{ fontStyle: "normal", color: "var(--cm-orange)" }}>conexões</em>, construída pelos alunos.
           </h1>
           <p style={{ maxWidth: 400, color: "var(--cm-muted)", fontSize: 14, lineHeight: 1.6, marginTop: 18 }}>
-            A Colmeia transforma poucos minutos de tela em missões presenciais que conectam estudantes, fortalecem a autonomia e levam a aprendizagem para fora da própria bolha social.
+            Comunidades e clubes conectam estudantes do 6º ao 9º ano. Embaixadores mobilizam os grupos, favos compõem respostas coletivas e o mediador apoia quando necessário.
           </p>
           <div className="flex flex-wrap gap-3" style={{ marginTop: 22 }}>
             <Link to="/app" className="cm-btn cm-btn-primary">Ver uma Colmeia em ação</Link>
-            <Link to="/app" className="cm-btn cm-btn-ghost">Conhecer a jornada do educador</Link>
+            <Link to="/app" className="cm-btn cm-btn-ghost">Explorar comunidades</Link>
           </div>
           <p style={{ fontSize: 12, color: "var(--cm-muted)", marginTop: 18, maxWidth: 420 }}>
             Funciona direto no navegador, em celulares que a escola já tem.

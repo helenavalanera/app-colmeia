@@ -1,10 +1,10 @@
 import React from "react";
 
 const STEPS = [
-  { n: 1, title: "O mediador cria uma missão para sua Colmeia", text: "Define uma tarefa curta, o tempo da atividade, e aprova com poucos toques." },
-  { n: 2, title: "Cada estudante recebe um favo", text: "Nenhum celular entrega a missão inteira, somente uma parte dela." },
-  { n: 3, title: "Os alunos devem se encontrar para resolver", text: "Duplas e trios divididos aleatoriamente precisam conversar e trocar informações presencialmente." },
-  { n: 4, title: "O grupo avança junto", text: "O resultado é coletivo, sem ranking individual e o professor acompanha o progresso de todos." },
+  { n: 1, title: "Alunos se encontram em comunidades e clubes", text: "Interesses e propósitos conectam estudantes de diferentes turmas. Embaixadores convidam e organizam o grupo." },
+  { n: 2, title: "Uma missão, diferentes favos", text: "Cada estudante acessa seu próprio fragmento. A resposta coletiva depende das contribuições de todos." },
+  { n: 3, title: "A conversa acontece na escola", text: "O clube troca experiências presencialmente, exercitando escuta, empatia e cooperação. O mediador oferece apoio." },
+  { n: 4, title: "A descoberta volta para a comunidade", text: "O grupo registra sua resposta e compartilha saberes que outros clubes podem conhecer e continuar." },
 ];
 
 export default function HowItWorks() {

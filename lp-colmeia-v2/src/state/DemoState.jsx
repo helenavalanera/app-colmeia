@@ -1,5 +1,7 @@
 import React, { createContext, useCallback, useContext, useMemo, useState } from "react";
-import bnccHabilidades from "@/data/bncc.json";
+import { BNCC_HABILIDADES, bnccLookup, bnccToSkills } from "@/lib/bncc";
+
+export { BNCC_HABILIDADES, bnccLookup, bnccToSkills };
 
 /**
  * Estado compartilhado da demo (PDF "Mapa de experiência", pág. 07):
@@ -16,29 +18,6 @@ import bnccHabilidades from "@/data/bncc.json";
  */
 
 const DemoContext = createContext(null);
-
-// Base real de habilidades da BNCC (Ensino Fundamental, 6º ao 9º ano — o público da
-// Colmeia), extraída do dataset aberto bncc.dev (CC BY 4.0, mantido pela Profy:
-// https://github.com/bncc-dev/bncc-dados). 730 habilidades com código, texto e
-// componente curricular, prontas para o mediador buscar e selecionar (M04).
-export const BNCC_HABILIDADES = bnccHabilidades;
-
-const BNCC_BY_CODIGO = Object.fromEntries(BNCC_HABILIDADES.map((h) => [h.codigo, h]));
-
-export function bnccLookup(codigo) {
-  return BNCC_BY_CODIGO[codigo] || null;
-}
-
-// Rótulos exibidos no relatório do mediador (M08) e na conclusão do aluno (A08) —
-// as duas telas leem a mesma habilidade vinculada pelo mediador na criação da
-// missão (M04), nunca uma lista estática.
-export function bnccToSkills(bncc) {
-  if (!bncc || bncc.length === 0) return [];
-  return bncc.map((codigo) => {
-    const h = bnccLookup(codigo);
-    return h ? { codigo, label: `${h.componente} · ${h.codigo}`, texto: h.texto } : { codigo, label: codigo, texto: "" };
-  });
-}
 
 const INITIAL_MISSION = {
   id: "water",

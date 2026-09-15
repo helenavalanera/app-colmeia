@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-import { BNCC_HABILIDADES, bnccLookup } from "@/state/DemoState";
+import { BNCC_PSICOSSOCIAL, bnccLookup } from "@/lib/bncc";
 
 function normalize(s) {
   return s
@@ -8,12 +8,15 @@ function normalize(s) {
     .toLowerCase();
 }
 
-const COMPONENTES = [...new Set(BNCC_HABILIDADES.map((h) => h.componente))].sort();
+const COMPONENTES = [...new Set(BNCC_PSICOSSOCIAL.map((h) => h.componente))].sort();
 
 /**
- * Busca e seleção de habilidades reais da BNCC (Ensino Fundamental, 6º ao 9º ano),
- * usada para vincular objetivos de aprendizagem a uma missão (M04). Dataset:
- * bncc.dev (CC BY 4.0, mantido pela Profy).
+ * Busca e seleção de habilidades da BNCC por critério psicossocial (Ensino
+ * Fundamental, 6º ao 9º ano) — cooperação, empatia, convivência, cidadania,
+ * diversidade, escuta, resolução de conflito etc. A Colmeia nunca vincula BNCC
+ * pelo conteúdo da matéria: isso é o que permite uma mesma missão interdisciplinar
+ * reunir Ciências, Português e Educação Física em torno do mesmo objetivo
+ * pedagógico. Dataset: bncc.dev (CC BY 4.0, mantido pela Profy).
  */
 export default function BnccPicker({ selected, onChange }) {
   const [query, setQuery] = useState("");
@@ -21,7 +24,7 @@ export default function BnccPicker({ selected, onChange }) {
 
   const results = useMemo(() => {
     const q = normalize(query.trim());
-    let list = BNCC_HABILIDADES;
+    let list = BNCC_PSICOSSOCIAL;
     if (componente) list = list.filter((h) => h.componente === componente);
     if (q) {
       list = list.filter(
@@ -100,7 +103,7 @@ export default function BnccPicker({ selected, onChange }) {
         })}
       </div>
       <p style={{ fontSize: 10, color: "var(--cm-muted)", marginTop: 10 }}>
-        {BNCC_HABILIDADES.length} habilidades da BNCC (6º ao 9º ano) · dados abertos bncc.dev
+        {BNCC_PSICOSSOCIAL.length} habilidades psicossociais da BNCC (6º ao 9º ano, todos os componentes) · dados abertos bncc.dev
       </p>
     </div>
   );

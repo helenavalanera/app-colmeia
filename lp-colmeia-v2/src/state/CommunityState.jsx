@@ -32,12 +32,21 @@ function initialState() {
     pedidos: [], avisos: [],
   };
 }
+// Enriquecimento aditivo: preserva perfis, respostas e clubes já salvos na demo.
+function withClubContext(state) {
+  const places = { chega: ["Pátio", "Biblioteca"], plot: ["Biblioteca"], patio: ["Jardim", "Pátio"] };
+  return { ...state, clubes: state.clubes.map((club) => ({
+    espacos: places[club.id] || [],
+    combinados: "Ouvir até o fim, respeitar o tempo de cada pessoa e decidir juntos.",
+    ...club,
+  })) };
+}
 function readState() {
   try {
     const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
-    if (saved?.profile && ["comunidades", "clubes", "missoes", "posts", "pedidos", "avisos"].every((key) => Array.isArray(saved[key]))) return saved;
+    if (saved?.profile && ["comunidades", "clubes", "missoes", "posts", "pedidos", "avisos"].every((key) => Array.isArray(saved[key]))) return withClubContext(saved);
   } catch { /* Um armazenamento indisponível não impede a demonstração. */ }
-  return initialState();
+  return withClubContext(initialState());
 }
 
 export function CommunityProvider({ children }) {
@@ -59,21 +68,28 @@ export function CommunityProvider({ children }) {
       return { ...s, posts: [{ id: uid(), clubeId, autor: `${s.profile.nome} · ${s.profile.turma}`, texto: texto.trim(), foto, criadoEm: Date.now(), comentarios: [] }, ...s.posts] };
     });
   }
+  function toggleLike(id) {
+    setState((s) => ({ ...s, posts: s.posts.map((p) => {
+      if (p.id !== id) return p;
+      const curtidas = p.curtidas || [];
+      return { ...p, curtidas: curtidas.includes("me") ? curtidas.filter((who) => who !== "me") : [...curtidas, "me"] };
+    }) }));
+  }
   function comment(id, texto) {
     if (!texto.trim()) return;
     setState((s) => ({ ...s, posts: s.posts.map((p) => p.id === id ? { ...p, comentarios: [...p.comentarios, { autor: `${s.profile.nome} · ${s.profile.turma}`, texto: texto.trim() }] } : p) }));
   }
-  function requestSupport(clubeId, tipo, missaoId) {
-    setState((s) => s.pedidos.some((p) => p.clubeId === clubeId && p.tipo === tipo && p.missaoId === missaoId && !p.atendido) ? s : ({ ...s, pedidos: [{ id: uid(), clubeId, missaoId, tipo, autor: s.profile.nome, atendido: false }, ...s.pedidos] }));
+  function requestSupport(clubeId, tipo, missaoId, mensagem = "") {
+    setState((s) => s.pedidos.some((p) => p.clubeId === clubeId && p.tipo === tipo && p.missaoId === missaoId && !p.atendido) ? s : ({ ...s, pedidos: [{ id: uid(), clubeId, missaoId, tipo, mensagem: mensagem.trim(), autor: s.profile.nome, atendido: false }, ...s.pedidos] }));
   }
-  function resolveSupport(id) {
+  function resolveSupport(id, resposta = "") {
     setState((s) => {
       const pedido = s.pedidos.find((p) => p.id === id);
       if (!pedido || pedido.atendido) return s;
       const extra = pedido.tipo === "Mais 5 minutos";
-      return { ...s, pedidos: s.pedidos.map((p) => p.id === id ? { ...p, atendido: true } : p),
+      return { ...s, pedidos: s.pedidos.map((p) => p.id === id ? { ...p, atendido: true, resposta: resposta.trim() } : p),
         missoes: s.missoes.map((m) => extra && m.id === pedido.missaoId && m.status === "ativa" ? { ...m, prazo: Math.max(m.prazo, Date.now()) + 5 * 60000 } : m),
-        avisos: [{ id: uid(), texto: extra ? "Mais 5 minutos! O tempo da missão foi atualizado." : `Seu pedido de apoio em ${s.clubes.find((c) => c.id === pedido.clubeId)?.nome} foi acolhido. Combine o próximo passo com o mediador.` }, ...s.avisos] };
+        avisos: [{ id: uid(), texto: extra ? "Mais 5 minutos! O tempo da missão foi atualizado." : `Apoio em ${s.clubes.find((c) => c.id === pedido.clubeId)?.nome}: ${resposta.trim() || "Seu pedido foi acolhido. Combine o próximo passo com o mediador."}` }, ...s.avisos] };
     });
   }
   function confirmFavo(id) {
@@ -103,9 +119,9 @@ export function CommunityProvider({ children }) {
   }
   function createClub(comunidadeId, nome, descricao) {
     if (!nome.trim()) return;
-    setState((s) => ({ ...s, clubes: [...s.clubes, { id: uid(), comunidadeId, nome: nome.trim(), descricao, embaixador: "me", membros: ["me"], turmas: [s.profile.turma], encontro: "Encontro a combinar", convites: [] }] }));
+    setState((s) => ({ ...s, clubes: [...s.clubes, { id: uid(), comunidadeId, nome: nome.trim(), descricao, embaixador: "me", membros: ["me"], turmas: [s.profile.turma], encontro: "Encontro a combinar", espacos: [], combinados: "Vamos construir nossos combinados juntos.", convites: [] }] }));
   }
-  return <CommunityContext.Provider value={{ ...state, storageError, updateClub, joinClub, createPost, comment, requestSupport, resolveSupport, confirmFavo, completeMission, shareMission, createMission, createCommunity, createClub,
+  return <CommunityContext.Provider value={{ ...state, storageError, updateClub, joinClub, createPost, comment, toggleLike, requestSupport, resolveSupport, confirmFavo, completeMission, shareMission, createMission, createCommunity, createClub,
     saveMediatorProfile: (mediatorProfile) => setState((s) => ({ ...s, mediatorProfile })),
     saveProfile: (profile) => setState((s) => ({ ...s, profile })),
     toggleDark: () => setState((s) => ({ ...s, dark: !s.dark })),

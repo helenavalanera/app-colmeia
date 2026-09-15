@@ -11,8 +11,8 @@ export default function FinalCTA() {
         A Colmeia usa o celular por poucos minutos para criar algo que nenhuma tela consegue substituir: estudantes aprendendo, colaborando e saindo da própria bolha.
       </p>
       <div className="flex flex-wrap justify-center gap-3">
-        <Link to="/app" className="cm-btn cm-btn-orange">Explorar a demonstração</Link>
-        <Link to="/app" className="cm-btn cm-btn-ghost">Conhecer os clubes</Link>
+        <Link to="/app?visao=aluno" className="cm-btn cm-btn-orange">Explorar como aluno</Link>
+        <Link to="/app?visao=mediador" className="cm-btn cm-btn-ghost">Explorar como mediador</Link>
       </div>
     </section>
   );

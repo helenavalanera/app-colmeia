@@ -1,11 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import BeeMascot from "./BeeMascot";
+import Bee3D from "./Bee3D";
 
 export default function Hero() {
   return (
     <section className="cm-surface cm-font" style={{ padding: "40px 28px 32px", maxWidth: 1230, margin: "0 auto" }}>
-      <div className="grid gap-12 items-end" style={{ gridTemplateColumns: "1.4fr 1fr" }}>
+      <div className="co-hero-grid">
         <div>
           <span className="cm-eyebrow" style={{ background: "var(--cm-yellow)", padding: "6px 12px", borderRadius: 8, color: "var(--cm-ink)" }}>Para turmas do 6º ao 9º ano</span>
           <h1 style={{ fontSize: "clamp(34px, 4.5vw, 58px)", lineHeight: 1.06, letterSpacing: "-2px", fontWeight: 800, marginTop: 14, color: "var(--cm-ink)" }}>
@@ -15,8 +15,8 @@ export default function Hero() {
             Comunidades e clubes conectam estudantes do 6º ao 9º ano. Embaixadores mobilizam os grupos, favos compõem respostas coletivas e o mediador apoia quando necessário.
           </p>
           <div className="flex flex-wrap gap-3" style={{ marginTop: 22 }}>
-            <Link to="/app" className="cm-btn cm-btn-primary">Ver uma Colmeia em ação</Link>
-            <Link to="/app" className="cm-btn cm-btn-ghost">Explorar comunidades</Link>
+            <Link to="/app?visao=aluno" className="cm-btn cm-btn-primary">Explorar como aluno</Link>
+            <Link to="/app?visao=mediador" className="cm-btn cm-btn-ghost">Explorar como mediador</Link>
           </div>
           <p style={{ fontSize: 12, color: "var(--cm-muted)", marginTop: 18, maxWidth: 420 }}>
             Funciona direto no navegador, em celulares que a escola já tem.
@@ -25,7 +25,7 @@ export default function Hero() {
         <div className="flex justify-center">
           <div style={{ position: "relative" }}>
             <div style={{ position: "absolute", inset: "-20px -10px", background: "radial-gradient(ellipse at center, #FFAC00 0%, #ffe4bc 50%, transparent 72%)", borderRadius: 30 }} />
-            <BeeMascot size={170} style={{ position: "relative", filter: "drop-shadow(0 9px 6px rgba(92,88,59,0.12))" }} />
+            <Bee3D size={290} />
           </div>
         </div>
       </div>

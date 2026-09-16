@@ -45,14 +45,14 @@
 .co-request-quote { border-left:3px solid var(--cm-orange); padding-left:12px; white-space:pre-wrap; }
 
 /* Apresentação da demo: controle fora do celular e conteúdo sempre dentro dele. */
-.co-stage { flex-direction:column; align-items:center; gap:18px; padding-top:8px; }
+.co-stage { flex-direction:column; align-items:center; gap:0; margin-top:-42px; padding-top:0; }
 .co-stage { position:relative; overflow:hidden; isolation:isolate; }
 .co-stage::before { position:absolute; z-index:-1; left:max(-80px,calc(50% - 700px)); top:90px; width:430px; height:760px; content:""; background:url('/brand/honeycomb-lines.png') center/contain no-repeat; opacity:.18; pointer-events:none; }
 .co-stage::after { position:absolute; z-index:-1; right:-24px; top:130px; width:520px; height:600px; content:""; background:url('/hero/colmeia-opening-user.png') right center/contain no-repeat; opacity:.08; filter:saturate(1.25); pointer-events:none; }
-.co-demo-heading { text-align:center; max-width:430px; padding:0 12px; }
+.co-demo-heading { max-width:430px; margin-bottom:12px; padding:0 12px; text-align:center; }
 .co-demo-heading h1 { font-size:28px; letter-spacing:-.8px; margin:6px 0; }
 .co-demo-heading p { color:var(--cm-muted); font-size:12px; }
-.co-view-switch { position:relative; display:flex; width:min(100%,380px); padding:5px; border:1px solid #18181b; border-radius:18px; background:#fff8ef; box-shadow:0 4px 0 #18181b; isolation:isolate; }
+.co-view-switch { position:relative; display:flex; width:min(100%,380px); margin-bottom:10px; padding:5px; border:1px solid #18181b; border-radius:18px; background:#fff8ef; box-shadow:0 4px 0 #18181b; isolation:isolate; }
 .co-view-switch button { position:relative; z-index:1; display:flex; align-items:center; justify-content:center; gap:7px; flex:1; border:0; background:none; color:#18181b; font-size:12px; font-weight:750; min-height:44px; cursor:pointer; }
 .co-view-indicator { position:absolute; width:calc(50% - 5px); top:5px; bottom:5px; left:5px; background:#ffac00; border-radius:12px; transition:transform .35s cubic-bezier(.2,.8,.2,1); box-shadow:inset 0 2px 1px #ffffff80,0 2px 4px #18181b20; }
 .co-view-indicator.is-mediator { transform:translateX(100%); background:#f86700; }
@@ -255,4 +255,5 @@
 .co-calendar-weekdays { font-size:9px; }
 .co-calendar-grid>div { font-size:10px; }
 @media(max-width:460px) { .co-iphone-mockup { width:min(390px,calc(100vw - 16px)); } .co-demo-heading h1 { font-size:24px; } }
+@media(max-width:800px) { .co-stage { margin-top:0; } }
 @media(prefers-reduced-motion:reduce) { .co-view-indicator,.co-button,.co-touch-pointer>span { transition:none; } }

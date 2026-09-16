@@ -44,7 +44,7 @@ export default function CommunityShell() {
     <IPhoneMockup className={dark ? "cm-dark" : ""}>
     <div className={`co-phone${dark ? " cm-dark" : ""}`} onPointerMove={movePointer} onPointerLeave={() => { if (pointer.current) pointer.current.style.opacity = "0"; }} onPointerDown={() => pointer.current?.classList.add("is-pressed")} onPointerUp={() => pointer.current?.classList.remove("is-pressed")}>
       <span ref={pointer} className="co-touch-pointer" aria-hidden="true"><span /></span>
-      <header className="co-header">
+      <header className={`co-header${role === "mediador" ? " is-compact" : ""}`}>
         <div className="co-row"><img className="co-app-logo" src={LOGO_COLMEIA_MARK} alt="Colmeia" /><button className="co-reset-button" aria-label="Reiniciar demonstração e apagar alterações locais" onClick={() => { resetDemo(); setTab("inicio"); setDetail(null); setNotifications(false); setDismissed(null); }}><RotateCcw size={14} /> Reiniciar</button><button className="co-icon" aria-label="Alternar modo claro e noturno" onClick={toggleDark}>{dark ? <Sun size={18} /> : <Moon size={18} />}</button><button className="co-icon" aria-label="Notificações" onClick={() => setNotifications(!notifications)}><Bell size={18} />{(role === "aluno" ? avisos.length : pedidos.filter((p) => !p.atendido).length + alertasMediador.length) > 0 && <span className="co-dot" />}</button></div>
         {role === "aluno" && <p className="co-role-label">Sua comunidade, seu jeito</p>}
       </header>

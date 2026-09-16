@@ -1,43 +1,64 @@
 import React from "react";
-import { Clock3, Hexagon, HeartHandshake, MapPin, Users } from "lucide-react";
+import { ArrowRight, Clock3, Hexagon, Radio, School, Users, Wrench } from "lucide-react";
 
-const FRAGMENTS = ["Uma situação de chegada", "Uma experiência de acolhimento", "Uma barreira à participação", "Uma possibilidade de apoio"];
+const FLOW = [
+  { Icon: School, label: "Em sala de aula", title: "A turma é o ponto de partida", text: "O mediador propõe uma missão curta, define a intenção psicossocial e a IA distribui favos complementares." },
+  { Icon: Users, label: "Expandindo horizontes", title: "As afinidades atravessam turmas", text: "As respostas revelam interesses, lugares e saberes. Estudantes do 6º ao 9º ano percebem com quem podem continuar criando." },
+  { Icon: Hexagon, label: "Escola como comunidade", title: "Os encontros viram clubes", text: "Embaixadores mobilizam colegas e mantêm clubes de música, tecnologia, leitura, movimento e outros interesses." },
+];
+
+const EXAMPLES = [
+  {
+    context: "Sala de aula · 10h",
+    title: "Como acolher alguém que acabou de chegar?",
+    description: "A missão começa na turma e leva o grupo a observar situações reais de chegada, pertencimento e participação.",
+    intention: "Escuta, empatia e cooperação",
+    icon: School,
+    favos: ["Uma situação de chegada", "Uma barreira à participação", "Um gesto de acolhimento", "Uma possibilidade de apoio"],
+  },
+  {
+    context: "Clube · Frequência 440",
+    title: "Como a banda marcial pode convidar mais vozes?",
+    description: "Estudantes interessados em música conectam ritmo, convivência e ocupação dos espaços para criar um ensaio aberto.",
+    intention: "Expressão, pertencimento e responsabilidade",
+    icon: Radio,
+    favos: ["Um ritmo que reúne", "Um espaço que pode ganhar som", "Uma função além de tocar", "Um convite para quem nunca participou"],
+  },
+  {
+    context: "Clube · Circuito Alpha",
+    title: "Que problema da escola pode virar protótipo?",
+    description: "O clube de robótica parte de uma necessidade observada e combina perspectivas antes de construir qualquer solução.",
+    intention: "Criatividade, colaboração e autonomia",
+    icon: Wrench,
+    favos: ["Um problema observado", "A voz de quem usa o espaço", "Um recurso disponível", "Uma forma simples de testar"],
+  },
+];
 
 export default function ExampleSection() {
   return (
-    <section className="cm-surface cm-font" style={{ maxWidth: 1230, margin: "0 auto", padding: "20px 28px 60px" }}>
-      <span className="cm-eyebrow">Uma missão de verdade</span>
-      <h2 style={{ fontSize: "clamp(28px,4vw,44px)", maxWidth: 720, margin: "10px 0 12px", color: "var(--cm-ink)" }}>Como a Colmeia entra em um dia real de escola.</h2>
-      <p style={{ maxWidth: 700, color: "var(--cm-muted)", lineHeight: 1.65, marginBottom: 22 }}>Quarta-feira, 10h. O celular deixa de disputar atenção e passa a orientar uma experiência curta, presencial e conectada ao cotidiano escolar.</p>
-      <div className="cm-school-day">
-        <div><Clock3 aria-hidden="true" /><strong>10h · ponto de partida</strong><span>O mediador descreve a missão e a intenção psicossocial.</span></div>
-        <div><Users aria-hidden="true" /><strong>10h05 · partes diferentes</strong><span>A IA sugere os grupos e distribui favos complementares.</span></div>
-        <div><MapPin aria-hidden="true" /><strong>10h15 · escola em movimento</strong><span>As pistas levam os estudantes a espaços e conversas reais.</span></div>
-        <div><HeartHandshake aria-hidden="true" /><strong>10h35 · síntese coletiva</strong><span>O grupo conecta descobertas, registra a resposta e reconhece competências.</span></div>
+    <section className="cm-surface cm-font cm-practice-section">
+      <span className="cm-eyebrow">Uma experiência que continua</span>
+      <h2>Da sala de aula aos clubes: como a Colmeia entra no dia real da escola.</h2>
+      <p className="cm-practice-intro">Uma missão de turma abre o primeiro encontro. As afinidades que aparecem nas respostas expandem os horizontes e ajudam os estudantes a criar clubes, transformando a escola em uma comunidade viva.</p>
+
+      <div className="cm-practice-flow" aria-label="Da sala de aula à comunidade escolar">
+        {FLOW.map(({ Icon, label, title, text }, index) => <React.Fragment key={label}>
+          <article><Icon aria-hidden="true" /><span>{label}</span><h3>{title}</h3><p>{text}</p></article>
+          {index < FLOW.length - 1 && <ArrowRight className="cm-practice-arrow" aria-hidden="true" />}
+        </React.Fragment>)}
       </div>
-      <div
-        className="cm-card cm-example-card"
-        style={{
-          marginTop: 12,
-          background: "var(--cm-orange-light)",
-          borderColor: "#ecd680",
-          padding: 28,
-          display: "grid",
-          gap: 16,
-          gridTemplateColumns: "minmax(0, 1.35fr) minmax(240px, .65fr)",
-          alignItems: "stretch",
-        }}
-      >
-        <div>
-          <h3 style={{ fontSize: 24, marginBottom: 10, color: "var(--cm-ink)" }}>Como receber alguém que acabou de chegar à escola?</h3>
-          <p style={{ fontSize: 12, fontWeight: 800, color: "var(--cm-green-deep)" }}>Comunidade · Escola inteira<br />Clube · Chega junto</p>
-          <p style={{ fontSize: 14, color: "var(--cm-muted)", maxWidth: 520, lineHeight: 1.6, marginBottom: 12 }}>
-            O clube Chega junto reúne estudantes de diferentes turmas para construir um roteiro de acolhimento com ações concretas. Cada participante recebe um favo: uma parte da resposta que ninguém constrói sozinho.
-          </p>
-          <h4 style={{ fontSize: 13, margin: "18px 0 8px" }}>Favos complementares</h4>
-          <div style={{ display: "grid", gap: 8 }}>{FRAGMENTS.map((fragment) => <div key={fragment} style={{ display: "flex", gap: 8, alignItems: "center", fontSize: 12 }}><Hexagon size={15} color="var(--cm-orange)" aria-hidden="true" />{fragment}</div>)}</div>
-        </div>
-        <div style={{ background: "var(--cm-yellow)", borderRadius: 18, padding: 22, color: "var(--cm-ink)" }}><HeartHandshake size={34} aria-hidden="true" /><h4 style={{ fontSize: 15, margin: "14px 0 8px" }}>Intenção psicossocial</h4><p style={{ fontSize: 13, lineHeight: 1.55, margin: 0 }}>Escuta, empatia, cooperação e responsabilidade. O mediador ajuda quando o grupo pede orientação ou encontra uma dificuldade.</p></div>
+
+      <div className="cm-practice-context"><Clock3 aria-hidden="true" /><p><strong>Na prática:</strong> o celular orienta por poucos minutos; a investigação, a conversa e a construção acontecem nos espaços da escola.</p></div>
+
+      <div className="cm-mission-examples">
+        {EXAMPLES.map(({ context, title, description, intention, icon: Icon, favos }) => <article className="cm-mission-example" key={title}>
+          <div className="cm-mission-example-head"><Icon aria-hidden="true" /><span>{context}</span></div>
+          <h3>{title}</h3>
+          <p>{description}</p>
+          <h4>Favos complementares</h4>
+          <div className="cm-example-favos">{favos.map((fragment) => <div key={fragment}><Hexagon size={15} aria-hidden="true" />{fragment}</div>)}</div>
+          <footer><strong>Intenção psicossocial</strong><span>{intention}</span></footer>
+        </article>)}
       </div>
     </section>
   );

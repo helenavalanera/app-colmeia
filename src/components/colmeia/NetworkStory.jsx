@@ -11,10 +11,11 @@ import {
  * NetworkStory — Scrollytelling refinado:
  * 1. Quatro salas (6º, 7º, 8º, 9º ano), cada uma com 1 professor e 20 alunos
  *    dispostos em fileiras simétricas — como carteiras reais de sala de aula.
- * 2. Conforme o scroll avança, surgem ícones vetoriais de interesse sobre os
- *    alunos e linhas pontilhadas conectando quem
- *    compartilha o mesmo interesse em turmas diferentes.
- * 3. Na fase final, os alunos deixam as fileiras e se reagrupam em
+ * 2. Dentro de cada turma, as fileiras se reorganizam em quatro pequenos
+ *    grupos, cada um cercado pelo contorno de um favo.
+ * 3. Depois surgem ícones de interesse e linhas pontilhadas conectando quem
+ *    compartilha afinidades em turmas diferentes.
+ * 4. Na fase final, os alunos deixam esses primeiros grupos e se reagrupam em
  *    clubes de afinidade — favos de tamanhos diferentes, sempre
  *    misturando estudantes de turmas distintas.
  */
@@ -52,16 +53,23 @@ const COMMUNITIES = [
 
 const STEPS = [
   "1. O ecossistema escolar: turmas de 6º ao 9º ano reunidas.",
-  "2. Identificação de interesses e afinidades em comum.",
-  "3. Conexões cruzando as fronteiras das salas de aula.",
-  "4. Formação dos clubes e divisão dos favos temáticos.",
-  "5. A resposta coletiva: a escola inteira em rede.",
+  "2. Dentro de cada turma, pequenos grupos formam os primeiros favos.",
+  "3. Os encontros revelam interesses e afinidades em comum.",
+  "4. As conexões começam a atravessar as salas de aula.",
+  "5. Clubes maiores reúnem estudantes de diferentes turmas.",
+  "6. A resposta coletiva: a escola inteira em rede.",
 ];
 
 // Layout simétrico de carteiras dentro da sala (fração da caixa da sala)
 const SEAT_COLS = [0.14, 0.38, 0.62, 0.86];
 const SEAT_ROWS = [0.48, 0.595, 0.71, 0.825, 0.94];
 const TEACHER_SEAT = { x: 0.5, y: 0.34 };
+const ROOM_GROUPS = [
+  { x: 0.24, y: 0.57 },
+  { x: 0.76, y: 0.57 },
+  { x: 0.24, y: 0.84 },
+  { x: 0.76, y: 0.84 },
+];
 const GOLDEN_ANGLE = Math.PI * (3 - Math.sqrt(5)); // ~137.5°, espalhamento tipo phyllotaxis
 
 function mulberry32(seed) {
@@ -108,6 +116,9 @@ function buildSimulationData() {
         seatFracX: SEAT_COLS[col],
         seatFracY: SEAT_ROWS[row],
         interest: Math.floor(rnd() * INTERESTS.length),
+        roomGroup: Math.floor(i / 5),
+        groupAngle: (i % 5) * GOLDEN_ANGLE,
+        groupRadiusFactor: 0.55 + 0.45 * Math.sqrt(((i % 5) + 1) / 5),
       });
     }
   });
@@ -182,8 +193,9 @@ export default function NetworkStory() {
     target: scrollRef,
     offset: ["start start", "end end"],
   });
-  const firstOpacity = useTransform(scrollYProgress, [0.34, 0.45], [1, 0]);
-  const secondOpacity = useTransform(scrollYProgress, [0.4, 0.51], [0, 1]);
+  const firstOpacity = useTransform(scrollYProgress, [0.18, 0.28], [1, 0]);
+  const groupOpacity = useTransform(scrollYProgress, [0.2, 0.3, 0.48, 0.58], [0, 1, 1, 0]);
+  const secondOpacity = useTransform(scrollYProgress, [0.54, 0.64], [0, 1]);
 
   const drawScene = useCallback(
     (progress) => {
@@ -194,10 +206,12 @@ export default function NetworkStory() {
       ctx.clearRect(0, 0, W, H);
       ctx.save();
 
-      const pRooms = clamp01(progress / 0.14); // Fase 1: salas + carteiras
-      const pIcons = clamp01((progress - 0.14) / 0.16); // Fase 2: interesses
-      const pLines = clamp01((progress - 0.28) / 0.17); // Fase 3: linhas cruzadas
-      const pFavo = clamp01((progress - 0.44) / 0.26); // A rede fica pronta nos 30% finais
+      const pRooms = clamp01(progress / 0.12); // Fase 1: salas + carteiras
+      const pRoomGroups = clamp01((progress - 0.12) / 0.17); // Fase 2: primeiros favos dentro das turmas
+      const pIcons = clamp01((progress - 0.27) / 0.15); // Fase 3: interesses
+      const pLines = clamp01((progress - 0.4) / 0.17); // Fase 4: linhas cruzadas
+      const pFavo = clamp01((progress - 0.56) / 0.25); // Fases 5 e 6: clubes e rede final
+      const tRoomGroups = smooth(pRoomGroups);
       const tFavo = smooth(pFavo);
       const minDim = Math.min(W, H);
 
@@ -232,7 +246,29 @@ export default function NetworkStory() {
         });
       }
 
-      // 2) Favos dos clubes finais: o centro fica livre para o tema do clube.
+      // 2) Primeiros favos: pequenos grupos ainda dentro de cada turma.
+      if (pRoomGroups > 0 && pFavo < 0.72) {
+        ROOMS.forEach((room) => {
+          const rx = room.x * W - boxWidth / 2;
+          const ry = room.y * H - boxHeight / 2;
+          ROOM_GROUPS.forEach((group, index) => {
+            const gx = rx + group.x * boxWidth;
+            const gy = ry + group.y * boxHeight;
+            const radius = Math.min(boxWidth, boxHeight) * 0.105 * tRoomGroups;
+            ctx.save();
+            ctx.globalAlpha = tRoomGroups * Math.max(0, 1 - pFavo * 1.4);
+            hexPath(ctx, gx, gy, radius);
+            ctx.fillStyle = index % 2 ? "rgba(255, 172, 0, 0.08)" : "rgba(248, 103, 0, 0.07)";
+            ctx.strokeStyle = room.color;
+            ctx.lineWidth = 1.4;
+            ctx.fill();
+            ctx.stroke();
+            ctx.restore();
+          });
+        });
+      }
+
+      // 3) Favos dos clubes finais: o centro fica livre para o tema do clube.
       if (pFavo > 0.05) {
         COMMUNITIES.forEach((c, i) => {
           const r = minDim * (0.105 + 0.025 * Math.sqrt(communitySizes[i] / 20)) * tFavo;
@@ -259,7 +295,7 @@ export default function NetworkStory() {
         ctx.globalAlpha = 1;
       }
 
-      // Posição corrente (fração do canvas) de cada aluno: da carteira -> comunidade.
+      // Posição corrente: carteira -> pequeno favo da turma -> clube entre turmas.
       // O raio da comunidade é resolvido em pixels reais via minDim antes de
       // virar fração — evita distorção elíptica em telas não quadradas.
       const currentFrac = (s) => {
@@ -271,14 +307,20 @@ export default function NetworkStory() {
         const seatFracY = boxOriginYFrac + (s.seatFracY * boxHeight) / H;
 
         if (s.isTeacher) return { fx: seatFracX, fy: seatFracY };
+        const roomGroup = ROOM_GROUPS[s.roomGroup];
+        const groupRadiusPx = Math.min(boxWidth, boxHeight) * 0.072 * s.groupRadiusFactor;
+        const groupFracX = boxOriginXFrac + (roomGroup.x * boxWidth + Math.cos(s.groupAngle) * groupRadiusPx) / W;
+        const groupFracY = boxOriginYFrac + (roomGroup.y * boxHeight + Math.sin(s.groupAngle) * groupRadiusPx) / H;
+        const localFracX = seatFracX + (groupFracX - seatFracX) * tRoomGroups;
+        const localFracY = seatFracY + (groupFracY - seatFracY) * tRoomGroups;
         const community = COMMUNITIES[s.communityIdx];
         const rPx = minDim * 0.105 * s.commRadiusFactor;
         const targetFracX = community.cx + (Math.cos(s.commAngle) * rPx) / W;
         const targetFracY = community.cy + (Math.sin(s.commAngle) * rPx) / H;
 
         return {
-          fx: seatFracX + (targetFracX - seatFracX) * tFavo,
-          fy: seatFracY + (targetFracY - seatFracY) * tFavo,
+          fx: localFracX + (targetFracX - localFracX) * tFavo,
+          fy: localFracY + (targetFracY - localFracY) * tFavo,
         };
       };
 
@@ -382,7 +424,7 @@ export default function NetworkStory() {
     >
       <div
         ref={scrollRef}
-        style={{ position: "relative", height: prefersReduced ? "auto" : "320vh" }}
+        style={{ position: "relative", height: prefersReduced ? "auto" : "380vh" }}
       >
         <div
           style={{
@@ -438,6 +480,20 @@ export default function NetworkStory() {
                     }}
                   >
                     A turma é o começo.
+                  </motion.h2>
+                  <motion.h2
+                    style={{
+                      position: "absolute",
+                      inset: 0,
+                      fontSize: "clamp(26px, 4vw, 46px)",
+                      letterSpacing: "-1px",
+                      lineHeight: 1.08,
+                      color: "var(--cm-ink)",
+                      margin: 0,
+                      opacity: groupOpacity,
+                    }}
+                  >
+                    Cada turma forma seus primeiros favos.
                   </motion.h2>
                   <motion.h2
                     style={{

@@ -212,13 +212,31 @@
 @media(max-width:860px) { .cm-hierarchy-flow { display:grid; grid-template-columns:1fr 1fr; gap:12px; } .cm-hierarchy-arrow { display:none; } }
 @media(max-width:540px) { .cm-hierarchy-flow { grid-template-columns:1fr; } }
 @media(max-width:700px) { .cm-example-card { grid-template-columns:1fr !important; } .cm-role-estudante { transform:none; } }
-.cm-school-day { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; margin-bottom:24px; }
-.cm-school-day>div { display:grid; align-content:start; gap:7px; min-height:150px; padding:18px; border:1px solid var(--cm-line); border-radius:18px; background:var(--cm-white); box-shadow:0 5px 0 color-mix(in srgb,var(--cm-line) 75%,transparent); }
-.cm-school-day svg { color:var(--cm-orange); }
-.cm-school-day strong { color:var(--cm-ink); font-size:13px; }
-.cm-school-day span { color:var(--cm-muted); font-size:12px; line-height:1.5; }
-@media(max-width:850px) { .cm-school-day { grid-template-columns:repeat(2,minmax(0,1fr)); } }
-@media(max-width:520px) { .cm-school-day { grid-template-columns:1fr; } .cm-school-day>div { min-height:0; } }
+.cm-practice-section { max-width:1230px; margin:0 auto; padding:28px 28px 72px; }
+.cm-practice-section>h2 { max-width:850px; margin:10px 0 12px; color:var(--cm-ink); font-size:clamp(28px,4vw,44px); line-height:1.08; letter-spacing:-1px; }
+.cm-practice-intro { max-width:760px; margin:0 0 26px; color:var(--cm-muted); line-height:1.65; }
+.cm-practice-flow { display:grid; grid-template-columns:1fr 34px 1fr 34px 1fr; align-items:stretch; margin:20px 0; }
+.cm-practice-flow article { display:grid; align-content:start; gap:7px; padding:20px; border:1px solid var(--cm-line); border-radius:20px; background:var(--cm-white); box-shadow:0 5px 0 color-mix(in srgb,var(--cm-line) 75%,transparent); }
+.cm-practice-flow article>svg { color:var(--cm-orange); }
+.cm-practice-flow article>span { color:var(--cm-orange); font-size:11px; font-weight:850; letter-spacing:.7px; text-transform:uppercase; }
+.cm-practice-flow h3 { margin:0; color:var(--cm-ink); font-size:18px; }
+.cm-practice-flow p { margin:0; color:var(--cm-muted); font-size:13px; line-height:1.55; }
+.cm-practice-arrow { align-self:center; justify-self:center; color:var(--cm-orange); }
+.cm-practice-context { display:flex; align-items:center; gap:10px; margin:22px 0 16px; padding:14px 16px; border-radius:14px; background:var(--cm-yellow); color:var(--cm-ink); }
+.cm-practice-context svg { flex:0 0 auto; }
+.cm-practice-context p { margin:0; font-size:13px; line-height:1.5; }
+.cm-mission-examples { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; }
+.cm-mission-example { display:flex; flex-direction:column; min-width:0; padding:22px; border:1px solid var(--cm-line); border-radius:20px; background:var(--cm-orange-light); box-shadow:0 6px 0 color-mix(in srgb,var(--cm-line) 75%,transparent); }
+.cm-mission-example-head { display:flex; align-items:center; gap:8px; color:var(--cm-green-deep); font-size:11px; font-weight:850; text-transform:uppercase; }
+.cm-mission-example h3 { margin:13px 0 8px; color:var(--cm-ink); font-size:21px; line-height:1.25; }
+.cm-mission-example>p { margin:0; color:var(--cm-muted); font-size:13px; line-height:1.55; }
+.cm-mission-example h4 { margin:18px 0 9px; color:var(--cm-ink); font-size:12px; }
+.cm-example-favos { display:grid; gap:8px; }
+.cm-example-favos>div { display:flex; align-items:flex-start; gap:7px; color:var(--cm-ink); font-size:12px; line-height:1.4; }
+.cm-example-favos svg { flex:0 0 auto; color:var(--cm-orange); }
+.cm-mission-example footer { display:grid; gap:4px; margin-top:auto; padding-top:20px; color:var(--cm-ink); font-size:12px; }
+.cm-mission-example footer span { color:var(--cm-muted); line-height:1.45; }
+@media(max-width:900px) { .cm-practice-flow { grid-template-columns:1fr; gap:10px; } .cm-practice-arrow { transform:rotate(90deg); } .cm-mission-examples { grid-template-columns:1fr; } }
 
 .cm-pill {
   display: inline-flex;

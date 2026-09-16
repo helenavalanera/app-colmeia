@@ -29,6 +29,7 @@ function initialState() {
     ],
     clubes: [
       { id: "chega", comunidadeId: "convivencia", nome: "Chega junto", descricao: "Criamos jeitos de acolher quem chega e de participar do recreio.", embaixador: "me", membros: ["me", "s2", "s3"], turmas: ["6º A", "7º B", "9º A"], encontro: "Quarta, no intervalo", convites: [] },
+      { id: "desbravadores", comunidadeId: "convivencia", nome: "Clube dos Desbravadores", descricao: "Conhecemos culturas, pessoas e histórias que já atravessam a nossa escola.", embaixador: "s8", membros: ["me", "s8", "s9", "s10"], turmas: ["6º B", "7º B", "8º A", "9º A"], encontro: "Primeiro dia útil do mês", convites: [] },
       { id: "plot", comunidadeId: "leitura", nome: "Plot Twist & Páginas", descricao: "Trocamos histórias e escutamos o que elas despertam em cada pessoa.", embaixador: "s4", membros: ["s4", "s5"], turmas: ["8º A", "9º A"], encontro: "Sexta, no intervalo", convites: [] },
       { id: "patio", comunidadeId: "cuidado", nome: "Pátio vivo", descricao: "Pensamos juntos em como cuidar dos lugares e de quem os frequenta.", embaixador: "s6", membros: ["s6", "s7"], turmas: ["6º B", "8º B"], encontro: "Terça, no intervalo", convites: [] },
     ],
@@ -37,19 +38,23 @@ function initialState() {
       { id: "historias", escopo: "clube", clubeId: "plot", titulo: "Uma história, outros olhares", objetivo: "Criar acordos de escuta a partir de experiências diferentes.", descricao: "Compartilhem o que faz cada pessoa se sentir ouvida e componham um acordo de escuta para o clube.", favo: "Recorde uma história em que alguém foi ouvido de verdade. O que tornou essa escuta especial?", pistaLocal: "Siga até o lugar onde muitas histórias esperam para ser abertas.", criterios: [CRITERIOS[3], CRITERIOS[8]], total: 3, confirmados: 2, meuConfirmado: false, status: "ativa", prazo: Date.now() + 60 * 60000, origemIA: true, locaisContribuicoes: [{ participante: "Noa", turma: "8º A", local: "Biblioteca" }, { participante: "Iara", turma: "9º A", local: "Sala de leitura" }] },
     ],
     posts: [
-      { id: "p1", clubeId: "chega", autor: "Lia · 6º A", texto: "Nosso clube quer criar um convite para quem passa o recreio sozinho. Que jeito de convidar faz você se sentir à vontade?", criadoEm: Date.now() - 3600000, comentarios: [{ autor: "Ravi · 9º A", texto: "Perguntar o que a pessoa gosta de fazer, sem pressionar." }] },
-      { id: "p2", clubeId: "plot", autor: "Clube Plot Twist & Páginas", texto: "Descobrimos que a mesma história desperta lembranças bem diferentes. Nosso combinado: ouvir até o fim antes de responder.", criadoEm: Date.now() - 7200000, comentarios: [] },
+      { id: "p1", clubeId: "chega", audience: "turma", autor: "Lia · 6º A", texto: "Nosso clube quer criar um convite para quem passa o recreio sozinho. Que jeito de convidar faz você se sentir à vontade?", criadoEm: Date.now() - 3600000, comentarios: [{ autor: "Ravi · 9º A", texto: "Perguntar o que a pessoa gosta de fazer, sem pressionar." }] },
+      { id: "p2", clubeId: "plot", audience: "clube", autor: "Clube Plot Twist & Páginas", texto: "Descobrimos que a mesma história desperta lembranças bem diferentes. Nosso combinado: ouvir até o fim antes de responder.", criadoEm: Date.now() - 7200000, comentarios: [] },
     ],
+    rituais: [{ id: "passaporte", clubeId: "desbravadores", nome: "Passaporte aberto", recorrencia: "Todo primeiro dia útil do mês", descricao: "Um convidado ou integrante da comunidade apresenta um país, sua cultura, costumes e comida. Assim, viajamos juntos sem sair da escola.", proximo: "1º de outubro · 12h30", local: "Pátio coberto", publicado: true }],
     pedidos: [], avisos: [],
   };
 }
 // Enriquecimento aditivo: preserva perfis, respostas e clubes já salvos na demo.
 function withClubContext(state) {
-  return { ...state, clubes: state.clubes.map((club) => {
+  const seed = initialState();
+  const clubesSalvos = Array.isArray(state.clubes) ? state.clubes : [];
+  const clubes = [...clubesSalvos, ...seed.clubes.filter((club) => !clubesSalvos.some((saved) => saved.id === club.id))];
+  return { ...state, clubes: clubes.map((club) => {
     const cleanClub = { ...club };
     delete cleanClub.espacos;
     return { combinados: "Ouvir até o fim, respeitar o tempo de cada pessoa e decidir juntos.", ...cleanClub, encontro: cleanClub.encontro?.split(" · ")[0] || "Encontro a combinar" };
-  }), missoes: state.missoes.map((mission) => ({ escopo: mission.id === "acolher" ? "turma" : "clube", turma: mission.id === "acolher" ? "7º B" : undefined, pistaLocal: mission.id === "acolher" ? "Procure um espaço de passagem onde encontros inesperados costumam acontecer." : mission.id === "historias" ? "Siga até o lugar onde muitas histórias esperam para ser abertas." : "Interprete com o grupo a pista do lugar presente neste favo.", objetivo: mission.descricao || "Construir uma resposta coletiva a partir de perspectivas diferentes.", locaisContribuicoes: [], origemIA: false, ...mission })) };
+  }), missoes: state.missoes.map((mission) => ({ escopo: mission.id === "acolher" ? "turma" : "clube", turma: mission.id === "acolher" ? "7º B" : undefined, pistaLocal: mission.id === "acolher" ? "Procure um espaço de passagem onde encontros inesperados costumam acontecer." : mission.id === "historias" ? "Siga até o lugar onde muitas histórias esperam para ser abertas." : "Interprete com o grupo a pista do lugar presente neste favo.", objetivo: mission.descricao || "Construir uma resposta coletiva a partir de perspectivas diferentes.", locaisContribuicoes: [], origemIA: false, ...mission })), rituais: Array.isArray(state.rituais) && state.rituais.length ? state.rituais : seed.rituais, posts: state.posts.map((post, index) => ({ audience: index === 0 ? "turma" : "clube", ...post })) };
 }
 function readState() {
   try {
@@ -75,7 +80,7 @@ export function CommunityProvider({ children }) {
   function createPost(clubeId, texto, foto) {
     setState((s) => {
       if (!s.clubes.some((c) => c.id === clubeId && c.membros.includes("me")) || (!texto.trim() && !foto)) return s;
-      return { ...s, posts: [{ id: uid(), clubeId, autor: `${s.profile.nome} · ${s.profile.turma}`, texto: texto.trim(), foto, criadoEm: Date.now(), comentarios: [] }, ...s.posts] };
+      return { ...s, posts: [{ id: uid(), clubeId, audience: "clube", autor: `${s.profile.nome} · ${s.profile.turma}`, texto: texto.trim(), foto, criadoEm: Date.now(), comentarios: [] }, ...s.posts] };
     });
   }
   function toggleLike(id) {
@@ -119,15 +124,23 @@ export function CommunityProvider({ children }) {
       const m = s.missoes.find((item) => item.id === id);
       if (!m || m.status !== "concluida" || m.compartilhada) return s;
       const clube = s.clubes.find((c) => c.id === m.clubeId);
-      return { ...s, missoes: s.missoes.map((item) => item.id === id ? { ...item, compartilhada: true } : item), posts: [{ id: uid(), clubeId: m.clubeId, autor: `Resposta coletiva · ${clube.nome}`, texto: m.resposta, foto: m.foto, criadoEm: Date.now(), comentarios: [] }, ...s.posts] };
+      return { ...s, missoes: s.missoes.map((item) => item.id === id ? { ...item, compartilhada: true } : item), posts: [{ id: uid(), clubeId: m.clubeId, audience: m.escopo === "turma" ? "turma" : "clube", autor: `Resposta coletiva · ${clube.nome}`, texto: m.resposta, foto: m.foto, criadoEm: Date.now(), comentarios: [] }, ...s.posts] };
     });
   }
   function createMission(data) {
     setState((s) => {
       const distribuicao = data.distribuicao || [];
-      const total = Math.max(3, distribuicao.length || 0);
+      const total = Math.max(2, distribuicao.length || 0);
       const locaisContribuicoes = distribuicao.slice(1).map((favo) => ({ participante: favo.participante, turma: favo.turma, local: favo.local }));
       return { ...s, missoes: [...s.missoes, { escopo: "clube", ...data, id: uid(), status: "ativa", total, confirmados: total - 1, meuConfirmado: false, locaisContribuicoes, prazo: Date.now() + 30 * 60000 }] };
+    });
+  }
+  function saveRitual(data) {
+    if (!data.nome?.trim() || !data.clubeId) return;
+    setState((s) => {
+      const ritual = { ...data, nome: data.nome.trim(), publicado: true, id: data.id || uid() };
+      const exists = (s.rituais || []).some((item) => item.id === ritual.id);
+      return { ...s, rituais: exists ? s.rituais.map((item) => item.id === ritual.id ? ritual : item) : [...(s.rituais || []), ritual], avisos: [{ id: uid(), texto: `${ritual.nome} entrou na sua agenda.` }, ...s.avisos] };
     });
   }
   function createCommunity(nome, descricao) {
@@ -142,7 +155,7 @@ export function CommunityProvider({ children }) {
     try { localStorage.removeItem(STORAGE_KEY); } catch { /* O estado em memória ainda pode ser reiniciado. */ }
     setState(withClubContext(initialState()));
   }
-  return <CommunityContext.Provider value={{ ...state, storageError, updateClub, joinClub, createPost, comment, toggleLike, requestSupport, resolveSupport, confirmFavo, completeMission, shareMission, createMission, createCommunity, createClub, resetDemo,
+  return <CommunityContext.Provider value={{ ...state, storageError, updateClub, joinClub, createPost, comment, toggleLike, requestSupport, resolveSupport, confirmFavo, completeMission, shareMission, createMission, saveRitual, createCommunity, createClub, resetDemo,
     saveMediatorProfile: (mediatorProfile) => setState((s) => ({ ...s, mediatorProfile })),
     saveProfile: (profile) => setState((s) => ({ ...s, profile })),
     toggleDark: () => setState((s) => ({ ...s, dark: !s.dark })),

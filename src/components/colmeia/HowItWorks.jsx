@@ -3,7 +3,7 @@ import React from "react";
 const STEPS = [
   { n: 1, title: "Explora o que a escola oferece", text: "No app, o aluno conhece clubes, espaços, missões e rituais que antes poderiam passar despercebidos." },
   { n: 2, title: "Parte da turma ou de um clube", text: "A turma abre a primeira experiência; os clubes permitem continuar explorando interesses com estudantes de outros anos." },
-  { n: 3, title: "Recebe uma missão e seu favo", text: "A IA distribui perspectivas complementares. Cada participante abre apenas o próprio fragmento." },
+  { n: 3, title: "Recebe uma missão e seu favo", text: "A Colmeia distribui perspectivas complementares. Cada participante abre apenas o próprio fragmento." },
   { n: 4, title: "Segue uma pista pela escola", text: "O celular orienta o próximo passo e volta para o bolso. A descoberta acontece em espaços, conversas e situações reais." },
   { n: 5, title: "Conecta outras perspectivas", text: "Os estudantes se encontram presencialmente e descobrem como lugares, saberes e fragmentos se relacionam." },
   { n: 6, title: "Pedem pólen se precisarem", text: "O grupo chama o mediador para apoiar uma dificuldade, incluir alguém sem celular ou conceder mais tempo." },

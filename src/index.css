@@ -237,12 +237,15 @@
 .cm-mission-example h3 { margin:13px 0 8px; color:var(--cm-ink); font-size:21px; line-height:1.25; }
 .cm-mission-example>p { margin:0; color:var(--cm-muted); font-size:13px; line-height:1.55; }
 .cm-mission-example h4 { margin:0; color:var(--cm-ink); font-size:10px; letter-spacing:.5px; text-transform:uppercase; }
-.cm-example-favo-labels { display:grid; grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr); gap:10px; margin:18px 0 8px; }
+.cm-example-favo-labels { display:grid; grid-template-columns:minmax(0,.65fr) minmax(0,1.15fr) minmax(0,.8fr); gap:10px; margin:18px 0 8px; }
 .cm-example-favos { display:grid; gap:8px; }
-.cm-example-favos>div { display:grid; grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr); gap:10px; align-items:start; padding:8px 0; border-top:1px solid var(--cm-line); color:var(--cm-ink); font-size:11px; line-height:1.4; }
+.cm-example-favos>div { display:grid; grid-template-columns:minmax(0,.65fr) minmax(0,1.15fr) minmax(0,.8fr); gap:10px; align-items:start; padding:10px 0; border-top:1px solid var(--cm-line); color:var(--cm-ink); font-size:11px; line-height:1.4; }
 .cm-example-favos span { display:flex; align-items:flex-start; gap:6px; }
 .cm-example-favos strong { color:var(--cm-muted); font-size:10px; font-weight:600; }
 .cm-example-favos svg { flex:0 0 auto; color:var(--cm-orange); }
+.cm-example-route { display:grid!important; gap:5px!important; color:var(--cm-muted); font-size:9px; }
+.cm-example-route>span { display:flex; gap:4px; }
+@media(max-width:760px) { .cm-example-favo-labels { display:none; } .cm-example-favos>div { grid-template-columns:1fr; gap:6px; } .cm-example-favos>div>span:first-child { font-weight:800; } }
 .cm-mission-example footer { display:grid; gap:4px; margin-top:auto; padding-top:20px; color:var(--cm-ink); font-size:12px; }
 .cm-mission-example footer span { color:var(--cm-muted); line-height:1.45; }
 @media(max-width:900px) { .cm-practice-flow { grid-template-columns:1fr; gap:10px; } .cm-practice-arrow { transform:rotate(90deg); } .cm-mission-examples { grid-template-columns:1fr; } }

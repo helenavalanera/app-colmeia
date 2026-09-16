@@ -41,7 +41,10 @@ function initialState() {
       { id: "p1", clubeId: "chega", audience: "turma", autor: "Lia · 6º A", texto: "Nosso clube quer criar um convite para quem passa o recreio sozinho. Que jeito de convidar faz você se sentir à vontade?", criadoEm: Date.now() - 3600000, comentarios: [{ autor: "Ravi · 9º A", texto: "Perguntar o que a pessoa gosta de fazer, sem pressionar." }] },
       { id: "p2", clubeId: "plot", audience: "clube", autor: "Clube Plot Twist & Páginas", texto: "Descobrimos que a mesma história desperta lembranças bem diferentes. Nosso combinado: ouvir até o fim antes de responder.", criadoEm: Date.now() - 7200000, comentarios: [] },
     ],
-    rituais: [{ id: "passaporte", clubeId: "desbravadores", nome: "Passaporte aberto", recorrencia: "Todo primeiro dia útil do mês", descricao: "Um convidado ou integrante da comunidade apresenta um país, sua cultura, costumes e comida. Assim, viajamos juntos sem sair da escola.", proximo: "1º de outubro · 12h30", local: "Pátio coberto", publicado: true }],
+    rituais: [
+      { id: "passaporte", escopo: "clube", clubeId: "desbravadores", nome: "Passaporte aberto", recorrencia: "Todo primeiro dia útil do mês", descricao: "Um convidado ou integrante da comunidade apresenta um país, sua cultura, costumes e comida. Assim, viajamos juntos sem sair da escola.", data: "2026-10-01", hora: "12:30", local: "Pátio coberto", publicado: true },
+      { id: "circulo-7b", escopo: "turma", turma: "7º B", nome: "Círculo de descobertas", recorrencia: "Toda primeira terça-feira do mês", descricao: "A turma compartilha uma descoberta da escola e escolhe uma pergunta para a próxima missão.", data: "2026-10-06", hora: "10:00", local: "Sala 7º B", publicado: true },
+    ],
     pedidos: [], avisos: [],
   };
 }
@@ -54,7 +57,7 @@ function withClubContext(state) {
     const cleanClub = { ...club };
     delete cleanClub.espacos;
     return { combinados: "Ouvir até o fim, respeitar o tempo de cada pessoa e decidir juntos.", ...cleanClub, encontro: cleanClub.encontro?.split(" · ")[0] || "Encontro a combinar" };
-  }), missoes: state.missoes.map((mission) => ({ escopo: mission.id === "acolher" ? "turma" : "clube", turma: mission.id === "acolher" ? "7º B" : undefined, pistaLocal: mission.id === "acolher" ? "Procure um espaço de passagem onde encontros inesperados costumam acontecer." : mission.id === "historias" ? "Siga até o lugar onde muitas histórias esperam para ser abertas." : "Interprete com o grupo a pista do lugar presente neste favo.", objetivo: mission.descricao || "Construir uma resposta coletiva a partir de perspectivas diferentes.", locaisContribuicoes: [], origemIA: false, ...mission })), rituais: Array.isArray(state.rituais) && state.rituais.length ? state.rituais : seed.rituais, posts: state.posts.map((post, index) => ({ audience: index === 0 ? "turma" : "clube", ...post })) };
+  }), missoes: state.missoes.map((mission) => ({ escopo: mission.id === "acolher" ? "turma" : "clube", turma: mission.id === "acolher" ? "7º B" : undefined, pistaLocal: mission.id === "acolher" ? "Procure um espaço de passagem onde encontros inesperados costumam acontecer." : mission.id === "historias" ? "Siga até o lugar onde muitas histórias esperam para ser abertas." : "Interprete com o grupo a pista do lugar presente neste favo.", objetivo: mission.descricao || "Construir uma resposta coletiva a partir de perspectivas diferentes.", locaisContribuicoes: [], origemIA: false, ...mission })), rituais: [...(Array.isArray(state.rituais) ? state.rituais : []), ...seed.rituais.filter((ritual) => !(state.rituais || []).some((saved) => saved.id === ritual.id))].map((ritual) => ({ escopo: ritual.clubeId ? "clube" : "turma", data: ritual.id === "passaporte" ? "2026-10-01" : "2026-10-06", hora: ritual.id === "passaporte" ? "12:30" : "10:00", ...ritual })), posts: state.posts.map((post, index) => ({ audience: index === 0 ? "turma" : "clube", ...post })) };
 }
 function readState() {
   try {
@@ -136,7 +139,7 @@ export function CommunityProvider({ children }) {
     });
   }
   function saveRitual(data) {
-    if (!data.nome?.trim() || !data.clubeId) return;
+    if (!data.nome?.trim() || !data.data || (data.escopo === "clube" ? !data.clubeId : !data.turma)) return;
     setState((s) => {
       const ritual = { ...data, nome: data.nome.trim(), publicado: true, id: data.id || uid() };
       const exists = (s.rituais || []).some((item) => item.id === ritual.id);

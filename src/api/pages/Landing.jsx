@@ -14,7 +14,7 @@ import FinalCTA from "@/components/colmeia/FinalCTA";
 
 export default function Landing() {
   return (
-    <div className="cm-surface cm-font min-h-screen">
+    <div className="cm-landing cm-surface cm-font min-h-screen">
       <SiteHeader />
       <Hero />
       <TrustStrip />

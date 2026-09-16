@@ -212,6 +212,13 @@
 @media(max-width:860px) { .cm-hierarchy-flow { display:grid; grid-template-columns:1fr 1fr; gap:12px; } .cm-hierarchy-arrow { display:none; } }
 @media(max-width:540px) { .cm-hierarchy-flow { grid-template-columns:1fr; } }
 @media(max-width:700px) { .cm-example-card { grid-template-columns:1fr !important; } .cm-role-estudante { transform:none; } }
+.cm-school-day { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; margin-bottom:24px; }
+.cm-school-day>div { display:grid; align-content:start; gap:7px; min-height:150px; padding:18px; border:1px solid var(--cm-line); border-radius:18px; background:var(--cm-white); box-shadow:0 5px 0 color-mix(in srgb,var(--cm-line) 75%,transparent); }
+.cm-school-day svg { color:var(--cm-orange); }
+.cm-school-day strong { color:var(--cm-ink); font-size:13px; }
+.cm-school-day span { color:var(--cm-muted); font-size:12px; line-height:1.5; }
+@media(max-width:850px) { .cm-school-day { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media(max-width:520px) { .cm-school-day { grid-template-columns:1fr; } .cm-school-day>div { min-height:0; } }
 
 .cm-pill {
   display: inline-flex;

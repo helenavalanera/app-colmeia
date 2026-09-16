@@ -33,8 +33,8 @@ function initialState() {
       { id: "patio", comunidadeId: "cuidado", nome: "Pátio vivo", descricao: "Pensamos juntos em como cuidar dos lugares e de quem os frequenta.", embaixador: "s6", membros: ["s6", "s7"], turmas: ["6º B", "8º B"], encontro: "Terça, no intervalo", convites: [] },
     ],
     missoes: [
-      { id: "acolher", escopo: "turma", turma: "7º B", clubeId: "chega", titulo: "Como acolher quem acabou de chegar?", descricao: "Conversem presencialmente, interpretem as pistas e construam uma proposta de acolhimento a partir das diferentes experiências do grupo.", favo: "Pense em uma situação em que você quis participar de algo, mas não sabia como chegar. Que convite teria ajudado?", pistaLocal: "Procure um espaço de passagem onde encontros inesperados costumam acontecer.", criterios: [CRITERIOS[7], CRITERIOS[8], CRITERIOS[9]], total: 3, confirmados: 2, meuConfirmado: false, status: "ativa", prazo: Date.now() + 30 * 60000 },
-      { id: "historias", escopo: "clube", clubeId: "plot", titulo: "Uma história, outros olhares", descricao: "Compartilhem o que faz cada pessoa se sentir ouvida e componham um acordo de escuta para o clube.", favo: "Recorde uma história em que alguém foi ouvido de verdade. O que tornou essa escuta especial?", pistaLocal: "Siga até o lugar onde muitas histórias esperam para ser abertas.", criterios: [CRITERIOS[3], CRITERIOS[8]], total: 3, confirmados: 2, meuConfirmado: false, status: "ativa", prazo: Date.now() + 60 * 60000 },
+      { id: "acolher", escopo: "turma", turma: "7º B", clubeId: "chega", titulo: "Como acolher quem acabou de chegar?", objetivo: "Transformar escuta e empatia em ações concretas de acolhimento.", descricao: "Conversem presencialmente, interpretem as pistas e construam uma proposta de acolhimento a partir das diferentes experiências do grupo.", favo: "Pense em uma situação em que você quis participar de algo, mas não sabia como chegar. Que convite teria ajudado?", pistaLocal: "Procure um espaço de passagem onde encontros inesperados costumam acontecer.", criterios: [CRITERIOS[7], CRITERIOS[8], CRITERIOS[9]], total: 3, confirmados: 2, meuConfirmado: false, status: "ativa", prazo: Date.now() + 30 * 60000, origemIA: true, locaisContribuicoes: [{ participante: "Lia", turma: "6º A", local: "Pátio coberto" }, { participante: "Ravi", turma: "9º A", local: "Biblioteca" }] },
+      { id: "historias", escopo: "clube", clubeId: "plot", titulo: "Uma história, outros olhares", objetivo: "Criar acordos de escuta a partir de experiências diferentes.", descricao: "Compartilhem o que faz cada pessoa se sentir ouvida e componham um acordo de escuta para o clube.", favo: "Recorde uma história em que alguém foi ouvido de verdade. O que tornou essa escuta especial?", pistaLocal: "Siga até o lugar onde muitas histórias esperam para ser abertas.", criterios: [CRITERIOS[3], CRITERIOS[8]], total: 3, confirmados: 2, meuConfirmado: false, status: "ativa", prazo: Date.now() + 60 * 60000, origemIA: true, locaisContribuicoes: [{ participante: "Noa", turma: "8º A", local: "Biblioteca" }, { participante: "Iara", turma: "9º A", local: "Sala de leitura" }] },
     ],
     posts: [
       { id: "p1", clubeId: "chega", autor: "Lia · 6º A", texto: "Nosso clube quer criar um convite para quem passa o recreio sozinho. Que jeito de convidar faz você se sentir à vontade?", criadoEm: Date.now() - 3600000, comentarios: [{ autor: "Ravi · 9º A", texto: "Perguntar o que a pessoa gosta de fazer, sem pressionar." }] },
@@ -49,7 +49,7 @@ function withClubContext(state) {
     const cleanClub = { ...club };
     delete cleanClub.espacos;
     return { combinados: "Ouvir até o fim, respeitar o tempo de cada pessoa e decidir juntos.", ...cleanClub, encontro: cleanClub.encontro?.split(" · ")[0] || "Encontro a combinar" };
-  }), missoes: state.missoes.map((mission) => ({ escopo: mission.id === "acolher" ? "turma" : "clube", turma: mission.id === "acolher" ? "7º B" : undefined, pistaLocal: mission.id === "acolher" ? "Procure um espaço de passagem onde encontros inesperados costumam acontecer." : mission.id === "historias" ? "Siga até o lugar onde muitas histórias esperam para ser abertas." : "Interprete com o grupo a pista do lugar presente neste favo.", ...mission })) };
+  }), missoes: state.missoes.map((mission) => ({ escopo: mission.id === "acolher" ? "turma" : "clube", turma: mission.id === "acolher" ? "7º B" : undefined, pistaLocal: mission.id === "acolher" ? "Procure um espaço de passagem onde encontros inesperados costumam acontecer." : mission.id === "historias" ? "Siga até o lugar onde muitas histórias esperam para ser abertas." : "Interprete com o grupo a pista do lugar presente neste favo.", objetivo: mission.descricao || "Construir uma resposta coletiva a partir de perspectivas diferentes.", locaisContribuicoes: [], origemIA: false, ...mission })) };
 }
 function readState() {
   try {
@@ -102,8 +102,10 @@ export function CommunityProvider({ children }) {
         avisos: [{ id: uid(), texto: extra ? "Mais 5 minutos! O tempo da missão foi atualizado." : `Apoio em ${s.clubes.find((c) => c.id === pedido.clubeId)?.nome}: ${resposta.trim() || "Seu pedido foi acolhido. Combine o próximo passo com o mediador."}` }, ...s.avisos] };
     });
   }
-  function confirmFavo(id) {
-    setState((s) => ({ ...s, missoes: s.missoes.map((m) => m.id === id && m.status === "ativa" && !m.meuConfirmado && s.clubes.some((c) => c.id === m.clubeId && c.membros.includes("me")) ? { ...m, meuConfirmado: true, confirmados: Math.min(m.total, m.confirmados + 1), registrador: m.confirmados + 1 >= m.total ? "me" : null } : m) }));
+  function confirmFavo(id, localVisitado) {
+    const local = String(localVisitado || "").trim();
+    if (!local) return;
+    setState((s) => ({ ...s, missoes: s.missoes.map((m) => m.id === id && m.status === "ativa" && !m.meuConfirmado && s.clubes.some((c) => c.id === m.clubeId && c.membros.includes("me")) ? { ...m, meuConfirmado: true, meuLocalVisitado: local, locaisContribuicoes: [...(m.locaisContribuicoes || []), { participante: s.profile.nome, turma: s.profile.turma, local }], confirmados: Math.min(m.total, m.confirmados + 1), registrador: m.confirmados + 1 >= m.total ? "me" : null } : m) }));
   }
   function completeMission(id, texto, foto) {
     setState((s) => {
@@ -121,7 +123,12 @@ export function CommunityProvider({ children }) {
     });
   }
   function createMission(data) {
-    setState((s) => ({ ...s, missoes: [...s.missoes, { escopo: "clube", ...data, id: uid(), status: "ativa", total: 3, confirmados: 2, meuConfirmado: false, prazo: Date.now() + 30 * 60000 }] }));
+    setState((s) => {
+      const distribuicao = data.distribuicao || [];
+      const total = Math.max(3, distribuicao.length || 0);
+      const locaisContribuicoes = distribuicao.slice(1).map((favo) => ({ participante: favo.participante, turma: favo.turma, local: favo.local }));
+      return { ...s, missoes: [...s.missoes, { escopo: "clube", ...data, id: uid(), status: "ativa", total, confirmados: total - 1, meuConfirmado: false, locaisContribuicoes, prazo: Date.now() + 30 * 60000 }] };
+    });
   }
   function createCommunity(nome, descricao) {
     if (!nome.trim()) return;

@@ -14,7 +14,12 @@ const EXAMPLES = [
     description: "A missão começa na turma e leva o grupo a observar situações reais de chegada, pertencimento e participação.",
     intention: "Escuta, empatia e cooperação",
     icon: School,
-    favos: ["Uma situação de chegada", "Uma barreira à participação", "Um gesto de acolhimento", "Uma possibilidade de apoio"],
+    favos: [
+      ["Uma situação de chegada", "Onde alguém pode se sentir deslocado"],
+      ["Uma barreira à participação", "O que impede alguém de entrar na conversa"],
+      ["Um gesto de acolhimento", "Que atitude abre espaço sem pressionar"],
+      ["Uma possibilidade de apoio", "Quem ou o que pode sustentar o acolhimento"],
+    ],
   },
   {
     context: "Clube · Frequência 440",
@@ -22,7 +27,12 @@ const EXAMPLES = [
     description: "Estudantes interessados em música conectam ritmo, convivência e ocupação dos espaços para criar um ensaio aberto.",
     intention: "Expressão, pertencimento e responsabilidade",
     icon: Radio,
-    favos: ["Um ritmo que reúne", "Um espaço que pode ganhar som", "Uma função além de tocar", "Um convite para quem nunca participou"],
+    favos: [
+      ["Um ritmo que reúne", "Que batida permite a entrada de iniciantes"],
+      ["Um espaço que pode ganhar som", "Onde um ensaio aberto aproxima a comunidade"],
+      ["Uma função além de tocar", "Como produção, dança e comunicação também participam"],
+      ["Um convite para quem nunca participou", "Que linguagem reduz o medo de começar"],
+    ],
   },
   {
     context: "Clube · Circuito Alpha",
@@ -30,7 +40,12 @@ const EXAMPLES = [
     description: "O clube de robótica parte de uma necessidade observada e combina perspectivas antes de construir qualquer solução.",
     intention: "Criatividade, colaboração e autonomia",
     icon: Wrench,
-    favos: ["Um problema observado", "A voz de quem usa o espaço", "Um recurso disponível", "Uma forma simples de testar"],
+    favos: [
+      ["Um problema observado", "Que situação cotidiana merece atenção"],
+      ["A voz de quem usa o espaço", "O que estudantes e funcionários realmente precisam"],
+      ["Um recurso disponível", "Que materiais e saberes a escola já possui"],
+      ["Uma forma simples de testar", "Como validar a ideia antes de construir tudo"],
+    ],
   },
 ];
 
@@ -55,8 +70,8 @@ export default function ExampleSection() {
           <div className="cm-mission-example-head"><Icon aria-hidden="true" /><span>{context}</span></div>
           <h3>{title}</h3>
           <p>{description}</p>
-          <h4>Favos complementares</h4>
-          <div className="cm-example-favos">{favos.map((fragment) => <div key={fragment}><Hexagon size={15} aria-hidden="true" />{fragment}</div>)}</div>
+          <div className="cm-example-favo-labels"><h4>Favo</h4><h4>O que descobrir</h4></div>
+          <div className="cm-example-favos">{favos.map(([fragment, discovery]) => <div key={fragment}><span><Hexagon size={15} aria-hidden="true" />{fragment}</span><strong>{discovery}</strong></div>)}</div>
           <footer><strong>Intenção psicossocial</strong><span>{intention}</span></footer>
         </article>)}
       </div>

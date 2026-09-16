@@ -1,11 +1,11 @@
 import React from "react";
 
 const STEPS = [
-  { n: 1, title: "Entra no ecossistema da escola", text: "A primeira missão pode nascer na turma. A partir dela, o aluno conhece a comunidade escolar e os clubes que vivem dentro dela." },
-  { n: 2, title: "Entra em um clube", text: "Por interesse ou convite de um embaixador. O clube reúne estudantes de diferentes turmas e anos." },
-  { n: 3, title: "O clube recebe uma missão", text: "O mediador lança a experiência e o embaixador ajuda o grupo a se organizar. A intenção é convivência e troca de saberes." },
-  { n: 4, title: "Cada um recebe seu favo", text: "O app mostra apenas o fragmento daquele participante e nunca aponta quem tem a parte complementar." },
-  { n: 5, title: "Se encontram e conectam", text: "Os estudantes conversam presencialmente, compartilham perspectivas e descobrem como os fragmentos se relacionam." },
+  { n: 1, title: "Explora o que a escola oferece", text: "No app, o aluno conhece clubes, espaços, missões e rituais que antes poderiam passar despercebidos." },
+  { n: 2, title: "Parte da turma ou de um clube", text: "A turma abre a primeira experiência; os clubes permitem continuar explorando interesses com estudantes de outros anos." },
+  { n: 3, title: "Recebe uma missão e seu favo", text: "A IA distribui perspectivas complementares. Cada participante abre apenas o próprio fragmento." },
+  { n: 4, title: "Segue uma pista pela escola", text: "O celular orienta o próximo passo e volta para o bolso. A descoberta acontece em espaços, conversas e situações reais." },
+  { n: 5, title: "Conecta outras perspectivas", text: "Os estudantes se encontram presencialmente e descobrem como lugares, saberes e fragmentos se relacionam." },
   { n: 6, title: "Pedem pólen se precisarem", text: "O grupo chama o mediador para apoiar uma dificuldade, incluir alguém sem celular ou conceder mais tempo." },
   { n: 7, title: "Constroem a resposta coletiva", text: "O último check-in libera o registro em texto e/ou foto. O grupo decide se também compartilha a síntese no feed da escola." },
 ];
@@ -15,7 +15,7 @@ export default function HowItWorks() {
     <section className="cm-surface cm-font" style={{ maxWidth: 1230, margin: "0 auto", padding: "20px 28px 60px" }}>
       <div style={{ textAlign: "center", marginBottom: 8 }}><span className="cm-eyebrow">A jornada central</span></div>
       <h2 style={{ fontSize: 28, letterSpacing: "-0.5px", textAlign: "center", marginBottom: 36, color: "var(--cm-ink)" }}>
-        Uma missão. Partes diferentes. Uma síntese em comum.
+        O app abre a porta. A escola inteira vira experiência.
       </h2>
       <div className="grid gap-4" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(235px, 1fr))" }}>
         {STEPS.map((s) => (

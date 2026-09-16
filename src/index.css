@@ -206,6 +206,12 @@
 .cm-hierarchy-card>span { color:var(--cm-green-deep); font-size:9px; font-weight:800; letter-spacing:1.2px; text-transform:uppercase; }
 .cm-hierarchy-card h3 { font-size:17px; margin:5px 0 9px; }
 .cm-hierarchy-card p { color:var(--cm-muted); font-size:12px; line-height:1.5; margin:0; }
+.cm-hierarchy-branches { flex:1.2; }
+.cm-hierarchy-branch-stack { display:grid; gap:8px; margin-top:10px; }
+.cm-hierarchy-branch-stack>div { display:flex; gap:9px; align-items:flex-start; padding:10px; border:1px solid var(--cm-line); border-radius:13px; background:var(--cm-paper); }
+.cm-hierarchy-branch-stack .cm-hierarchy-icon { flex:0 0 auto; width:36px; height:36px; margin:0; border-radius:10px; }
+.cm-hierarchy-branch-stack h3 { margin:0 0 4px; font-size:14px; }
+.cm-hierarchy-branch-stack p { font-size:10px; line-height:1.4; }
 .cm-hierarchy-arrow { flex:0 0 auto; align-self:center; color:var(--cm-orange); }
 .cm-role-card { position:relative; }
 .cm-role-estudante { transform:translateY(-14px); border-color:var(--cm-orange); box-shadow:0 8px 0 var(--cm-yellow),0 18px 34px rgba(24,24,27,.1); }
@@ -230,9 +236,12 @@
 .cm-mission-example-head { display:flex; align-items:center; gap:8px; color:var(--cm-green-deep); font-size:11px; font-weight:850; text-transform:uppercase; }
 .cm-mission-example h3 { margin:13px 0 8px; color:var(--cm-ink); font-size:21px; line-height:1.25; }
 .cm-mission-example>p { margin:0; color:var(--cm-muted); font-size:13px; line-height:1.55; }
-.cm-mission-example h4 { margin:18px 0 9px; color:var(--cm-ink); font-size:12px; }
+.cm-mission-example h4 { margin:0; color:var(--cm-ink); font-size:10px; letter-spacing:.5px; text-transform:uppercase; }
+.cm-example-favo-labels { display:grid; grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr); gap:10px; margin:18px 0 8px; }
 .cm-example-favos { display:grid; gap:8px; }
-.cm-example-favos>div { display:flex; align-items:flex-start; gap:7px; color:var(--cm-ink); font-size:12px; line-height:1.4; }
+.cm-example-favos>div { display:grid; grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr); gap:10px; align-items:start; padding:8px 0; border-top:1px solid var(--cm-line); color:var(--cm-ink); font-size:11px; line-height:1.4; }
+.cm-example-favos span { display:flex; align-items:flex-start; gap:6px; }
+.cm-example-favos strong { color:var(--cm-muted); font-size:10px; font-weight:600; }
 .cm-example-favos svg { flex:0 0 auto; color:var(--cm-orange); }
 .cm-mission-example footer { display:grid; gap:4px; margin-top:auto; padding-top:20px; color:var(--cm-ink); font-size:12px; }
 .cm-mission-example footer span { color:var(--cm-muted); line-height:1.45; }

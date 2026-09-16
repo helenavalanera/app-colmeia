@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Home, Users, Hexagon, UserRound, ArrowLeft, Sun, Moon, Bell, Pencil, Plus, MessageCircle, Heart, Camera, Sparkles, BadgeCheck, School, MapPin, RotateCcw, WandSparkles, Route, PhoneOff, TimerReset } from "lucide-react";
+import { Home, Users, Hexagon, UserRound, ArrowLeft, Sun, Moon, Bell, Pencil, Plus, MessageCircle, Heart, Camera, Sparkles, BadgeCheck, School, MapPin, RotateCcw, WandSparkles, Route, PhoneOff, TimerReset, CalendarDays, Compass } from "lucide-react";
 import { CRITERIOS, TURMAS, useCommunity, timeAgo } from "@/state/CommunityState";
 import BeeMascot from "@/components/colmeia/BeeMascot";
 import { useSearchParams } from "react-router-dom";
@@ -9,7 +9,8 @@ import IPhoneMockup from "@/components/colmeia/IPhoneMockup";
 import AvatarStudio from "@/components/colmeia/AvatarStudio";
 import "./community.css";
 
-const NAV = [{ id: "inicio", label: "Início", Icon: Home }, { id: "missoes", label: "Missões", Icon: Hexagon }, { id: "clubes", label: "Clubes", Icon: Users }, { id: "perfil", label: "Perfil", Icon: UserRound }];
+const NAV = [{ id: "inicio", label: "Início", Icon: Home }, { id: "clubes", label: "Clubes", Icon: Users }, { id: "missoes", label: "Missões", Icon: Hexagon }, { id: "agenda", label: "Agenda", Icon: CalendarDays }, { id: "perfil", label: "Perfil", Icon: UserRound }];
+const PILOT_RITUAL = { clube: "Clube dos Desbravadores", nome: "Passaporte aberto", recorrencia: "Todo primeiro dia útil do mês", descricao: "Um convidado ou integrante da comunidade apresenta um país, sua cultura, costumes e comida. A escola prepara um espaço para todos viajarem juntos sem sair dela.", proximo: "1º de outubro · 12h30", local: "Pátio coberto" };
 
 export default function CommunityShell() {
   const { dark, toggleDark, resetDemo, storageError, avisos, pedidos } = useCommunity();
@@ -51,6 +52,7 @@ export default function CommunityShell() {
           {tab === "inicio" && <Feed openClub={openClub} />}
           {tab === "clubes" && <Clubs openClub={openClub} />}
           {tab === "missoes" && <Missions openMission={openMission} />}
+          {tab === "agenda" && <Agenda />}
           {tab === "perfil" && <Profile />}
         </>}
       </motion.main></AnimatePresence>
@@ -175,6 +177,9 @@ function Missions({ openMission }) {
   const mine = missoes.filter((m) => m.escopo === "turma" ? m.turma === profile.turma : clubes.some((c) => c.id === m.clubeId && c.membros.includes("me"))).sort((a, b) => Number(a.status === "concluida") - Number(b.status === "concluida") || a.prazo - b.prazo);
   return <><Title eyebrow="Cada parte importa" title="Missões">A missão da sua turma abre o caminho. Nos clubes, novos favos mantêm a rede viva.</Title>{mine.length ? mine.map((m) => <MissionCard key={m.id} mission={m} openMission={openMission} />) : <Card>Quando uma missão for lançada para sua turma ou para um de seus clubes, ela aparecerá aqui.</Card>}</>;
 }
+function Agenda({ mediator = false }) {
+  return <><Title eyebrow="Rituais da comunidade" title="Agenda">Encontros que voltam a acontecer e ajudam os clubes a criar identidade, memória e participação.</Title><Card className="co-ritual-card"><div className="co-row"><span className="co-card-icon"><Compass size={19} /></span><span className="co-tag">Ritual piloto</span></div><p className="co-eyebrow">{PILOT_RITUAL.clube}</p><h3>{PILOT_RITUAL.nome}</h3><p>{PILOT_RITUAL.descricao}</p><div className="co-ritual-details"><span><CalendarDays size={15} /><strong>{PILOT_RITUAL.recorrencia}</strong></span><span><MapPin size={15} /><strong>{PILOT_RITUAL.local}</strong></span></div><p className="co-note">Próximo encontro · {PILOT_RITUAL.proximo}</p>{mediator && <p className="co-small co-muted">Como mediador, você apoia o acesso ao espaço e aos recursos. O embaixador mobiliza o clube.</p>}</Card><Card><h3>O que é um ritual?</h3><p className="co-muted">É um encontro recorrente criado pela comunidade. Diferente de uma missão, ele volta ao calendário e pode receber novos temas, convidados e participantes.</p></Card></>;
+}
 function Timer({ deadline }) {
   const [now, setNow] = useState(Date.now());
   useEffect(() => { const timer = setInterval(() => setNow(Date.now()), 1000); return () => clearInterval(timer); }, []);
@@ -256,11 +261,12 @@ function MissionSteps({ mission, favoOpen }) {
 
 function Mediator({ tab }) {
   const { clubes, missoes, posts } = useCommunity();
-  const section = { inicio: "apoio", missoes: "panorama", clubes: "clubes", perfil: "perfil" }[tab];
+  const section = { inicio: "apoio", missoes: "panorama", clubes: "clubes", agenda: "agenda", perfil: "perfil" }[tab];
   const [creating, setCreating] = useState(false);
   const activatedSpaces = [...new Set(missoes.flatMap((m) => (m.locaisContribuicoes || []).map((item) => item.local.trim())).filter(Boolean))];
   return <><Title eyebrow="Presença que apoia" title="Apoiar a Colmeia">Os alunos conduzem os clubes. Você ajuda com escuta, inclusão e os recursos da escola.</Title><div className="co-stats co-stats-three"><Card><strong>{clubes.length}</strong><br />clubes</Card><Card><strong>{missoes.filter((m) => m.status === "ativa").length}</strong><br />missões ativas</Card><Card><strong>{activatedSpaces.length}</strong><br />espaços ativados</Card></div>
     {section === "perfil" && <MediatorProfile />}
+    {section === "agenda" && <Agenda mediator />}
     {section === "apoio" && <><h3>Pedidos de apoio</h3><Support /><h3 className="co-section-title">Feed da comunidade escolar</h3>{posts.slice(0, 3).map((p) => <Card key={p.id}><ClubLabel clubeId={p.clubeId} /><p><strong>{p.autor}</strong></p><p>{p.texto}</p></Card>)}</>}
     {section === "panorama" && <><Button secondary onClick={() => setCreating(!creating)}><WandSparkles size={16} /> Criar missão com IA</Button>{creating && <MediatorMissionComposer done={() => setCreating(false)} />}<Card><h3>Ecossistema ativado</h3><p>{posts.length} postagens · {missoes.filter((m) => m.status === "concluida").length} respostas concluídas</p><div className="co-space-tags">{activatedSpaces.map((space) => <span className="co-space-tag" key={space}><MapPin size={12} /> {space}</span>)}</div><p className="co-small co-muted">Os lugares aparecem quando os estudantes registram aonde cada favo os levou. Sem ranking individual.</p></Card>{missoes.map((m) => <Card key={m.id}>{m.escopo === "turma" ? <span className="co-small co-muted"><School size={13} /> Turma · {m.turma}</span> : <ClubLabel clubeId={m.clubeId} />}<h3>{m.titulo}</h3>{m.origemIA && <span className="co-ai-label"><WandSparkles size={12} /> Distribuição assistida por IA</span>}<p>{m.status === "ativa" ? "Em andamento" : "Resposta coletiva concluída"}</p><p className="co-small"><Route size={13} /> {(m.locaisContribuicoes || []).length} trajetos registrados · {[...new Set((m.locaisContribuicoes || []).map((item) => item.local))].length} espaços ativados</p>{m.criterios.map((c) => <p key={c} className="co-small">{c}</p>)}{m.resposta && <p>{m.resposta}</p>}{m.foto && <img src={m.foto} alt="Evidência enviada pelo grupo" className="co-evidence" />}</Card>)}</>}
     {section === "clubes" && <><Card><h3>A escola é a comunidade</h3><p>Os clubes são a forma de organizar interesses, encontros e missões entre turmas.</p><p className="co-small co-muted">O mediador acompanha sem assumir a liderança dos grupos.</p></Card>{clubes.map((c) => <Card key={c.id}><span className="co-tag">{c.embaixador === "me" ? "Embaixadora: Bia" : "Embaixador estudantil"}</span><h3>{c.nome}</h3><p>{c.descricao}</p><p className="co-small">{c.membros.length} participantes · {c.turmas.join(" · ")}</p></Card>)}</>}

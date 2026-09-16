@@ -19,9 +19,6 @@ export default function Hero() {
             <Link to="/app?visao=aluno" className="cm-btn cm-btn-primary">Explorar como aluno</Link>
             <Link to="/app?visao=mediador" className="cm-btn cm-btn-ghost">Explorar como mediador</Link>
           </div>
-          <p className="cm-hero-note">
-            Funciona direto no navegador, em celulares que a escola já tem.
-          </p>
       </div>
     </section>);
 

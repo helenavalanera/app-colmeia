@@ -237,7 +237,6 @@
 .cm-hero-lead { max-width:610px; margin:24px 0 0; color:var(--cm-muted); font-size:clamp(15px,1.2vw,19px); line-height:1.65; }
 .cm-hero-actions { margin-top:28px; }
 .cm-hero-actions .cm-btn { min-height:50px; padding:14px 22px; font-size:14px; box-shadow:0 3px 0 #18181b; }
-.cm-hero-note { max-width:520px; margin-top:20px; color:var(--cm-muted); font-size:13px; }
 @media(max-width:900px) {
   .cm-landing > .cm-surface,.cm-landing > footer { width:calc(100% - 20px); }
   .cm-hero { align-items:flex-start; min-height:900px; padding-top:46px; background-image:linear-gradient(180deg,rgba(255,248,239,1) 0%,rgba(255,248,239,.96) 44%,rgba(255,248,239,.14) 66%,rgba(255,248,239,0) 100%),url('/hero/colmeia-opening-user.png'); background-position:center,center bottom; background-size:100% 100%,auto 51%; background-repeat:no-repeat; }

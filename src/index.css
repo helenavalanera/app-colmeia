@@ -206,7 +206,7 @@
   margin-left:auto!important;
 }
 .cm-landing > .cm-hero { width:100%!important; max-width:none!important; margin-right:0!important; margin-left:0!important; }
-.cm-site-header { padding:20px clamp(20px,3vw,52px); border-bottom:1px solid var(--cm-line); }
+.cm-site-header { min-height:108px; padding:18px clamp(20px,3vw,52px); border-bottom:1px solid var(--cm-line); }
 .cm-landing > section:not(.cm-hero) { padding-right:clamp(24px,4vw,68px)!important; padding-left:clamp(24px,4vw,68px)!important; }
 .cm-landing .cm-card { padding:clamp(20px,1.8vw,30px); }
 .cm-landing > section > h2 { font-size:clamp(32px,3.2vw,52px)!important; }
@@ -367,10 +367,11 @@
 .cm-dark.cm-device { border-color: var(--cm-brand-black); }
 
 /* Marca e personagem compartilhados pela landing e pelo simulador. */
-.co-brand-pair { display:flex; align-items:center; gap:15px; }
-.co-entre-pretas { width:115px; max-height:58px; object-fit:contain; }
-.co-colmeia-logo { width:154px; height:58px; object-fit:contain; }
-.co-brand-divider { width:1px; height:34px; background:var(--cm-line); }
+.co-brand-pair { display:flex; align-items:center; gap:18px; }
+.co-brand-pair a { display:flex; align-items:center; }
+.co-entre-pretas { width:clamp(132px,11vw,158px); max-height:72px; object-fit:contain; }
+.co-colmeia-logo { width:clamp(178px,15vw,214px); height:72px; object-fit:contain; }
+.co-brand-divider { width:1px; height:44px; background:var(--cm-line); }
 .co-event-label { font-size:11px; font-weight:800; text-align:right; color:var(--cm-ink); }
 .co-event-label span { color:var(--cm-muted); font-size:10px; font-weight:400; }
 .co-hero-grid { display:grid; grid-template-columns:1.4fr 1fr; align-items:center; gap:40px; }
@@ -380,7 +381,7 @@
 .co-bee3d-canvas { display:block; width:100%; }
 .co-bee3d-canvas canvas { display:block; max-width:100%; height:auto!important; }
 .co-bee-greeting { display:block; min-height:34px; font-size:11px; color:var(--cm-muted); padding:8px 0; }
-@media(max-width:640px) { .co-hero-grid { grid-template-columns:1fr; gap:20px; } .co-brand-pair { gap:8px; } .co-entre-pretas { width:85px; } .co-colmeia-logo { width:116px; height:44px; } .co-event-label { display:none; } }
+@media(max-width:640px) { .cm-site-header { min-height:88px; padding:14px 16px; } .co-hero-grid { grid-template-columns:1fr; gap:20px; } .co-brand-pair { gap:10px; } .co-entre-pretas { width:105px; max-height:54px; } .co-colmeia-logo { width:145px; height:54px; } .co-brand-divider { height:34px; } .co-event-label { display:none; } }
 .cm-trust-strip { position:relative; z-index:3; margin-top:-18px!important; }
 @media(max-width:700px) { .cm-role-sticker { display:none; } }
 @media(prefers-reduced-motion:reduce) { .cm-role-sticker { animation:none; } }

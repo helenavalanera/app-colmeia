@@ -214,7 +214,7 @@
   position:relative;
   display:flex;
   align-items:center;
-  min-height:min(790px,calc(100vh - 92px));
+  min-height:clamp(620px,72vh,740px);
   overflow:hidden;
   padding:clamp(48px,7vw,112px) clamp(24px,4vw,68px);
   border-radius:0 0 34px 34px;
@@ -262,6 +262,13 @@
 .cm-hierarchy-branch-stack p { font-size:10px; line-height:1.4; }
 .cm-hierarchy-arrow { flex:0 0 auto; align-self:center; color:var(--cm-orange); }
 .cm-role-card { position:relative; }
+.cm-audience { position:relative; overflow:visible; isolation:isolate; }
+.cm-audience::before { position:absolute; z-index:-1; inset:4% 0 auto auto; width:260px; height:520px; content:""; background:url('/brand/honeycomb-lines.png') center/contain no-repeat; opacity:.08; pointer-events:none; }
+.cm-role-sticker { position:absolute; z-index:3; width:auto; height:auto; object-fit:contain; pointer-events:none; filter:drop-shadow(0 8px 10px rgba(24,24,27,.14)); animation:cm-float-sticker 5s ease-in-out infinite; }
+.cm-sticker-flor { left:2.5%; bottom:22px; width:92px; transform:rotate(-7deg); }
+.cm-sticker-hatch { left:55%; top:104px; width:86px; transform:rotate(5deg); animation-delay:-1.6s; }
+.cm-sticker-star { right:1.5%; top:158px; width:60px; transform:rotate(8deg); animation-delay:-3s; }
+@keyframes cm-float-sticker { 0%,100% { translate:0 0; } 50% { translate:0 -7px; } }
 .cm-role-estudante { transform:translateY(-14px); border-color:var(--cm-orange); box-shadow:0 8px 0 var(--cm-yellow),0 18px 34px rgba(24,24,27,.1); }
 @media(max-width:860px) { .cm-hierarchy-flow { display:grid; grid-template-columns:1fr 1fr; gap:12px; } .cm-hierarchy-arrow { display:none; } }
 @media(max-width:540px) { .cm-hierarchy-flow { grid-template-columns:1fr; } }
@@ -352,7 +359,7 @@
 /* Marca e personagem compartilhados pela landing e pelo simulador. */
 .co-brand-pair { display:flex; align-items:center; gap:15px; }
 .co-entre-pretas { width:115px; max-height:58px; object-fit:contain; }
-.co-colmeia-logo { width:52px; height:52px; object-fit:contain; }
+.co-colmeia-logo { width:154px; height:58px; object-fit:contain; }
 .co-brand-divider { width:1px; height:34px; background:var(--cm-line); }
 .co-event-label { font-size:11px; font-weight:800; text-align:right; color:var(--cm-ink); }
 .co-event-label span { color:var(--cm-muted); font-size:10px; font-weight:400; }
@@ -363,4 +370,7 @@
 .co-bee3d-canvas { display:block; width:100%; }
 .co-bee3d-canvas canvas { display:block; max-width:100%; height:auto!important; }
 .co-bee-greeting { display:block; min-height:34px; font-size:11px; color:var(--cm-muted); padding:8px 0; }
-@media(max-width:640px) { .co-hero-grid { grid-template-columns:1fr; gap:20px; } .co-brand-pair { gap:8px; } .co-entre-pretas { width:85px; } .co-colmeia-logo { width:44px; height:44px; } .co-event-label { display:none; } }
+@media(max-width:640px) { .co-hero-grid { grid-template-columns:1fr; gap:20px; } .co-brand-pair { gap:8px; } .co-entre-pretas { width:85px; } .co-colmeia-logo { width:116px; height:44px; } .co-event-label { display:none; } }
+.cm-trust-strip { position:relative; z-index:3; margin-top:-18px!important; }
+@media(max-width:700px) { .cm-role-sticker { display:none; } }
+@media(prefers-reduced-motion:reduce) { .cm-role-sticker { animation:none; } }

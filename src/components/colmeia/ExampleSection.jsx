@@ -72,7 +72,7 @@ export default function ExampleSection() {
           <p>{description}</p>
           <div className="cm-example-favo-labels"><h4>Favo</h4><h4>O que eu descobri</h4><h4>Meu percurso</h4></div>
           <div className="cm-example-favos">{favos.map(([fragment, discovery, place, person]) => <div key={fragment}><span><Hexagon size={15} aria-hidden="true" />{fragment}</span><strong>{discovery}</strong><span className="cm-example-route"><span><MapPin size={13} aria-hidden="true" />{place}</span><span><MessageCircle size={13} aria-hidden="true" />{person}</span></span></div>)}</div>
-          <footer><strong>Intenção psicossocial</strong><span>{intention}</span></footer>
+          <footer><strong>Soft skills</strong><span>{intention}</span></footer>
         </article>)}
       </div>
     </section>

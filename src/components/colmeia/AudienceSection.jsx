@@ -41,8 +41,9 @@ const COLS = [
 ];
 
 export default function AudienceSection() {
+  const assets = import.meta.env.BASE_URL;
   return (
-    <section className="cm-surface cm-font" style={{ maxWidth: 1230, margin: "0 auto", padding: "20px 28px 60px" }}>
+    <section className="cm-surface cm-font cm-audience" style={{ maxWidth: 1230, margin: "0 auto", padding: "20px 28px 60px" }}>
       <h2 style={{ fontSize: 28, textAlign: "center", letterSpacing: "-0.5px", marginBottom: 36, color: "var(--cm-ink)" }}>
         Quem dá vida à Colmeia
       </h2>
@@ -64,6 +65,9 @@ export default function AudienceSection() {
           </div>
         ))}
       </div>
+      <img className="cm-role-sticker cm-sticker-flor" src={`${assets}hero/sticker-flor.png`} alt="Abelha Flor fazendo um coração com as mãos" />
+      <img className="cm-role-sticker cm-sticker-hatch" src={`${assets}hero/sticker-hatch.png`} alt="Hatch usando óculos escuros" />
+      <img className="cm-role-sticker cm-sticker-star" src={`${assets}hero/sticker-star.png`} alt="Estrela abelha acenando" />
     </section>
   );
 }

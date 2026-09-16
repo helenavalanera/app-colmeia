@@ -8,7 +8,7 @@ const SEALS = [
 
 export default function TrustStrip() {
   return (
-    <div className="cm-surface cm-font flex flex-wrap justify-center gap-3.5" style={{ maxWidth: 1230, margin: "0 auto", padding: "0 28px 32px" }}>
+    <div className="cm-surface cm-font cm-trust-strip flex flex-wrap justify-center gap-3.5" style={{ maxWidth: 1230, margin: "0 auto", padding: "0 28px 32px" }}>
       {SEALS.map((s) =>
       <div
         key={s.text}

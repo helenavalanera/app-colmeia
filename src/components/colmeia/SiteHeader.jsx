@@ -2,7 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const ASSET_BASE = import.meta.env.BASE_URL;
-export const LOGO_COLMEIA = `${ASSET_BASE}brand/colmeia-mark.png`;
+export const LOGO_COLMEIA_MARK = `${ASSET_BASE}brand/colmeia-mark.png`;
+export const LOGO_COLMEIA_FULL = "https://media.base44.com/images/public/6aa81abfa22008a3216ae411/5131c50ac_ProcessoCriativo-Hackathon20261.png";
+export const LOGO_COLMEIA = LOGO_COLMEIA_FULL;
 export const LOGO_ENTRE_PRETAS = "https://media.base44.com/images/public/6aa81abfa22008a3216ae411/40d4d44cb_ProcessoCriativo-Hackathon2026.png";
 
 export default function SiteHeader() {

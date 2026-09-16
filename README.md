@@ -10,12 +10,14 @@ Protótipo do **HACKTUDO 2026** (equipe Entre Pretas), construído como app Base
 - **Mapa vivo da escola** — antes do check-in, cada estudante registra aonde seu favo o levou. A síntese conecta os percursos, e o mediador acompanha quantos espaços únicos foram ativados sem criar ranking individual.
 - **Feed de saberes** — clubes compartilham descobertas em texto e foto no feed da escola. O aluno alterna entre conteúdo priorizado por seus interesses e tudo o que circula na escola, com curtidas e comentários, sem chat.
 - **Apoio do mediador, não vigilância** — o mediador lança missões para turmas ou clubes, acolhe pedidos de apoio (pólen/orientação, mais tempo, favo coringa para quem está sem celular) e acompanha um panorama agregado — sem conduzir os clubes nem avaliar aluno por aluno.
-- **Critério psicossocial da BNCC** — cada missão é vinculada a uma Competência Geral da BNCC com foco psicossocial (escuta e empatia, cooperação, autoconhecimento e cuidado, responsabilidade e autonomia), e não ao conteúdo de uma disciplina específica.
+- **Soft skills** — cada missão seleciona competências como escuta ativa, empatia, cooperação, comunicação, autonomia, responsabilidade e resolução de conflitos, sem vinculá-las ao conteúdo de uma disciplina específica.
 - **Visão do aluno / visão do mediador no mesmo aparelho** — um só celular na demonstração, com um seletor externo e troca por gesto lateral, no layout mobile inspirado no Circle.
 - **Modo claro e modo escuro.**
 - **Minha Abelha** — personalização leve do avatar do aluno (roupa, chapéu).
 
 Tudo isso vive na rota `/app` ([ColmeiaApp.jsx](src/api/pages/ColmeiaApp.jsx) → [CommunityShell.jsx](src/components/comunidade/CommunityShell.jsx) → estado em [CommunityState.jsx](src/state/CommunityState.jsx)), com os dados salvos no `localStorage` do navegador — é uma demonstração com dados fictícios; limpar o armazenamento do site reinicia tudo.
+
+A arquitetura, as regras implementadas e o roteiro completo de verificação estão em [docs/DOCUMENTACAO_TECNICA.md](docs/DOCUMENTACAO_TECNICA.md).
 
 ## Estado do protótipo
 
@@ -86,7 +88,7 @@ Support: [https://app.base44.com/support](https://app.base44.com/support)
 
 ## Fontes de dados
 
-- **Critérios psicossociais da BNCC** (`CRITERIOS` em [CommunityState.jsx](src/state/CommunityState.jsx)) — uma lista curada de 4 Competências Gerais da BNCC voltadas ao psicossocial (CG8, CG9, CG10), vinculada a cada missão pelo clube/mediador. É o critério usado pela experiência atual de comunidades.
+- **Soft skills** (`CRITERIOS` em [CommunityState.jsx](src/state/CommunityState.jsx)) — lista de dez competências socioemocionais selecionáveis pelo mediador e vinculadas a cada missão.
 - **Banco completo de habilidades da BNCC** (`src/data/bncc.json`, 730 habilidades do Ensino Fundamental, 6º ao 9º ano, com código/texto/componente curricular) e o seletor de busca (`BnccPicker.jsx`) continuam no repositório, extraídos do dataset aberto [bncc.dev](https://github.com/bncc-dev/bncc-dados) (mantido pela Profy), licenciado sob [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/deed.pt-br) — hoje usados apenas pela versão anterior do protótipo (ver "Estado do protótipo" acima), não pela experiência atual de comunidades.
 
 ## Equipe

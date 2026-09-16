@@ -205,6 +205,7 @@
   margin-right:auto!important;
   margin-left:auto!important;
 }
+.cm-landing > .cm-hero { width:100%!important; max-width:none!important; margin-right:0!important; margin-left:0!important; }
 .cm-site-header { padding:20px clamp(20px,3vw,52px); border-bottom:1px solid var(--cm-line); }
 .cm-landing > section:not(.cm-hero) { padding-right:clamp(24px,4vw,68px)!important; padding-left:clamp(24px,4vw,68px)!important; }
 .cm-landing .cm-card { padding:clamp(20px,1.8vw,30px); }
@@ -266,7 +267,7 @@
 .cm-audience::before { position:absolute; z-index:-1; inset:4% 0 auto auto; width:260px; height:520px; content:""; background:url('/brand/honeycomb-lines.png') center/contain no-repeat; opacity:.08; pointer-events:none; }
 .cm-role-sticker { position:absolute; z-index:3; width:auto; height:auto; object-fit:contain; pointer-events:none; filter:drop-shadow(0 8px 10px rgba(24,24,27,.14)); animation:cm-float-sticker 5s ease-in-out infinite; }
 .cm-sticker-flor { left:2.5%; bottom:22px; width:92px; transform:rotate(-7deg); }
-.cm-sticker-hatch { left:55%; top:104px; width:86px; transform:rotate(5deg); animation-delay:-1.6s; }
+.cm-sticker-hatch { left:calc(66.666% - 54px); top:172px; width:86px; transform:rotate(5deg); animation-delay:-1.6s; }
 .cm-sticker-star { right:1.5%; top:158px; width:60px; transform:rotate(8deg); animation-delay:-3s; }
 @keyframes cm-float-sticker { 0%,100% { translate:0 0; } 50% { translate:0 -7px; } }
 .cm-role-estudante { transform:translateY(-14px); border-color:var(--cm-orange); box-shadow:0 8px 0 var(--cm-yellow),0 18px 34px rgba(24,24,27,.1); }

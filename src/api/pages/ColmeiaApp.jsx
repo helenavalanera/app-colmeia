@@ -9,8 +9,8 @@ export default function ColmeiaApp() {
     <CommunityProvider>
       <div className="cm-surface" style={{ minHeight: "100vh" }}>
         <SiteHeader />
-        <div style={{ maxWidth: 600, margin: "0 auto", padding: "16px 24px 0" }}>
-          <Link to="/" className="cm-btn cm-btn-ghost cm-font" style={{ fontSize: 12 }}>← Voltar à landing</Link>
+        <div className="co-page-back-wrap">
+          <Link to="/" className="cm-btn cm-btn-ghost cm-font co-page-back">← Voltar à página inicial</Link>
         </div>
         <CommunityShell />
       </div>

@@ -2,8 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 export default function Hero() {
+  const assets = import.meta.env.BASE_URL;
   return (
     <section className="cm-hero cm-surface cm-font">
+      <img className="cm-hero-honeycomb" src={`${assets}brand/honeycomb-lines.png`} alt="" aria-hidden="true" />
       <div className="cm-hero-content">
           <span className="cm-eyebrow cm-hero-eyebrow">Para turmas do 6º ao 9º ano</span>
           <h1>

@@ -40,8 +40,8 @@ export default function HowItWorks() {
             >
               {s.n}
             </div>
-            <h3 style={{ fontSize: 15, marginBottom: 6, color: "var(--cm-ink)" }}>{s.title}</h3>
-            <p style={{ fontSize: 13, color: "var(--cm-muted)", lineHeight: 1.5, margin: 0, marginTop: "auto" }}>
+            <h3 style={{ fontSize: 17, lineHeight: 1.3, marginBottom: 7, color: "var(--cm-ink)" }}>{s.title}</h3>
+            <p style={{ fontSize: 14, color: "var(--cm-muted)", lineHeight: 1.6, margin: 0, marginTop: "auto" }}>
               {s.text}
             </p>
           </div>

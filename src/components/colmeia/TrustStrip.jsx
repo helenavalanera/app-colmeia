@@ -18,7 +18,7 @@ export default function TrustStrip() {
           border: "1px solid var(--cm-line)",
           borderRadius: 100,
           padding: "10px 16px",
-          fontSize: 12,
+          fontSize: 13,
           fontWeight: 700,
           color: "var(--cm-ink)",
           boxShadow: "0 2px 8px rgba(38,59,50,0.05)"

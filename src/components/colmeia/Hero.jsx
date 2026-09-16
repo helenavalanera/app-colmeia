@@ -6,6 +6,7 @@ export default function Hero() {
   return (
     <section className="cm-hero cm-surface cm-font">
       <img className="cm-hero-honeycomb" src={`${assets}brand/honeycomb-lines.png`} alt="" aria-hidden="true" />
+      <span className="cm-hero-phone-art" aria-hidden="true"><img src={`${assets}hero/colmeia-phone-mockup.png`} alt="" /></span>
       <div className="cm-hero-content">
           <span className="cm-eyebrow cm-hero-eyebrow">Para turmas do 6º ao 9º ano</span>
           <h1>

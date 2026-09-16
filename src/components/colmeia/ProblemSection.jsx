@@ -15,7 +15,7 @@ export default function ProblemSection() {
       <h2 style={{ fontSize: 30, lineHeight: 1.2, letterSpacing: "-0.5px", maxWidth: 640, marginTop: 10, color: "var(--cm-green)" }}>
         Estão na mesma sala, mas nem sempre estão juntos.
       </h2>
-      <p style={{ maxWidth: 640, color: "var(--cm-muted)", fontSize: 14, lineHeight: 1.6, marginTop: 14, marginBottom: 28 }}>
+      <p style={{ maxWidth: 680, color: "var(--cm-muted)", fontSize: 15, lineHeight: 1.65, marginTop: 14, marginBottom: 28 }}>
         O celular pode intensificar distrações e manter estudantes sempre nos mesmos grupos. A escola precisa criar encontros com propósito, protagonismo e pertencimento, sem transformar a tecnologia no centro da experiência.
       </p>
       <div className="grid gap-4" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))" }}>
@@ -32,8 +32,8 @@ export default function ProblemSection() {
                 marginBottom: 12 
               }} 
             />
-            <h3 style={{ fontSize: 16, marginBottom: 8, color: "var(--cm-ink)" }}>{c.title}</h3>
-            <p style={{ fontSize: 13, color: "var(--cm-muted)", lineHeight: 1.5, margin: 0 }}>{c.text}</p>
+            <h3 style={{ fontSize: 18, marginBottom: 8, color: "var(--cm-ink)" }}>{c.title}</h3>
+            <p style={{ fontSize: 14, color: "var(--cm-muted)", lineHeight: 1.6, margin: 0 }}>{c.text}</p>
           </div>
         ))}
       </div>

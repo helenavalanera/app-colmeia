@@ -227,5 +227,30 @@
 .co-calendar-grid i+i { left:14px; }
 .co-ritual-card.is-turma { border-left:5px solid rgba(52,75,54,.62); }
 .co-ritual-card.is-clube { border-left:5px solid rgba(155,112,220,.72); }
+.co-ritual-purpose { display:flex; align-items:center; gap:6px; margin:10px 0!important; color:var(--cm-green-deep); font-size:11.5px; font-weight:750; }
+
+/* Escala tipográfica da demo: leitura confortável dentro do frame mobile sem perder densidade. */
+.co-phone { font-size:13.5px; }
+.co-small { font-size:11.5px; line-height:1.5; }
+.co-switch button,.co-tabs button,.co-button,.co-field,.co-back,.co-link { font-size:12.5px; }
+.co-nav button { font-size:10.5px; }
+.co-reset-button { font-size:10px; }
+.co-feed-explainer { font-size:11px; line-height:1.45; }
+.co-club-strip button { font-size:10.5px; }
+.co-club-strip small { font-size:9.5px; }
+.co-social-post .co-row strong { font-size:12.5px; }
+.co-double-tap,.co-note-sticker,.co-interest-label,.co-post-context,.co-audience-tag,.co-ambassador-tag,.co-icon-picker button { font-size:10px; }
+.co-interest-picker label { font-size:11px; }
+.co-criteria label { font-size:11.5px; }
+.co-character-copy span,.co-swipe-hint { font-size:10px; }
+.co-character-copy small,.co-avatar-options button,.co-space-route small,.co-ai-label { font-size:10.5px; }
+.co-stats-three .co-card { font-size:11px; }
+.co-ai-favo small,.co-ai-favo em,.co-subgroup small,.co-subgroup em { font-size:10px; }
+.co-ai-favo p,.co-subgroup p { font-size:11px; line-height:1.5; }
+.co-subgroup strong { font-size:12px; }
+.co-ritual-details span { font-size:11.5px; }
+.co-calendar-legend { font-size:10px; }
+.co-calendar-weekdays { font-size:9px; }
+.co-calendar-grid>div { font-size:10px; }
 @media(max-width:460px) { .co-iphone-mockup { width:min(390px,calc(100vw - 16px)); } .co-demo-heading h1 { font-size:24px; } }
 @media(prefers-reduced-motion:reduce) { .co-view-indicator,.co-button,.co-touch-pointer>span { transition:none; } }

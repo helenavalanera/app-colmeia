@@ -78,6 +78,7 @@ A landing é composta nesta ordem:
 ### Ativos visuais
 
 - `public/hero/colmeia-opening-user.png`: ilustração da abertura e detalhe opaco do palco da demo.
+- `public/hero/colmeia-phone-mockup.png`: mockup ilustrado do celular, sobreposto à malha de favos na abertura.
 - `public/brand/colmeia-mark.png`: símbolo usado dentro do aplicativo.
 - `public/brand/honeycomb-lines.png`: malha decorativa de favos.
 - `public/hero/sticker-flor.png`: sticker original da Flor.
@@ -146,7 +147,7 @@ Quando o mediador concede tempo adicional, o prazo da missão aumenta e o estuda
 
 ### Agenda e rituais
 
-O calendário diferencia rituais de turma em verde e de clube em lilás. O mediador define data, horário, local, recorrência e público. A publicação aparece imediatamente na agenda do estudante correspondente.
+O calendário diferencia rituais de turma em verde e de clube em lilás. O mediador define data, horário, local, recorrência e público. A publicação aparece imediatamente na agenda do estudante correspondente. A interface apresenta esses encontros como uma prática contínua para observar a evolução da escuta, da participação, do cuidado e dos acordos de convivência.
 
 ### Perfil e avatar
 
@@ -205,7 +206,7 @@ Paleta principal:
 - amarelo: `#FFAC00`;
 - preto: `#18181B`.
 
-A landing usa áreas largas, contornos fortes, sombras sólidas, stickers e imagens 3D/ilustradas. A interação do produto permanece delimitada ao aparelho. O app oferece modo claro e escuro, cards translúcidos e detalhes visuais de baixa opacidade.
+A landing usa áreas largas, contornos fortes, sombras sólidas, stickers e imagens 3D/ilustradas. A interação do produto permanece delimitada ao aparelho. O app oferece modo claro e escuro, cards translúcidos e detalhes visuais de baixa opacidade. A escala tipográfica usa títulos responsivos na landing, corpo entre 14 e 15 px nas explicações e uma base de 13,5 px no protótipo; metadados permanecem menores, mas sem competir com ações e conteúdo principal.
 
 O mockup usa proporção `390 / 844` e limita o tamanho pela altura disponível da janela. Em telas pequenas, a landing reorganiza grids e remove stickers decorativos que poderiam encobrir conteúdo.
 
@@ -258,4 +259,3 @@ O script `npm run typecheck` não encontra entradas porque o `jsconfig.json` atu
 - IA e moderação são simulações locais.
 - Horários e participantes são dados fictícios.
 - A versão antiga em `StudentPhone.jsx`, `TeacherPhone.jsx` e `DemoState.jsx` está mantida apenas como referência e não é usada pelas rotas atuais.
-

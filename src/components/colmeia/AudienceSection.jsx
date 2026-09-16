@@ -53,7 +53,7 @@ export default function AudienceSection() {
           <div key={col.title} className={`cm-card cm-role-card cm-role-${col.role}`} style={{ padding: 24 }}>
             <div style={{ width: 46, height: 46, borderRadius: 14, display: "grid", placeItems: "center", background: "var(--cm-yellow)", marginBottom: 14 }}><col.Icon size={24} aria-hidden="true" /></div>
             <span className="cm-eyebrow">{col.eyebrow}</span>
-            <h3 style={{ fontSize: 17, marginBottom: 16, color: "var(--cm-ink)" }}>{col.title}</h3>
+            <h3 style={{ fontSize: 18, marginBottom: 16, color: "var(--cm-ink)" }}>{col.title}</h3>
             <ul style={{ margin: 0, padding: 0, listStyle: "none", display: "grid", gap: 11 }}>
               {col.items.map((it) => (
                 <li key={it} style={{ fontSize: 14, lineHeight: 1.5, display: "flex", gap: 8, color: "var(--cm-ink)" }}>

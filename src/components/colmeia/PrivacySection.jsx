@@ -22,7 +22,7 @@ export default function PrivacySection() {
         }}
       >
         <h2 style={{ fontSize: 26, letterSpacing: "-0.5px", marginBottom: 4 }}>
-          Mediação pedagógica, não vigilância.
+          Mediação pedagógica, com acompanhamento responsável.
         </h2>
         <div className="grid gap-4" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(min(260px, 100%), 1fr))" }}>
           {ITEMS.map((it) => (

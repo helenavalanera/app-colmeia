@@ -16,7 +16,7 @@ export default function IPhoneMockup({ children, className = "" }) {
             <span className="co-dynamic-camera" />
             <span className="co-dynamic-sensor" />
           </div>
-          <div className="co-iphone-content">{children}</div>
+          <div className="co-iphone-content"><div className="co-iphone-viewport">{children}</div></div>
           <span className="co-home-indicator" aria-hidden="true" />
         </div>
       </div>

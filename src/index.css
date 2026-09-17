@@ -282,17 +282,19 @@
 .cm-hierarchy-branch-stack h3 { margin:0 0 4px; font-size:14px; }
 .cm-hierarchy-branch-stack p { font-size:12px; line-height:1.5; }
 .cm-hierarchy-arrow { flex:0 0 auto; align-self:center; justify-self:center; color:var(--cm-orange); }
-.cm-role-card { position:relative; }
+.cm-role-card { position:relative; z-index:1; }
 .cm-audience { position:relative; overflow:visible; isolation:isolate; }
 .cm-audience::before { position:absolute; z-index:-1; inset:4% 0 auto auto; width:260px; height:520px; content:""; background:url('/brand/honeycomb-lines.png') center/contain no-repeat; opacity:.08; pointer-events:none; }
-.cm-role-sticker { position:absolute; z-index:3; width:auto; height:auto; object-fit:contain; pointer-events:none; filter:drop-shadow(0 8px 10px rgba(24,24,27,.14)); animation:cm-float-sticker 5s ease-in-out infinite; }
+.cm-role-sticker { position:absolute; z-index:10; width:auto; height:auto; object-fit:contain; pointer-events:none; filter:drop-shadow(0 8px 10px rgba(24,24,27,.14)); animation:cm-float-sticker 5s ease-in-out infinite; }
 /* Posicionados relativos ao próprio .cm-role-card (não mais à seção inteira),
    assim cada sticker acompanha seu card quando os cards empilham no mobile. */
 .cm-sticker-flor { left:-5.96%; bottom:-39px; width:92px; transform:rotate(-7deg); }
 .cm-sticker-hatch { left:91.87%; top:8.39px; width:86px; transform:rotate(5deg); animation-delay:-1.6s; }
 .cm-sticker-star { left:92.72%; top:-19.61px; width:60px; transform:rotate(8deg); animation-delay:-3s; }
 @keyframes cm-float-sticker { 0%,100% { translate:0 0; } 50% { translate:0 -7px; } }
-.cm-role-estudante { transform:translateY(-14px); border-color:var(--cm-orange); box-shadow:0 8px 0 var(--cm-yellow),0 18px 34px rgba(24,24,27,.1); }
+.cm-role-mediador { z-index:3; }
+.cm-role-estudante { z-index:2; transform:translateY(-14px); border-color:var(--cm-orange); box-shadow:0 8px 0 var(--cm-yellow),0 18px 34px rgba(24,24,27,.1); }
+.cm-role-embaixador { z-index:1; }
 @media(max-width:860px) {
   /* Mobile: fluxo vertical (mesmo padrão de .cm-practice-flow/.cm-practice-arrow) —
      as setas continuam visíveis, só rotacionadas para apontar para baixo. */

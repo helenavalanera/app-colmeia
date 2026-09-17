@@ -57,10 +57,11 @@
 .co-view-indicator { position:absolute; width:calc(50% - 5px); top:5px; bottom:5px; left:5px; background:#ffac00; border-radius:12px; transition:transform .35s cubic-bezier(.2,.8,.2,1); box-shadow:inset 0 2px 1px #ffffff80,0 2px 4px #18181b20; }
 .co-view-indicator.is-mediator { transform:translateX(100%); background:#f86700; }
 /* Mockup 390×844: proporção alta, bezel uniforme e raios concêntricos. */
-.co-iphone-mockup { position:relative; width:min(390px,calc((100dvh - 190px) * 390 / 844),calc(100vw - 28px)); aspect-ratio:390/844; height:auto; min-height:0; margin:0 auto; isolation:isolate; filter:drop-shadow(0 24px 34px #18181b30) drop-shadow(0 8px 10px #f867001d); }
+.co-iphone-mockup { position:relative; width:min(460px,calc((100dvh - 190px) * 460 / 844),calc(100vw - 28px)); aspect-ratio:390/844; height:auto; min-height:0; margin:0 auto; isolation:isolate; filter:drop-shadow(0 24px 34px #18181b30) drop-shadow(0 8px 10px #f867001d); }
 .co-iphone-frame { position:absolute; inset:0; padding:5px; border:1px solid #747477; border-radius:58px; background:linear-gradient(118deg,#171719 0%,#55555a 18%,#18181b 42%,#6f6f73 66%,#111113 100%); box-shadow:inset 0 0 0 1px #ffffff26,inset 0 0 0 2px #09090b,0 5px 0 #0a0a0c; }
 .co-iphone-screen { position:relative; width:100%; height:100%; overflow:hidden; border:4px solid #050506; border-radius:53px; background:var(--cm-paper); box-shadow:inset 0 0 0 1px #ffffff12; }
 .co-iphone-content { position:relative; display:flex; width:100%; height:100%; box-sizing:border-box; padding:48px 0 13px; }
+.co-iphone-viewport { flex:0 0 auto; width:138.8889%; height:138.8889%; transform:scale(.72); transform-origin:top left; }
 .co-iphone-status { position:absolute; z-index:125; top:0; right:0; left:0; display:grid; grid-template-columns:1fr 118px 1fr; align-items:center; height:44px; padding:0 21px; color:var(--cm-ink); font-size:11px; font-weight:700; line-height:1; user-select:none; pointer-events:none; }
 .co-iphone-status time { justify-self:start; letter-spacing:-.2px; }
 .co-status-island-space { width:118px; }

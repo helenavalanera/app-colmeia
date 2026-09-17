@@ -52,6 +52,14 @@
 .co-demo-heading { max-width:430px; margin-bottom:12px; padding:0 12px; text-align:center; }
 .co-demo-heading h1 { font-size:28px; letter-spacing:-.8px; margin:6px 0; }
 .co-demo-heading p { color:var(--cm-muted); font-size:12px; }
+.co-prototype-composition { display:grid; grid-template-columns:minmax(180px,220px) auto minmax(180px,220px); align-items:center; justify-content:center; column-gap:clamp(20px,4vw,64px); width:min(100%,1120px); }
+.co-prototype-callout { grid-column:1; align-self:stretch; display:grid; grid-template-rows:1fr auto; min-height:100%; max-width:220px; padding:0 0 clamp(28px,5%,44px); text-align:left; }
+.co-prototype-info { align-self:center; }
+.co-prototype-callout h2 { margin:10px 0 12px; color:var(--cm-ink); font-family:var(--font-heading); font-size:26px; line-height:1.08; letter-spacing:-.6px; }
+.co-prototype-callout p { margin:0; color:var(--cm-muted); font-size:13px; line-height:1.55; }
+.co-prototype-start { display:inline-flex; align-items:center; gap:8px; margin-top:20px; color:var(--cm-ink); font-size:12px; font-weight:800; }
+.co-prototype-start span { color:var(--cm-orange); font-size:20px; line-height:1; }
+.co-prototype-device { grid-column:2; display:flex; flex-direction:column; align-items:center; }
 .co-view-switch { position:relative; display:flex; width:min(100%,380px); margin-bottom:10px; padding:5px; border:1px solid #18181b; border-radius:18px; background:#fff8ef; box-shadow:0 4px 0 #18181b; isolation:isolate; }
 .co-view-switch button { position:relative; z-index:1; display:flex; align-items:center; justify-content:center; gap:7px; flex:1; border:0; background:none; color:#18181b; font-size:12px; font-weight:750; min-height:44px; cursor:pointer; }
 .co-view-indicator { position:absolute; width:calc(50% - 5px); top:5px; bottom:5px; left:5px; background:#ffac00; border-radius:12px; transition:transform .35s cubic-bezier(.2,.8,.2,1); box-shadow:inset 0 2px 1px #ffffff80,0 2px 4px #18181b20; }
@@ -301,6 +309,7 @@
 .co-calendar-legend { font-size:10px; }
 .co-calendar-weekdays { font-size:9px; }
 .co-calendar-grid>div { font-size:10px; }
+@media(max-width:1023px) { .co-prototype-composition { display:flex; flex-direction:column; align-items:center; width:100%; } .co-prototype-callout { order:0; align-self:auto; display:block; min-height:0; max-width:390px; margin:0 0 14px; padding:0 18px; text-align:center; } .co-prototype-callout h2 { font-size:23px; } .co-prototype-start { display:none; } .co-prototype-device { order:1; width:100%; } }
 @media(max-width:460px) { .co-iphone-mockup { width:min(390px,calc(100vw - 16px)); } .co-demo-heading h1 { font-size:24px; } }
 @media(max-width:800px) { .co-stage { margin-top:0; } }
 @media(prefers-reduced-motion:reduce) { .co-view-indicator,.co-button,.co-touch-pointer>span,.co-access-modal,.co-access-switch span::after { transition:none; } }

@@ -33,7 +33,10 @@ export default function CommunityShell() {
   function openMission(id, clubId = null, communityId = null) { setTab("missoes"); setDetail({ type: "mission", id, clubId, communityId }); }
   return <div className="co-stage cm-font">
     <div className="co-demo-heading"><span className="co-eyebrow">Uma escola. Diferentes perspectivas.</span><h1>Entre na Colmeia.</h1><p>Explore a jornada de quem participa e de quem apoia.</p></div>
-    <div className="co-view-switch" role="group" aria-label="Escolher visão da demonstração"><span className={`co-view-indicator ${role === "mediador" ? "is-mediator" : ""}`} />{["aluno", "mediador"].map((r) => <button key={r} aria-pressed={role === r} onClick={() => { setRole(r); setTab("inicio"); setDetail(null); setNotifications(false); }}>{r === "aluno" ? <UserRound size={17} /> : <Users size={17} />}Visão do {r}</button>)}</div>
+    <div className="co-prototype-composition">
+      <aside className="co-prototype-callout" aria-label="Sobre o protótipo interativo"><div className="co-prototype-info"><span className="co-eyebrow">Protótipo interativo</span><h2>Explore a Colmeia por dentro.</h2><p>Navegue pelas telas, abra missões, interaja com os favos e experimente os recursos de acessibilidade.</p></div><span className="co-prototype-start">Comece por aqui <span aria-hidden="true">→</span></span></aside>
+      <div className="co-prototype-device">
+        <div className="co-view-switch" role="group" aria-label="Escolher visão da demonstração"><span className={`co-view-indicator ${role === "mediador" ? "is-mediator" : ""}`} />{["aluno", "mediador"].map((r) => <button key={r} aria-pressed={role === r} onClick={() => { setRole(r); setTab("inicio"); setDetail(null); setNotifications(false); }}>{r === "aluno" ? <UserRound size={17} /> : <Users size={17} />}Visão do {r}</button>)}</div>
     <IPhoneMockup className={dark ? "cm-dark" : ""}>
     <div className={`co-phone${dark ? " cm-dark" : ""}`}>
       <header className={`co-header${role === "mediador" ? " is-compact" : ""}`}>
@@ -54,6 +57,8 @@ export default function CommunityShell() {
       <nav className="co-nav" aria-label="Navegação principal">{NAV.map(({ id, label, Icon }) => <button key={id} aria-current={tab === id ? "page" : undefined} onClick={() => navigate(id)}><Icon size={21} /><span>{label}</span></button>)}</nav>
     </div>
     </IPhoneMockup>
+      </div>
+    </div>
   </div>;
 }
 function Title({ eyebrow, title, children }) { return <div className="co-title"><p className="co-eyebrow">{eyebrow}</p><h2>{title}</h2>{children && <p className="co-muted">{children}</p>}</div>; }

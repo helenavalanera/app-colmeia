@@ -424,7 +424,7 @@ export default function NetworkStory() {
     >
       <div
         ref={scrollRef}
-        style={{ position: "relative", height: prefersReduced ? "auto" : "380vh" }}
+        style={{ position: "relative", height: prefersReduced ? "auto" : "320vh" }}
       >
         <div
           style={{

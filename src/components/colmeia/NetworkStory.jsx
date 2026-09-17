@@ -215,8 +215,19 @@ export default function NetworkStory() {
       const tFavo = smooth(pFavo);
       const minDim = Math.min(W, H);
 
-      const boxWidth = Math.min(W * 0.39, 310);
+      // As salas ficam nas frações x:0.22/0.78 (grade 2x2), então a margem
+      // lateral livre até a borda do canvas é 0.22*W - boxWidth/2. Em telas
+      // largas isso já dá bastante respiro; em canvases estreitos, o mesmo
+      // fator fixo (0.39) deixava a margem cair abaixo de ~8px. Aqui a
+      // largura da sala é derivada de uma margem mínima seguras (>=10px),
+      // preservando o valor/limite original (310) em telas largas.
+      const roomSideMargin = Math.max(10, W * 0.02);
+      const boxWidth = Math.min(2 * (0.22 * W - roomSideMargin), 310);
       const boxHeight = Math.min(H * 0.3, 205);
+      // Fonte do rótulo da sala escala com a caixa para não vazar em canvases
+      // estreitos (grade 2x2 mais apertada) nem parecer pequena demais em telas largas.
+      const roomLabelSize = Math.max(11, Math.min(15, boxWidth * 0.1));
+      const roomLabelPadX = Math.max(8, Math.min(16, boxWidth * (16 / 310)));
 
       // 1) Caixas das salas (desaparecem conforme o favo se forma)
       if (pRooms > 0 && pFavo < 0.72) {
@@ -235,10 +246,10 @@ export default function NetworkStory() {
           ctx.fill();
           ctx.stroke();
 
-          ctx.font = "700 15px Inter, sans-serif";
+          ctx.font = `700 ${roomLabelSize}px Inter, sans-serif`;
           ctx.fillStyle = COLORS.ink;
           ctx.textAlign = "left";
-          ctx.fillText(room.label, rx + 16, ry + 26);
+          ctx.fillText(room.label, rx + roomLabelPadX, ry + roomLabelSize + 11);
 
           ctx.font = "12px Inter, sans-serif";
           ctx.fillStyle = COLORS.muted;
@@ -427,10 +438,11 @@ export default function NetworkStory() {
         style={{ position: "relative", height: prefersReduced ? "auto" : "320vh" }}
       >
         <div
+          className={prefersReduced ? undefined : "cm-story-sticky"}
           style={{
             position: prefersReduced ? "relative" : "sticky",
             top: 0,
-            height: prefersReduced ? "auto" : "100vh",
+            height: prefersReduced ? "auto" : undefined,
             minHeight: prefersReduced ? "70vh" : undefined,
             display: "flex",
             flexDirection: "column",
@@ -439,6 +451,7 @@ export default function NetworkStory() {
         >
           {/* Títulos com cross-fade */}
           <div
+            className="cm-story-head"
             style={{
               position: "relative",
               maxWidth: 1230,
@@ -515,7 +528,7 @@ export default function NetworkStory() {
           </div>
 
           {/* Canvas interativo */}
-          <div style={{ position: "relative", flex: 1, minHeight: 320, width: "100%", maxWidth: 980, margin: "0 auto" }}>
+          <div className="cm-story-canvas" style={{ position: "relative", flex: 1, minHeight: 320, width: "100%", maxWidth: 980, margin: "0 auto" }}>
             <canvas
               ref={canvasRef}
               aria-hidden="true"
@@ -523,8 +536,30 @@ export default function NetworkStory() {
             />
           </div>
 
-          {/* Legenda dos passos no rodapé (fallback textual, não depende do canvas) */}
+          {/* Legenda do passo atual — sincronizada com scrollYProgress/activeStep.
+              Desktop mantém a ordem atual (canvas antes da legenda); no mobile,
+              a ordem visual é invertida via CSS `order` (ver src/index.css),
+              sem duplicar este elemento no DOM. */}
           <div
+            className="cm-story-caption"
+            style={{
+              position: "relative",
+              maxWidth: 720,
+              width: "100%",
+              margin: "0 auto",
+              padding: "0 28px",
+              textAlign: "center",
+              zIndex: 2,
+            }}
+          >
+            <p aria-hidden="true" style={{ fontSize: 14, lineHeight: 1.5, color: "var(--cm-muted)", margin: 0, minHeight: 42 }}>
+              {STEPS[activeStep]}
+            </p>
+          </div>
+
+          {/* Indicadores de progresso + lista completa acessível (leitores de tela) */}
+          <div
+            className="cm-story-indicators"
             style={{
               position: "relative",
               maxWidth: 720,
@@ -535,9 +570,6 @@ export default function NetworkStory() {
               zIndex: 2,
             }}
           >
-            <p aria-hidden="true" style={{ fontSize: 14, lineHeight: 1.5, color: "var(--cm-muted)", margin: 0, minHeight: 42 }}>
-              {STEPS[activeStep]}
-            </p>
             <div aria-hidden="true" style={{ display: "flex", gap: 6, justifyContent: "center", marginTop: 14 }}>
               {STEPS.map((_, i) => (
                 <span
@@ -553,7 +585,6 @@ export default function NetworkStory() {
               ))}
             </div>
 
-            {/* Lista completa acessível (leitores de tela) */}
             <ol
               style={{
                 position: "absolute",

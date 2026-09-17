@@ -62,12 +62,18 @@ export default function AudienceSection() {
                 </li>
               ))}
             </ul>
+            {col.role === "mediador" && (
+              <img className="cm-role-sticker cm-sticker-flor" src={`${assets}hero/sticker-flor.png`} alt="Abelha Flor fazendo um coração com as mãos" />
+            )}
+            {col.role === "estudante" && (
+              <img className="cm-role-sticker cm-sticker-hatch" src={`${assets}hero/sticker-hatch.png`} alt="Hatch usando óculos escuros" />
+            )}
+            {col.role === "embaixador" && (
+              <img className="cm-role-sticker cm-sticker-star" src={`${assets}hero/sticker-star.png`} alt="Estrela abelha acenando" />
+            )}
           </div>
         ))}
       </div>
-      <img className="cm-role-sticker cm-sticker-flor" src={`${assets}hero/sticker-flor.png`} alt="Abelha Flor fazendo um coração com as mãos" />
-      <img className="cm-role-sticker cm-sticker-hatch" src={`${assets}hero/sticker-hatch.png`} alt="Hatch usando óculos escuros" />
-      <img className="cm-role-sticker cm-sticker-star" src={`${assets}hero/sticker-star.png`} alt="Estrela abelha acenando" />
     </section>
   );
 }

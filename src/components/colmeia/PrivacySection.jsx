@@ -24,7 +24,7 @@ export default function PrivacySection() {
         <h2 style={{ fontSize: 26, letterSpacing: "-0.5px", marginBottom: 4 }}>
           Mediação pedagógica, não vigilância.
         </h2>
-        <div className="grid gap-4" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))" }}>
+        <div className="grid gap-4" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(min(260px, 100%), 1fr))" }}>
           {ITEMS.map((it) => (
             <div key={it.text} style={{ fontSize: 14, lineHeight: 1.6, display: "flex", gap: 10, alignItems: "flex-start" }}>
               <it.Icon size={21} aria-hidden="true" style={{ flexShrink: 0 }} />

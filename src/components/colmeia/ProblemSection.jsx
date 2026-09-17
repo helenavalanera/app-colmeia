@@ -18,7 +18,7 @@ export default function ProblemSection() {
       <p style={{ maxWidth: 680, color: "var(--cm-muted)", fontSize: 15, lineHeight: 1.65, marginTop: 14, marginBottom: 28 }}>
         O celular pode intensificar distrações e manter estudantes sempre nos mesmos grupos. A escola precisa criar encontros com propósito, protagonismo e pertencimento, sem transformar a tecnologia no centro da experiência.
       </p>
-      <div className="grid gap-4" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))" }}>
+      <div className="grid gap-4" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(min(240px, 100%), 1fr))" }}>
         {CARDS.map((c) => (
           <div key={c.title} className="cm-card">
             <img 

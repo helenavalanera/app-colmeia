@@ -17,7 +17,7 @@ export default function HowItWorks() {
       <h2 style={{ fontSize: 28, letterSpacing: "-0.5px", textAlign: "center", marginBottom: 36, color: "var(--cm-ink)" }}>
         O app abre a porta. A escola inteira vira experiência.
       </h2>
-      <div className="grid gap-4" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(235px, 1fr))" }}>
+      <div className="grid gap-4" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(min(235px, 100%), 1fr))" }}>
         {STEPS.map((s) => (
           <div
             key={s.n}

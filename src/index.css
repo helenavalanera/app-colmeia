@@ -239,18 +239,28 @@
 .cm-hero-actions .cm-btn { min-height:50px; padding:14px 22px; font-size:14px; box-shadow:0 3px 0 #18181b; }
 @media(max-width:900px) {
   .cm-landing > .cm-surface,.cm-landing > footer { width:calc(100% - 20px); }
-  .cm-hero { align-items:flex-start; min-height:900px; padding-top:46px; background-image:linear-gradient(180deg,rgba(255,248,239,1) 0%,rgba(255,248,239,.96) 44%,rgba(255,248,239,.14) 66%,rgba(255,248,239,0) 100%),url('/hero/colmeia-opening-user.png'); background-position:center,center bottom; background-size:100% 100%,auto 51%; background-repeat:no-repeat; }
+  /* Mobile: fluxo natural (texto -> CTAs -> composição visual), sem min-height
+     artificial. A altura reservada para a ilustração é uma variável só dela,
+     então o fundo/mockup ficam proporcionais em vez de deixar um vão vazio. */
+  .cm-hero {
+    --cm-hero-visual-h: clamp(200px,58vw,320px);
+    align-items:flex-start;
+    min-height:0;
+    padding:46px 20px var(--cm-hero-visual-h);
+    background-image:linear-gradient(180deg,rgba(255,248,239,1) 0%,rgba(255,248,239,.96) 44%,rgba(255,248,239,.14) 66%,rgba(255,248,239,0) 100%),url('/hero/colmeia-opening-user.png');
+    background-position:center,center bottom;
+    background-size:100% 100%,auto var(--cm-hero-visual-h);
+    background-repeat:no-repeat;
+  }
   .cm-hero-content { width:100%; }
-  .cm-hero-honeycomb { top:49%; left:68%; width:clamp(190px,32vw,270px); opacity:.24; }
-  .cm-hero-phone-art { top:70%; left:69%; width:clamp(150px,27vw,220px); opacity:.96; }
+  .cm-hero-honeycomb { top:auto; bottom:calc(var(--cm-hero-visual-h) * .32); left:50%; transform:translateX(-50%); width:clamp(160px,30vw,230px); opacity:.22; }
+  .cm-hero-phone-art { top:auto; bottom:calc(var(--cm-hero-visual-h) * .04); left:50%; transform:translate(-50%,0); width:clamp(130px,32vw,200px); opacity:.96; }
   .cm-hero h1 { max-width:720px; font-size:clamp(43px,9vw,72px); letter-spacing:-2px; }
 }
 @media(max-width:540px) {
-  .cm-hero { min-height:820px; padding:34px 20px; background-position:68% bottom; background-size:auto 48%; }
+  .cm-hero { padding-top:34px; }
   .cm-hero h1 { font-size:41px; }
   .cm-hero-lead { font-size:14px; }
-  .cm-hero-honeycomb { top:52%; left:64%; width:190px; opacity:.18; }
-  .cm-hero-phone-art { top:72%; left:68%; width:150px; }
   .cm-hero-actions .cm-btn { width:100%; }
 }
 
@@ -269,18 +279,24 @@
 .cm-hierarchy-branch-stack .cm-hierarchy-icon { flex:0 0 auto; width:36px; height:36px; margin:0; border-radius:10px; }
 .cm-hierarchy-branch-stack h3 { margin:0 0 4px; font-size:14px; }
 .cm-hierarchy-branch-stack p { font-size:12px; line-height:1.5; }
-.cm-hierarchy-arrow { flex:0 0 auto; align-self:center; color:var(--cm-orange); }
+.cm-hierarchy-arrow { flex:0 0 auto; align-self:center; justify-self:center; color:var(--cm-orange); }
 .cm-role-card { position:relative; }
 .cm-audience { position:relative; overflow:visible; isolation:isolate; }
 .cm-audience::before { position:absolute; z-index:-1; inset:4% 0 auto auto; width:260px; height:520px; content:""; background:url('/brand/honeycomb-lines.png') center/contain no-repeat; opacity:.08; pointer-events:none; }
 .cm-role-sticker { position:absolute; z-index:3; width:auto; height:auto; object-fit:contain; pointer-events:none; filter:drop-shadow(0 8px 10px rgba(24,24,27,.14)); animation:cm-float-sticker 5s ease-in-out infinite; }
-.cm-sticker-flor { left:2.5%; bottom:22px; width:92px; transform:rotate(-7deg); }
-.cm-sticker-hatch { left:calc(66.666% - 54px); top:172px; width:86px; transform:rotate(5deg); animation-delay:-1.6s; }
-.cm-sticker-star { right:1.5%; top:158px; width:60px; transform:rotate(8deg); animation-delay:-3s; }
+/* Posicionados relativos ao próprio .cm-role-card (não mais à seção inteira),
+   assim cada sticker acompanha seu card quando os cards empilham no mobile. */
+.cm-sticker-flor { left:-5.96%; bottom:-39px; width:92px; transform:rotate(-7deg); }
+.cm-sticker-hatch { left:91.87%; top:8.39px; width:86px; transform:rotate(5deg); animation-delay:-1.6s; }
+.cm-sticker-star { left:92.72%; top:-19.61px; width:60px; transform:rotate(8deg); animation-delay:-3s; }
 @keyframes cm-float-sticker { 0%,100% { translate:0 0; } 50% { translate:0 -7px; } }
 .cm-role-estudante { transform:translateY(-14px); border-color:var(--cm-orange); box-shadow:0 8px 0 var(--cm-yellow),0 18px 34px rgba(24,24,27,.1); }
-@media(max-width:860px) { .cm-hierarchy-flow { display:grid; grid-template-columns:1fr 1fr; gap:12px; } .cm-hierarchy-arrow { display:none; } }
-@media(max-width:540px) { .cm-hierarchy-flow { grid-template-columns:1fr; } }
+@media(max-width:860px) {
+  /* Mobile: fluxo vertical (mesmo padrão de .cm-practice-flow/.cm-practice-arrow) —
+     as setas continuam visíveis, só rotacionadas para apontar para baixo. */
+  .cm-hierarchy-flow { display:grid; grid-template-columns:1fr; gap:12px; }
+  .cm-hierarchy-arrow { transform:rotate(90deg); }
+}
 @media(max-width:700px) { .cm-example-card { grid-template-columns:1fr !important; } .cm-role-estudante { transform:none; } }
 .cm-practice-section { max-width:1230px; margin:0 auto; padding:28px 28px 72px; }
 .cm-practice-section>h2 { max-width:850px; margin:10px 0 12px; color:var(--cm-ink); font-size:clamp(28px,4vw,44px); line-height:1.08; letter-spacing:-1px; }
@@ -382,5 +398,51 @@
 .co-bee-greeting { display:block; min-height:34px; font-size:11px; color:var(--cm-muted); padding:8px 0; }
 @media(max-width:640px) { .cm-site-header { min-height:88px; padding:14px 16px; } .co-hero-grid { grid-template-columns:1fr; gap:20px; } .co-brand-pair { gap:10px; } .co-entre-pretas { width:105px; max-height:54px; } .co-colmeia-logo { width:145px; height:54px; } .co-brand-divider { height:34px; } .co-event-label { display:none; } }
 .cm-trust-strip { position:relative; z-index:3; margin-top:-18px!important; }
-@media(max-width:700px) { .cm-role-sticker { display:none; } }
+@media(max-width:960px) {
+  /* Abaixo de ~960px o grid de cards (auto-fit minmax(280px,1fr)) já não
+     comporta 3 colunas fluidas (vira 2 colunas ou empilha em 1), então o
+     card deixa de ter uma "próxima coluna" à direita para absorver visualmente
+     o desenho recalculado do desktop. Aqui os stickers usam um badge de canto
+     reduzido e com deslocamento pequeno o bastante para nunca ultrapassar a
+     borda da página, evitando overflow horizontal em qualquer combinação de
+     1 ou 2 colunas. */
+  .cm-role-sticker { width:46px; }
+  .cm-sticker-flor { left:-6px; bottom:-10px; width:46px; }
+  .cm-sticker-hatch { left:auto; right:-6px; top:-10px; width:42px; }
+  .cm-sticker-star { left:auto; right:-6px; top:-10px; width:32px; }
+}
+@media(max-width:360px) {
+  /* Abaixo de ~360px, o piso de 280px do minmax() do grid de cards passa a
+     ser maior que a área útil da seção, o que por si só já geraria overflow
+     horizontal independente dos stickers. Uma única coluna fluida remove essa
+     largura mínima artificial nas telas mais estreitas. */
+  .cm-audience .grid { grid-template-columns:1fr!important; }
+}
 @media(prefers-reduced-motion:reduce) { .cm-role-sticker { animation:none; } }
+
+/* ===== NetworkStory — scrollytelling ===== */
+/* O container sticky precisa de uma altura de viewport confiável no Safari/iOS:
+   como múltiplos valores da mesma propriedade só funcionam como fallback
+   progressivo em CSS puro (não em objetos style do React), essa regra mora
+   aqui em vez de inline. 100vh primeiro (fallback universal), depois 100svh
+   (small viewport, ignora a barra de endereço), depois 100dvh (dynamic
+   viewport, acompanha a barra some/aparece). */
+.cm-story-sticky {
+  height: 100vh;
+  height: 100svh;
+  height: 100dvh;
+}
+@media(max-width:900px) {
+  /* No mobile a legenda (STEPS[activeStep]) some para logo abaixo do título,
+     antes do canvas — sem duplicar o elemento no DOM, só reordenando
+     visualmente os mesmos três blocos flex via `order`. Desktop mantém a
+     ordem física do documento (eyebrow -> título -> canvas -> legenda -> indicadores). */
+  .cm-story-caption { order: 1; padding-top: 6px; }
+  .cm-story-canvas { order: 2; min-height: 240px !important; }
+  .cm-story-indicators { order: 3; }
+  .cm-story-head { padding-top: 24px !important; padding-bottom: 0 !important; }
+  .cm-story-head > div { height: clamp(56px, 16vw, 84px) !important; margin-top: 6px !important; }
+  .cm-story-caption p { min-height: 0 !important; font-size: 13px !important; }
+  .cm-story-indicators { padding-bottom: 18px !important; }
+  .cm-story-indicators > div { margin-top: 8px !important; }
+}

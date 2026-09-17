@@ -527,19 +527,7 @@ export default function NetworkStory() {
             </div>
           </div>
 
-          {/* Canvas interativo */}
-          <div className="cm-story-canvas" style={{ position: "relative", flex: 1, minHeight: 320, width: "100%", maxWidth: 980, margin: "0 auto" }}>
-            <canvas
-              ref={canvasRef}
-              aria-hidden="true"
-              style={{ position: "absolute", inset: 0, width: "100%", height: "100%", display: "block" }}
-            />
-          </div>
-
-          {/* Legenda do passo atual — sincronizada com scrollYProgress/activeStep.
-              Desktop mantém a ordem atual (canvas antes da legenda); no mobile,
-              a ordem visual é invertida via CSS `order` (ver src/index.css),
-              sem duplicar este elemento no DOM. */}
+          {/* Legenda do passo atual — sincronizada com scrollYProgress/activeStep. */}
           <div
             className="cm-story-caption"
             style={{
@@ -555,6 +543,15 @@ export default function NetworkStory() {
             <p aria-hidden="true" style={{ fontSize: 14, lineHeight: 1.5, color: "var(--cm-muted)", margin: 0, minHeight: 42 }}>
               {STEPS[activeStep]}
             </p>
+          </div>
+
+          {/* Canvas interativo */}
+          <div className="cm-story-canvas" style={{ position: "relative", flex: 1, minHeight: 320, width: "100%", maxWidth: 980, margin: "0 auto" }}>
+            <canvas
+              ref={canvasRef}
+              aria-hidden="true"
+              style={{ position: "absolute", inset: 0, width: "100%", height: "100%", display: "block" }}
+            />
           </div>
 
           {/* Indicadores de progresso + lista completa acessível (leitores de tela) */}

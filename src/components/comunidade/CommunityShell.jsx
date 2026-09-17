@@ -19,14 +19,7 @@ export default function CommunityShell() {
   const [params, setParams] = useSearchParams();
   const role = params.get("visao") === "mediador" ? "mediador" : "aluno";
   const reducedMotion = useReducedMotion();
-  const pointer = useRef(null);
   function setRole(next) { setParams((prev) => { const result = new URLSearchParams(prev); result.set("visao", next); return result; }, { replace: true }); }
-  function movePointer(e) {
-    if (e.pointerType === "touch" || !pointer.current) return;
-    const rect = e.currentTarget.getBoundingClientRect();
-    pointer.current.style.transform = `translate(${e.clientX - rect.left}px, ${e.clientY - rect.top}px)`;
-    pointer.current.style.opacity = "1";
-  }
   const [tab, setTab] = useState("inicio");
   const [detail, setDetail] = useState(null);
   const [notifications, setNotifications] = useState(false);
@@ -42,8 +35,7 @@ export default function CommunityShell() {
     <div className="co-demo-heading"><span className="co-eyebrow">Uma escola. Diferentes perspectivas.</span><h1>Entre na Colmeia.</h1><p>Explore a jornada de quem participa e de quem apoia.</p></div>
     <div className="co-view-switch" role="group" aria-label="Escolher visão da demonstração"><span className={`co-view-indicator ${role === "mediador" ? "is-mediator" : ""}`} />{["aluno", "mediador"].map((r) => <button key={r} aria-pressed={role === r} onClick={() => { setRole(r); setTab("inicio"); setDetail(null); setNotifications(false); }}>{r === "aluno" ? <UserRound size={17} /> : <Users size={17} />}Visão do {r}</button>)}</div>
     <IPhoneMockup className={dark ? "cm-dark" : ""}>
-    <div className={`co-phone${dark ? " cm-dark" : ""}`} onPointerMove={movePointer} onPointerLeave={() => { if (pointer.current) pointer.current.style.opacity = "0"; }} onPointerDown={() => pointer.current?.classList.add("is-pressed")} onPointerUp={() => pointer.current?.classList.remove("is-pressed")}>
-      <span ref={pointer} className="co-touch-pointer" aria-hidden="true"><span /></span>
+    <div className={`co-phone${dark ? " cm-dark" : ""}`}>
       <header className={`co-header${role === "mediador" ? " is-compact" : ""}`}>
         <div className="co-row"><img className="co-app-logo" src={LOGO_COLMEIA_MARK} alt="Colmeia" /><button className="co-reset-button" aria-label="Reiniciar demonstração e apagar alterações locais" onClick={() => { resetDemo(); setTab("inicio"); setDetail(null); setNotifications(false); setDismissed(null); }}><RotateCcw size={14} /> Reiniciar</button><button className="co-icon" aria-label="Alternar modo claro e noturno" onClick={toggleDark}>{dark ? <Sun size={18} /> : <Moon size={18} />}</button><button className="co-icon" aria-label="Notificações" onClick={() => setNotifications(!notifications)}><Bell size={18} />{(role === "aluno" ? avisos.length : pedidos.filter((p) => !p.atendido).length + alertasMediador.length) > 0 && <span className="co-dot" />}</button></div>
         {role === "aluno" && <p className="co-role-label">Sua comunidade, seu jeito</p>}
@@ -215,6 +207,20 @@ function Timer({ deadline }) {
   return <span className="co-small">{seconds ? `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, "0")} restantes` : "Prazo encerrado · peça mais tempo se precisar"}</span>;
 }
 function MissionCard({ mission, openMission }) { return <Card className={mission.status === "concluida" ? "co-completed" : ""}>{mission.escopo === "turma" ? <span className="co-muted co-small"><School size={13} /> Missão da turma · {mission.turma}</span> : <ClubLabel clubeId={mission.clubeId} />}<h3>{mission.titulo}</h3><p className="co-muted">{mission.descricao}</p>{mission.status === "concluida" ? <span className="co-tag co-success"><BadgeCheck size={13} /> Concluída</span> : <Timer deadline={mission.prazo} />}<Button secondary onClick={() => openMission(mission.id)}>{mission.status === "concluida" ? "Ver relatório final" : "Ver missão"}</Button></Card>; }
+function LiveFavoCard({ mission, open, onOpen, onClose }) {
+  const surroundingFavos = ["Lia", "Ravi", "Noa", "Maya", "Sol", "Caio"];
+  return <Card className={`co-live-favo${open ? " is-open" : ""}`}>
+    <div className="co-live-favo-heading"><div><p className="co-eyebrow">Seu fragmento, dentro da rede</p><h3>Meu favo</h3></div><span className="co-live-favo-count">1 de {surroundingFavos.length + 1}</span></div>
+    <div className="co-live-favo-visual" aria-label={open ? "Seu favo foi aberto dentro da rede coletiva" : "Seu favo fechado entre os favos da turma"}>
+      {surroundingFavos.map((name, index) => <span className={`co-favo-node co-favo-node-${index + 1}`} key={name} aria-hidden="true"><Hexagon size={28} strokeWidth={1.6} /></span>)}
+      <motion.button type="button" className="co-favo-core" onClick={open ? onClose : onOpen} whileTap={{ scale: .92 }} aria-label={open ? "Fechar meu favo" : "Abrir meu favo"}>
+        <Hexagon size={58} strokeWidth={1.8} />
+        <span>{open ? "Seu favo" : "Abrir"}</span>
+      </motion.button>
+    </div>
+    {!open ? <><p>Seu fragmento é único, mas só ganha sentido quando encontra outras perspectivas. Os favos dos colegas continuam com eles.</p><Button onClick={onOpen}>Abrir meu favo</Button></> : <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="co-live-favo-reveal" aria-live="polite"><p className="co-eyebrow">Só você vê este fragmento</p><p>{mission.favo}</p><div className="co-location-clue"><MapPin size={18} aria-hidden="true" /><div><strong>Pista do local</strong><p>{mission.pistaLocal}</p></div></div><p className="co-note">Leve esta parte para o encontro. A rede se completa quando cada pessoa compartilha o que encontrou, sem comparação entre favos.</p><Button secondary onClick={onClose}>Fechar meu favo</Button></motion.div>}
+  </Card>;
+}
 function Mission({ id, back }) {
   const { missoes, confirmFavo, completeMission, shareMission, requestSupport, pedidos } = useCommunity();
   const [text, setText] = useState("");
@@ -233,7 +239,7 @@ function Mission({ id, back }) {
   return <><Back onClick={back} />{m.escopo === "turma" ? <span className="co-muted co-small"><School size={13} /> Missão da turma · {m.turma}</span> : <ClubLabel clubeId={m.clubeId} />}<Title eyebrow={m.status === "concluida" ? "Relatório final" : m.escopo === "turma" ? "Missão da turma" : "Missão do clube"} title={m.titulo}>{m.descricao}</Title><MissionSteps mission={m} favoOpen={favoOpen} />
     {m.status === "concluida" ? <><Card><span className="co-tag co-success"><BadgeCheck size={13} /> Resposta coletiva concluída</span><p>{m.resposta}</p>{m.foto && <img src={m.foto} alt="Evidência da resposta coletiva" className="co-evidence" />}<h3>Espaços ativados pelo grupo</h3><div className="co-space-route">{(m.locaisContribuicoes || []).map((item, index) => <div key={`${item.participante}-${index}`}><MapPin size={15} /><span><strong>{item.local}</strong><small>{item.participante} · {item.turma}</small></span></div>)}</div><h3>O que exercitamos</h3>{m.criterios.map((c) => <p key={c} className="co-criterion"><BadgeCheck size={15} /> {c}</p>)}<p className="co-muted co-small">Reconhecimento da experiência do grupo, sem nota individual.</p><Button disabled={m.compartilhada} onClick={() => shareMission(id)}>{m.compartilhada ? "Compartilhada no feed" : "Compartilhar resposta no feed"}</Button><p className="co-small co-muted">O registro aparecerá no clube e no feed da escola.</p></Card></> : <>
       <Card><Timer deadline={m.prazo} /><h3>O que vamos exercitar</h3><div className="co-space-tags">{m.criterios.map((c) => <span className="co-tag" key={c}>{c}</span>)}</div><p className="co-small co-muted">Uma pergunta coletiva, contribuições diferentes. O encontro presencial conecta as partes.</p></Card>
-      <Card><div className="co-favo"><Hexagon size={70} strokeWidth={1.7} /></div><h3>Meu favo · um fragmento da resposta</h3>{!favoOpen ? <><p>Seu fragmento abre uma perspectiva para a conversa. Os favos dos colegas continuam com eles.</p><Button onClick={() => setFavoOpen(true)}>Abrir meu favo</Button></> : <><p className="co-eyebrow">Só você vê este fragmento</p><p>{m.favo}</p><div className="co-location-clue"><MapPin size={18} aria-hidden="true" /><div><strong>Pista do local</strong><p>{m.pistaLocal}</p></div></div><p className="co-note">Converse com colegas e interpretem juntos o caminho. O local faz parte da descoberta e não aparece no clube.</p></>}</Card>
+      <LiveFavoCard mission={m} open={favoOpen} onOpen={() => setFavoOpen(true)} onClose={() => setFavoOpen(false)} />
       <Card><strong>{m.confirmados} de {m.total} favos reunidos</strong><progress value={m.confirmados} max={m.total} /><p className="co-small co-muted">Antes do check-in, conte para onde a pista do seu favo levou você. O grupo verá os lugares juntos apenas ao construir a resposta.</p>{!m.meuConfirmado && <Field label="Aonde seu favo levou você?" value={visitedPlace} onChange={setVisitedPlace} required />}<Button disabled={m.meuConfirmado || !favoOpen || !visitedPlace.trim()} onClick={() => confirmFavo(id, visitedPlace)}>{m.meuConfirmado ? `Contribuição confirmada · ${m.meuLocalVisitado}` : "Conversei e contribuí com meu favo"}</Button></Card>
       {m.registrador === "me" && <Card><h3>Conectem os lugares e as perspectivas</h3><p>Você confirmou o último favo. Agora o grupo enxerga o percurso completo antes de escrever a síntese.</p><div className="co-space-route">{(m.locaisContribuicoes || []).map((item, index) => <div key={`${item.participante}-${index}`}><MapPin size={15} /><span><strong>{item.local}</strong><small>{item.participante} · {item.turma}</small></span></div>)}</div><Field label="Resposta coletiva" value={text} onChange={setText} multiline /><label className="co-field">Foto da descoberta · opcional<input type="file" accept="image/jpeg,image/png,image/webp" onChange={loadPhoto} /></label>{photo && <><img className="co-evidence" src={photo} alt="Prévia da foto selecionada" /><Button secondary onClick={() => setPhoto(null)}>Remover foto</Button></>}{error && <p role="alert">{error}</p>}<Button disabled={!text.trim() && !photo} onClick={() => completeMission(id, text, photo)}>Concluir resposta coletiva</Button></Card>}
       <SupportRequest clubeId={m.clubeId} missaoId={id} />
